@@ -7,8 +7,8 @@ export default function Forgot() {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
             className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            alt="Your Company"
+            src="./caramel.png"
+            alt="caHRamel"
           />
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Forgot your password?</h2>
         </div>
@@ -26,7 +26,7 @@ export default function Forgot() {
                     type="email"
                     autoComplete="email"
                     required
-                    className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
                   />
                 </div>
               </div>
@@ -34,7 +34,7 @@ export default function Forgot() {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                 >
                   Submit
                 </button>

@@ -12,14 +12,14 @@ export default function Login() {
             <div>
               <img
                 className="h-12 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company"
+                src="./caramel.png"
+                alt="caHRamel"
               />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
               <p className="mt-2 text-sm text-gray-600">
                 Don’t have an account?{' '}
                 <Link href="/register">
-                  <span className="font-medium text-indigo-600 hover:text-indigo-500" style={{cursor: 'pointer'}}>Register</span>
+                  <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Register</span>
                 </Link>
                 {' '}for free.
               </p>
@@ -39,7 +39,7 @@ export default function Login() {
                         type="email"
                         autoComplete="email"
                         required
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
                       />
                     </div>
                   </div>
@@ -69,7 +69,7 @@ export default function Login() {
                         type={showPassword?"text":"password"}
                         autoComplete="current-password"
                         required
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
                       />
                     </div>
                   </div>
@@ -80,7 +80,7 @@ export default function Login() {
                         id="remember-me"
                         name="remember-me"
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                        className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
                       />
                       <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                         Remember me
@@ -89,7 +89,7 @@ export default function Login() {
 
                     <div className="text-sm">
                       <Link href="/forgot">
-                        <span className="font-medium text-indigo-600 hover:text-indigo-500" style={{cursor: 'pointer'}}>Forgot your password?</span>
+                        <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Forgot your password?</span>
                       </Link>
                     </div>
                   </div>
@@ -97,7 +97,7 @@ export default function Login() {
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      className="flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                     >
                       Sign in
                     </button>
