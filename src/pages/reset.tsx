@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import { LogoMedium } from "../components/LogoMedium";
 
 export default function Reset() {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,11 +9,7 @@ export default function Reset() {
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img
-            className="mx-auto h-12 w-auto"
-            src="./caramel.png"
-            alt="caHRamel"
-          />
+          <LogoMedium />
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Reset Password</h2>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
