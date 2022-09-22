@@ -115,7 +115,7 @@ export default function Calendar() {
                   day.isSelected && 'text-white',
                   !day.isSelected && day.isCurrentMonth && !day.isToday && 'text-gray-900',
                   !day.isSelected && !day.isCurrentMonth && !day.isToday && 'text-gray-400',
-                  day.isToday && !day.isSelected && 'text-indigo-600',
+                  day.isToday && !day.isSelected && 'text-amber-600',
                   dayIdx === 0 && 'rounded-tl-lg',
                   dayIdx === 6 && 'rounded-tr-lg',
                   dayIdx === days.length - 7 && 'rounded-bl-lg',
@@ -126,7 +126,7 @@ export default function Calendar() {
                   dateTime={day.date}
                   className={classNames(
                     'mx-auto flex h-7 w-7 items-center justify-center rounded-full',
-                    day.isSelected && day.isToday && 'bg-indigo-600',
+                    day.isSelected && day.isToday && 'bg-amber-600',
                     day.isSelected && !day.isToday && 'bg-gray-900'
                   )}
                 >
@@ -137,7 +137,7 @@ export default function Calendar() {
           </div>
           <button
             type="button"
-            className="mt-8 w-full rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="mt-8 w-full rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
           >
             Add event
           </button>
