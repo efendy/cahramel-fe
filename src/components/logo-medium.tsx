@@ -3,7 +3,7 @@
 export const LogoMedium = () => (
   <img
     className="mx-auto h-12 w-auto"
-    src="./caramel.png"
+    src="/caramel.png"
     alt="caHRamel"
   />
 );

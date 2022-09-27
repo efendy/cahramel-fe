@@ -1,51 +1,20 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import {
-  Bars3BottomLeftIcon,
-  BellIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  UsersIcon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Logo } from '../../../../components/Logo'
-import Calendar from '../../../../components/Calendar'
-
-const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+import { Logo } from '@/components/logo'
+import { adminNavigation, navigation, secondaryNavigation, userNavigation } from '@/helpers/navigation'
+import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/router'
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function LeaveManagement() {
+export default function ClientLayout({ children }: any) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const currentRoute = useRouter().route;
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
@@ -93,35 +62,74 @@ export default function LeaveManagement() {
                     </div>
                   </Transition.Child>
                   <div className="flex flex-shrink-0 items-center px-4">
-                    <img
-                      className="h-8 w-auto"
-                      src="/caramel.png"
-                      alt="caHRamel"
-                    />
+                    <Logo />
                   </div>
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
-                    <nav className="space-y-1 px-2">
-                      {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? 'bg-gray-100 text-gray-900'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                            'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                          )}
-                        >
-                          <item.icon
+                    <nav aria-label="Sidebar" className="mt-5">
+                      <div className="space-y-1 px-2">
+                        {navigation.map((item) => (
+                          <a
+                            key={item.name}
+                            href={item.href}
                             className={classNames(
-                              item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                              'mr-4 flex-shrink-0 h-6 w-6'
+                              item.href === currentRoute
+                                ? 'bg-gray-100 text-gray-900'
+                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                              'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                             )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </a>
-                      ))}
+                          >
+                            <item.icon
+                              className={classNames(
+                                item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                'mr-4 flex-shrink-0 h-6 w-6'
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
+                      <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                      <div className="space-y-1 px-2">
+                        {secondaryNavigation.map((item) => (
+                          <a
+                            key={item.name}
+                            href={item.href}
+                            className={classNames(
+                              item.href === currentRoute
+                                ? 'bg-gray-100 text-gray-900'
+                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                              'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                            )}
+                          >
+                            <item.icon
+                              className={classNames(
+                                item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                'mr-4 flex-shrink-0 h-6 w-6'
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
+                      <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                      <div className="space-y-1 px-2">
+                        {adminNavigation.map((item) => (
+                          <a
+                            key={item.name}
+                            href={item.href}
+                            className={classNames(
+                              item.href === currentRoute
+                                ? 'bg-gray-100 text-gray-900'
+                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                              'group flex items-center px-2 py-2 text-base font-medium rounded-md pl-11'
+                            )}
+                          >
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
                     </nav>
                   </div>
                 </Dialog.Panel>
@@ -141,26 +149,65 @@ export default function LeaveManagement() {
               <Logo />
             </div>
             <div className="mt-5 flex flex-grow flex-col">
-              <nav className="flex-1 space-y-1 px-2 pb-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                    )}
-                  >
-                    <item.icon
+              <nav aria-label="Sidebar">
+                <div className="flex-1 space-y-1 px-2">
+                  {navigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
                       className={classNames(
-                        item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                        'mr-3 flex-shrink-0 h-6 w-6'
+                        item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                       )}
-                      aria-hidden="true"
-                    />
-                    {item.name}
-                  </a>
-                ))}
+                    >
+                      <item.icon
+                        className={classNames(
+                          item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                          'mr-3 flex-shrink-0 h-6 w-6'
+                        )}
+                        aria-hidden="true"
+                      />
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+                <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                <div className="flex-1 space-y-1 px-2">
+                  {secondaryNavigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className={classNames(
+                        item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                      )}
+                    >
+                      <item.icon
+                        className={classNames(
+                          item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                          'mr-3 flex-shrink-0 h-6 w-6'
+                        )}
+                        aria-hidden="true"
+                      />
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+                <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                <div className="flex-1 space-y-1 px-2">
+                  {adminNavigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className={classNames(
+                        item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-11'
+                      )}
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
               </nav>
             </div>
           </div>
@@ -177,23 +224,6 @@ export default function LeaveManagement() {
             </button>
             <div className="flex flex-1 justify-between px-4">
               <div className="flex flex-1">
-                <form className="flex w-full md:ml-0" action="#" method="GET">
-                  <label htmlFor="search-field" className="sr-only">
-                    Search
-                  </label>
-                  <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                      <MagnifyingGlassIcon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                    <input
-                      id="search-field"
-                      className="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:border-transparent focus:placeholder-gray-400 focus:outline-none focus:ring-0 sm:text-sm"
-                      placeholder="Search"
-                      type="search"
-                      name="search"
-                    />
-                  </div>
-                </form>
               </div>
               <div className="ml-4 flex items-center md:ml-6">
                 <button
@@ -249,14 +279,7 @@ export default function LeaveManagement() {
           </div>
 
           <main className="flex-1">
-            <div className="py-6">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
-              </div>
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-                <Calendar />
-              </div>
-            </div>
+            {children}
           </main>
         </div>
       </div>

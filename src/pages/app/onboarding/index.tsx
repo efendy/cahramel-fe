@@ -6,9 +6,9 @@ export default function Example() {
       <div className="px-4 mt-4">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold text-gray-900">Welcome</h1>
+            <h1 className="text-xl font-semibold text-gray-900">Onboarding</h1>
             <p className="mt-2 text-sm text-gray-700">
-              Good company, good wine, good welcome, can make good people. Life is sweeter with caHRamel.
+              The action or process of integrating a new employee into an organization or familiarizing a new customer or client with one&apos;s products or services.
             </p>
           </div>
         </div>

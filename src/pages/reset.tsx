@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { LogoMedium } from "../components/LogoMedium";
+import { LogoMedium } from "../components/logo-medium";
 
 export default function Reset() {
   const [showPassword, setShowPassword] = useState(false);
