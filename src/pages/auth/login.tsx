@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { useState } from "react";
-import { LogoMedium } from "../components/logo-medium";
+import { LogoMedium } from "@/components/logo-medium";
+import { getCsrfToken, getSession, useSession } from "next-auth/react"
+import { GetStaticProps } from "next";
 
-export default function Register() {
+export default function Login({ csrfToken }: any) {
   const [showPassword, setShowPassword] = useState(false);
+
+  const { data: session, status } = useSession();
+  console.log('useSession', session, status);
 
   return (
     <>
@@ -12,49 +17,21 @@ export default function Register() {
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
               <LogoMedium />
-              <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Register a new account</h2>
+              <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
               <p className="mt-2 text-sm text-gray-600">
-                Already registered?{' '}
-                <Link href="/login">
-                  <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Sign in</span>
+                Don’t have an account?{' '}
+                <Link href="/register">
+                  <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Register</span>
                 </Link>
-                {' '}to your account.
+                {' '}for free.
               </p>
             </div>
 
             <div className="mt-8">
               <div className="mt-6">
-                <form action="#" method="POST" className="space-y-6">
+                <form action="/api/auth/callback/credentials" method="post" className="space-y-6">
                   <div>
-                    <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
-                      First name
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="first_name"
-                        name="first_name"
-                        type="text"
-                        required
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
-                      Last name
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        id="last_name"
-                        name="last_name"
-                        type="text"
-                        className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
+                    <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                       Email address
                     </label>
@@ -109,8 +86,14 @@ export default function Register() {
                         className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
                       />
                       <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                        Accept our term and conditions.
+                        Remember me
                       </label>
+                    </div>
+
+                    <div className="text-sm">
+                      <Link href="/forgot">
+                        <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Forgot your password?</span>
+                      </Link>
                     </div>
                   </div>
 
@@ -119,11 +102,47 @@ export default function Register() {
                       type="submit"
                       className="flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                     >
-                      Submit
+                      Sign in
                     </button>
                   </div>
                 </form>
               </div>
+
+
+              <div>
+
+
+                <div className="relative mt-6">
+                  <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div className="w-full border-t border-gray-300" />
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="bg-white px-2 text-gray-500">Or continue with</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="mt-6">
+                    <div>
+                      <a
+                        href="#"
+                        className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+                      >
+                        <span className="sr-only">Sign in with Google</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24">
+                          <path stroke="null" id="svg_1" d="m11.90541,4.71256c1.75605,0 3.32855,0.60519 4.5687,1.78581l3.398,-3.398c-2.0636,-1.91975 -4.7572,-3.10037 -7.9667,-3.10037c-4.65303,0 -8.67606,2.6688 -10.6355,6.55789l3.95855,3.0706c0.93755,-2.82257 3.57162,-4.91594 6.67695,-4.91594z" fill="#EA4335"/>
+                          <path stroke="null" id="svg_2" d="m23.30483,12.17824c0,-0.77881 -0.07441,-1.53282 -0.1885,-2.25707l-11.21092,0l0,4.47445l6.419,0c-0.28771,1.46833 -1.12109,2.7184 -2.37116,3.5617l3.83453,2.97635c2.23722,-2.07352 3.51706,-5.13917 3.51706,-8.75543z" fill="#4285F4"/>
+                          <path stroke="null" id="svg_3" d="m5.2235,14.18231c-0.23811,-0.71928 -0.377,-1.48322 -0.377,-2.27691s0.13394,-1.55762 0.377,-2.27691l-3.95855,-3.0706c-0.80858,1.60723 -1.26495,3.4228 -1.26495,5.34751c0,1.92471 0.45637,3.74028 1.26991,5.34751l3.95359,-3.0706z" fill="#FBBC05"/>
+                          <path stroke="null" id="svg_4" d="m11.90541,23.81081c3.21446,0 5.91798,-1.0566 7.88237,-2.8821l-3.83453,-2.97635c-1.06653,0.71928 -2.44061,1.14093 -4.04784,1.14093c-3.10533,0 -5.7394,-2.09337 -6.68191,-4.91594l-3.95855,3.0706c1.96439,3.89406 5.98743,6.56285 10.64046,6.56285z" fill="#34A853"/>
+                          <path stroke="null" id="svg_5" d="m0,0l23.81081,0l0,23.81081l-23.81081,0l0,-23.81081z" fill="none"/>
+                        </svg>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -137,4 +156,18 @@ export default function Register() {
       </div>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  console.log('getStaticProps context', context);
+  // const session = await getSession({ req });
+
+  const session = await getSession();
+  console.log('getStaticProps session', session);
+
+  return {
+    props: {
+      csrfToken: await getCsrfToken(),
+    },
+  }
 }

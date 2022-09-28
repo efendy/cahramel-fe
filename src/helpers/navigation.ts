@@ -15,7 +15,7 @@ export const navigation = [
   { name: 'Onboarding', href: '/app/onboarding', icon: CheckIcon, current: false },
   { name: 'Offboarding', href: '/app/offboarding', icon: CheckBadgeIcon, current: false },
   { name: 'Leave', href: '/app/leave', icon: CalendarIcon, current: false },
-  { name: 'Announcements', href: '#/app/announcements', icon: MegaphoneIcon, current: false },
+  { name: 'Announcements', href: '/app/announcement', icon: MegaphoneIcon, current: false },
   // { name: 'Office Map', href: '#', icon: MapIcon, current: false },
 ]
 

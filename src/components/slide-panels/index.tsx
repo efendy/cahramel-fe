@@ -1,10 +1,11 @@
+export * from "./apply-leave";
+
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
-export default function SlidePanel() {
-  const [open, setOpen] = useState(true)
+export function SlidePanel({ open, setOpen, title, subtitle, children }: any) {
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -33,7 +34,7 @@ export default function SlidePanel() {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto relative w-screen max-w-md">
+                <Dialog.Panel className="pointer-events-auto relative w-screen max-w-3xl">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-500"
@@ -56,14 +57,13 @@ export default function SlidePanel() {
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-lg font-medium text-gray-900">Panel title</Dialog.Title>
+                      <Dialog.Title className="text-lg font-medium text-gray-900">
+                        <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
+                        <p className="mt-1 text-sm text-gray-500">{subtitle}</p>
+                      </Dialog.Title>
                     </div>
                     <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      {/* Replace with your content */}
-                      <div className="absolute inset-0 px-4 sm:px-6">
-                        <div className="h-full border-2 border-dashed border-gray-200" aria-hidden="true" />
-                      </div>
-                      {/* /End replace */}
+                      {children}
                     </div>
                   </div>
                 </Dialog.Panel>
