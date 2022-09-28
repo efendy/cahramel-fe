@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { LogoMedium } from "@/components/logo-medium";
-import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { deleteCookie } from "cookies-next";
 
 export default function Login() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  deleteCookie('token');
 
   const onSubmit = async (e: any) => {
     e.preventDefault();

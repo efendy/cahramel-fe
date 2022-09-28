@@ -25,15 +25,15 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Users() {
+export default function ManageLeave() {
   return (
     <ClientLayout>
       <div className="px-4 mt-4">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <h1 className="text-xl font-semibold text-gray-900">Users</h1>
+            <h1 className="text-xl font-semibold text-gray-900">Configure Leave</h1>
             <p className="mt-2 text-sm text-gray-700">
-              “Connect the dots between individual roles and the goals of the organization. When people see that connection, they get a lot of energy out of work. They feel the importance, dignity, and meaning in their job.” – Ken Blanchard.
+              Your time is limited, so don&apos;t waste it living someone else&apos;s life. Don&apos;t be trapped by dogma – which is living with the results of other people&apos;s thinking. - Steve Jobs
             </p>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">

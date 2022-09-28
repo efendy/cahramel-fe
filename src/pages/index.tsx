@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { setCookie } from "cookies-next";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -10,6 +10,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     console.log(session);
     if (session?.user) {
+      setCookie('token', session.jwt);
       router.push('/app');
     } else {
       router.push('/auth/login');

@@ -1,17 +1,15 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react';
 import {
   CalendarIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  EllipsisHorizontalIcon,
   MapPinIcon,
-} from '@heroicons/react/20/solid'
-import { Menu, Transition } from '@headlessui/react'
-import ClientLayout from '@/components/layouts/client-layout'
-import { format, isToday, setMonth, startOfMonth, startOfToday, eachDayOfInterval, endOfMonth, setDay, isSameMonth } from 'date-fns'
-import { SlidePanel } from '@/components/slide-panels'
-import ApplyLeave from '@/components/slide-panels/apply-leave'
+} from '@heroicons/react/20/solid';
+import { Menu, Transition } from '@headlessui/react';
+import ClientLayout from '@/components/layouts/client-layout';
+import { format, isToday, setMonth, startOfMonth, startOfToday, eachDayOfInterval, endOfMonth, setDay, isSameMonth } from 'date-fns';
+import { SlidePanel } from '@/components/slide-panels';
+import ApplyLeave from '@/components/slide-panels/apply-leave';
 
 const meetings = [
   {
@@ -91,16 +89,16 @@ const leaveBalances = [
     taken: 5,
   },
 
-]
+];
 
 function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Leave() {
   const today = startOfToday();
   const [currentDate, setCurrentDate] = useState(today);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const startOfMonthDate = setDay(startOfMonth(currentDate), 0);
   const endOfMonthDate = setDay(endOfMonth(currentDate), 6);
@@ -109,7 +107,7 @@ export default function Leave() {
   const days = eachDayOfInterval({
     start: startOfMonthDate,
     end: endOfMonthDate,
-  })
+  });
   
   return (
     <>
@@ -251,12 +249,12 @@ export default function Leave() {
                     </dl>
                   </div>
                   <Menu as="div" className="absolute top-6 right-0 xl:relative xl:top-auto xl:right-auto xl:self-center">
-                    <div>
+                    {/* <div>
                       <Menu.Button className="-m-2 flex items-center rounded-full p-2 text-gray-500 hover:text-gray-600">
                         <span className="sr-only">Open options</span>
                         <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
                       </Menu.Button>
-                    </div>
+                    </div> */}
 
                     <Transition
                       as={Fragment}
@@ -329,12 +327,12 @@ export default function Leave() {
                     </dl>
                   </div>
                   <Menu as="div" className="absolute top-6 right-0 xl:relative xl:top-auto xl:right-auto xl:self-center">
-                    <div>
+                    {/* <div>
                       <Menu.Button className="-m-2 flex items-center rounded-full p-2 text-gray-500 hover:text-gray-600">
                         <span className="sr-only">Open options</span>
                         <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
                       </Menu.Button>
-                    </div>
+                    </div> */}
 
                     <Transition
                       as={Fragment}
