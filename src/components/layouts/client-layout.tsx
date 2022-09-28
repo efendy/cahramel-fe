@@ -1,17 +1,29 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import { Logo } from '@/components/logo'
 import { adminNavigation, navigation, secondaryNavigation, userNavigation } from '@/helpers/navigation'
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function ClientLayout({ children }: any) {
+  const router = useRouter();
+  const { data: session } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const currentRoute = useRouter().route;
+
+  useEffect(() => {
+    console.log('ClientLayout', session);
+    // session.jwt // strapi token
+    // session.id // userId
+    if (session === null) {
+      // router.push('/auth/login');
+    }
+  }, [session, router]);
 
   return (
     <>

@@ -1,14 +1,27 @@
 import Link from "next/link";
 import { useState } from "react";
 import { LogoMedium } from "@/components/logo-medium";
-import { getCsrfToken, getSession, useSession } from "next-auth/react"
-import { GetStaticProps } from "next";
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/router";
 
-export default function Login({ csrfToken }: any) {
+export default function Login() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { data: session, status } = useSession();
-  console.log('useSession', session, status);
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    });
+    console.log('onSubmit', result);
+    if (result?.ok) {
+      router.replace('/');
+      return;
+    }
+    alert('Credential is not valid');
+  };
 
   return (
     <>
@@ -29,9 +42,8 @@ export default function Login({ csrfToken }: any) {
 
             <div className="mt-8">
               <div className="mt-6">
-                <form action="/api/auth/callback/credentials" method="post" className="space-y-6">
+                <form className="space-y-6" onSubmit={onSubmit}>
                   <div>
-                    <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                       Email address
                     </label>
@@ -79,7 +91,7 @@ export default function Login({ csrfToken }: any) {
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
-                      <input
+                      {/* <input
                         id="remember-me"
                         name="remember-me"
                         type="checkbox"
@@ -87,7 +99,7 @@ export default function Login({ csrfToken }: any) {
                       />
                       <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                         Remember me
-                      </label>
+                      </label> */}
                     </div>
 
                     <div className="text-sm">
@@ -156,18 +168,4 @@ export default function Login({ csrfToken }: any) {
       </div>
     </>
   )
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  console.log('getStaticProps context', context);
-  // const session = await getSession({ req });
-
-  const session = await getSession();
-  console.log('getStaticProps session', session);
-
-  return {
-    props: {
-      csrfToken: await getCsrfToken(),
-    },
-  }
 }

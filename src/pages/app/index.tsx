@@ -1,6 +1,6 @@
 import ClientLayout from "@/components/layouts/client-layout"
 
-export default function Example() {
+export default function Welcome() {
   return (
     <ClientLayout>
       <div className="px-4 mt-4">
@@ -16,3 +16,19 @@ export default function Example() {
     </ClientLayout>
   )
 }
+
+// export const getStaticProps = async (context: any) => {
+//   const session = await getSession(context);
+//   // Check if session exists or not, if not, redirect
+//   if (session == null) {
+//     return {
+//       redirect: {
+//         destination: '/auth/login',
+//         permanent: true,
+//       },
+//     };
+//   }
+//   return {
+//     props: {},
+//   };
+// };

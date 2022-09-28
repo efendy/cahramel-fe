@@ -15,50 +15,45 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         console.log('authorize', credentials);
-        const res = await fetch("http://localhost:1337/api/auth/local", {
-          method: 'POST',
-          body: JSON.stringify({
-            identifier: credentials?.email, 
-            password: credentials?.password
-          }),
-          headers: { "Content-Type": "application/json" }
-        })
-        const user = await res.json()
-        console.log(user.jwt);
-        if (res.ok && user.jwt) {
-          return user;
+        if (credentials == null) return null;
+        try {
+          const res = await fetch("http://localhost:1337/api/auth/local", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              identifier: credentials?.email, 
+              password: credentials?.password
+            }),
+          })
+          const responseData = await res.json();
+          if (responseData.error) {
+            return null;
+          }
+          return { 
+            ...responseData.user,
+            jwt: responseData.jwt
+          };
+        } catch (error) {
+          return null;
         }
-        return null
       },
     }),
   ],
-  // callbacks: {
-  //   async signIn({ user, account, profile, email, credentials }: any) {
-  //     console.log('signIn', user);
-  //     return true;
-  //   },
-  //   async redirect({ url, baseUrl }: any) {
-  //     console.log('redirect', url, baseUrl);
-  //     if (url.startsWith("/")) return `${baseUrl}${url}`
-  //     else if (new URL(url).origin === baseUrl) return url
-  //     return baseUrl;
-  //   },
-  //   async session({ session, user, token }: any) {
-  //     console.log('session', session, user, token);
-  //     return session;
-  //   },
-  //   async jwt({ token, user, account, profile, isNewUser }: any) {
-  //     console.log('jwt', token, user, account, profile, isNewUser);
-  //     return token;
-  //   },
-  // },
-  pages: {
-    signIn: '/auth/login',
-    signOut: '/auth/signout',
-    // error: '/auth/error', // Error code passed in query string as ?error=
-    // verifyRequest: '/auth/verify-request', // (used for check email message)
-    newUser: '/auth/register' // New users will be directed here on first sign in (leave the property out if not of interest)
-  }
+  callbacks: {
+    session: async ({ session, token }: any) => {
+      session.id = token.id;
+      session.jwt = token.jwt;
+      return Promise.resolve(session);
+    },
+    jwt: async ({ token, user }: any) => {
+      const isSignIn = user ? true : false;
+      if (isSignIn) {
+        token.id = user.id;
+        token.jwt = user.jwt;
+      }
+      return Promise.resolve(token);
+    },
+  },
 }
 
 export default NextAuth(authOptions);
