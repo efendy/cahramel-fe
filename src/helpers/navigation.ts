@@ -1,4 +1,5 @@
 import {
+  BuildingOffice2Icon,
   CalendarIcon,
   CheckBadgeIcon,
   CheckIcon,
@@ -21,6 +22,7 @@ export const navigation = [
 
 export const secondaryNavigation = [
   { name: 'Users', href: '/admin/users', icon: UserGroupIcon, current: false },
+  { name: 'Company', href: '/admin/company', icon: BuildingOffice2Icon, current: false },
   { name: 'Billings', href: '/admin/billing', icon: WalletIcon, current: false },
   // { name: 'Settings', href: '#', icon: CogIcon },
 ];
