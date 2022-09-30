@@ -36,7 +36,7 @@ export default function Login() {
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
               <p className="mt-2 text-sm text-gray-600">
                 Don’t have an account?{' '}
-                <Link href="/register">
+                <Link href="/auth/register">
                   <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Register</span>
                 </Link>
                 {' '}for free.
@@ -106,7 +106,7 @@ export default function Login() {
                     </div>
 
                     <div className="text-sm">
-                      <Link href="/forgot">
+                      <Link href="/auth/forgot">
                         <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Forgot your password?</span>
                       </Link>
                     </div>

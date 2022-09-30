@@ -15,7 +15,7 @@ export default function Register() {
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Register a new account</h2>
               <p className="mt-2 text-sm text-gray-600">
                 Already registered?{' '}
-                <Link href="/login">
+                <Link href="/auth/login">
                   <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Sign in</span>
                 </Link>
                 {' '}to your account.
