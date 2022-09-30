@@ -123,6 +123,9 @@ export default function ClientLayout({ children }: any) {
                         ))}
                       </div>
                       <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                      <p className="px-8 pb-4 font-medium text-gray-500">
+                        Manage
+                      </p>
                       <div className="space-y-1 px-2">
                         {adminNavigation.map((item) => (
                           <a
@@ -203,6 +206,9 @@ export default function ClientLayout({ children }: any) {
                   ))}
                 </div>
                 <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                <p className="px-4 pb-4 text-sm font-medium text-gray-500">
+                  Manage
+                </p>
                 <div className="flex-1 space-y-1 px-2">
                   {adminNavigation.map((item) => (
                     <a
@@ -210,7 +216,7 @@ export default function ClientLayout({ children }: any) {
                       href={item.href}
                       className={classNames(
                         item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-11'
+                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-10'
                       )}
                     >
                       {item.name}

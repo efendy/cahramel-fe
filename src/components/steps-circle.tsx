@@ -13,7 +13,7 @@ function classNames(...classes: any) {
 
 export default function StepsCircle({ currentStepIndex, setCurrentStepIndex, steps }: StepsCircleProps) {
   return (
-    <nav aria-label="Progress">
+    <nav aria-label="Progress" className="flex w-full justify-center">
       <ol role="list" className="flex items-center">
         {steps.map((step, stepIdx) => (
           <li key={step} className={classNames(stepIdx !== steps.length - 1 ? 'pr-4 sm:pr-6 lg:pr-10' : '', 'relative')}>
