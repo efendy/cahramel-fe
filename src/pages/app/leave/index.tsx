@@ -201,7 +201,7 @@ export default function Leave() {
                 {leaveBalances.map((leaveBalance, leaveBalanceIdx) => (
                   <div 
                     key={leaveBalance.title}
-                    className="mb-2 rounded-md bg-white shadow ring-1 ring-gray-100 hover:bg-gray-50"
+                    className="mb-2 rounded-md bg-white shadow ring-1 ring-gray-100"
                   >
                     <div className="font-semibold bg-gray-100 px-2 py-2 rounded-md">{leaveBalance.title}</div>
                     <div className="grid grid-cols-3 px-2 py-2">
