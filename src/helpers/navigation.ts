@@ -35,6 +35,6 @@ export const adminNavigation = [
 
 export const userNavigation = [
   { name: 'Your Profile', href: '/user' },
-  { name: 'Settings', href: '/user/settings' },
+  // { name: 'Settings', href: '/user/settings' },
   { name: 'Sign out', href: '/auth/login' },
 ];
