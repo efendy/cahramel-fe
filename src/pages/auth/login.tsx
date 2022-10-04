@@ -4,6 +4,7 @@ import { LogoMedium } from "@/components/logo-medium";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { deleteCookie } from "cookies-next";
+import Image from "next/image";
 
 export default function Login() {
   const router = useRouter();
@@ -162,7 +163,7 @@ export default function Login() {
           </div>
         </div>
         <div className="relative hidden w-0 flex-1 lg:block">
-          <img
+          <Image
             className="absolute inset-0 h-full w-full object-cover"
             src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
             alt=""

@@ -1,4 +1,5 @@
 import ClientLayout from "@/components/layouts/client-layout";
+import Image from "next/image";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -73,7 +74,7 @@ export default function UserProfile() {
                     Photo
                   </label>
                   <div className="mt-1 flex items-center">
-                    <img
+                    <Image
                       className="inline-block h-12 w-12 rounded-full"
                       src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80"
                       alt=""

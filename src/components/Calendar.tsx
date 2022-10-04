@@ -8,6 +8,7 @@ import {
   MapPinIcon,
 } from '@heroicons/react/20/solid'
 import { Menu, Transition } from '@headlessui/react'
+import Image from 'next/image'
 
 const meetings = [
   {
@@ -145,7 +146,7 @@ export default function Calendar() {
         <ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">
           {meetings.map((meeting) => (
             <li key={meeting.id} className="relative flex space-x-6 py-6 xl:static">
-              <img src={meeting.imageUrl} alt="" className="h-14 w-14 flex-none rounded-full" />
+              <Image src={meeting.imageUrl} alt="" className="h-14 w-14 flex-none rounded-full" />
               <div className="flex-auto">
                 <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0">{meeting.name}</h3>
                 <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">

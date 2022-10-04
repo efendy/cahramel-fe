@@ -5,6 +5,7 @@ import { adminNavigation, navigation, secondaryNavigation, userNavigation } from
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { getCookie } from 'cookies-next';
+import Image from 'next/image';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
@@ -254,7 +255,7 @@ export default function ClientLayout({ children }: any) {
                   <div>
                     <Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
                       <span className="sr-only">Open user menu</span>
-                      <img
+                      <Image
                         className="h-8 w-8 rounded-full"
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""

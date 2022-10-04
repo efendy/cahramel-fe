@@ -30,6 +30,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronLeftIcon, EnvelopeIcon, FunnelIcon, MagnifyingGlassIcon, PhoneIcon } from '@heroicons/react/20/solid'
 import ClientLayout from '@/components/layouts/client-layout'
+import Image from 'next/image'
 
 const user = {
   name: 'Tom Cook',
@@ -331,12 +332,12 @@ export default function Directory() {
               {/* Profile header */}
               <div>
                 <div>
-                  <img className="h-32 w-full object-cover lg:h-48" src={profile.coverImageUrl} alt="" />
+                  <Image className="h-32 w-full object-cover lg:h-48" src={profile.coverImageUrl} alt="" />
                 </div>
                 <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
                   <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
                     <div className="flex">
-                      <img
+                      <Image
                         className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
                         src={profile.imageUrl}
                         alt=""
@@ -424,7 +425,7 @@ export default function Directory() {
                       className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-pink-500 focus-within:ring-offset-2 hover:border-gray-400"
                     >
                       <div className="flex-shrink-0">
-                        <img className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                        <Image className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
                       </div>
                       <div className="min-w-0 flex-1">
                         <a href="#" className="focus:outline-none">
@@ -475,7 +476,7 @@ export default function Directory() {
                       <li key={person.id}>
                         <div className="relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500 hover:bg-gray-50">
                           <div className="flex-shrink-0">
-                            <img className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                            <Image className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
                           </div>
                           <div className="min-w-0 flex-1">
                             <a href="#" className="focus:outline-none">

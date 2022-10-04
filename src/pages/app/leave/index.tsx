@@ -10,6 +10,7 @@ import ClientLayout from '@/components/layouts/client-layout';
 import { format, isToday, setMonth, startOfMonth, startOfToday, eachDayOfInterval, endOfMonth, setDay, isSameMonth } from 'date-fns';
 import { SlidePanel } from '@/components/slide-panels';
 import ApplyLeave from '@/components/slide-panels/apply-leave';
+import Image from 'next/image';
 
 const meetings = [
   {
@@ -302,7 +303,7 @@ export default function Leave() {
               <div className="text-xl font-semibold text-gray-800 py-4">Others</div>
               {meetings.map((meeting) => (
                 <li key={meeting.id} className="relative flex space-x-4 py-4 xl:static">
-                  <img src={meeting.imageUrl} alt="" className="h-14 w-14 flex-none rounded-full" />
+                  <Image src={meeting.imageUrl} alt="" className="h-14 w-14 flex-none rounded-full" />
                   <div className="flex-auto">
                     <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0">{meeting.name}</h3>
                     <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">

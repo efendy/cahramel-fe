@@ -1,6 +1,7 @@
 import ClientLayout from "@/components/layouts/client-layout";
 import Pagination from "@/components/pagination";
 import { SlidePanel } from "@/components/slide-panels";
+import Image from "next/image";
 import { useState } from "react";
 
 const items = [
@@ -91,7 +92,7 @@ export default function Announcement() {
                   onClick={() => onOpenAnnouncement(item)}
                 >
                   <a href="#" className="flex space-x-4 focus:outline-none">
-                    <img
+                    <Image
                       className="inline-block h-20 w-20 rounded-md"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                       alt=""

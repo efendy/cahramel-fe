@@ -46,6 +46,7 @@ export const authOptions = {
       return Promise.resolve(session);
     },
     jwt: async ({ token, user }: any) => {
+      // console.log(token, user);
       const isSignIn = user ? true : false;
       if (isSignIn) {
         token.id = user.id;

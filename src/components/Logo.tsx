@@ -1,7 +1,7 @@
-// import Image from "next/image";
+import Image from "next/image";
 
 export const Logo = () => (
-  <img
+  <Image
     className="h-8 w-auto"
     src="/caramel.png"
     alt="caHRamel"
