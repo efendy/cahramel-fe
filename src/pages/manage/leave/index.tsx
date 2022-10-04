@@ -1,6 +1,6 @@
-import ClientLayout from "@/components/layouts/client-layout"
-import Pagination from "@/components/pagination"
-import { SlidePanel } from "@/components/slide-panels"
+import ClientLayout from "@components/layouts/client-layout"
+import Pagination from "@components/pagination"
+import { SlidePanel } from "@components/slide-panels"
 import { useState } from "react"
 
 /* This example requires Tailwind CSS v2.0+ */
