@@ -14,10 +14,10 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log('authorize', credentials);
+        console.log('authorize', process.env.STRAPI_URL, credentials);
         if (credentials == null) return null;
         try {
-          const res = await fetch("http://localhost:1337/api/auth/local", {
+          const res = await fetch(`${process.env.STRAPI_URL}api/auth/local`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

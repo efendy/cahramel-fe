@@ -331,16 +331,15 @@ export default function Directory() {
             <article>
               {/* Profile header */}
               <div>
-                <div>
-                  <Image className="h-32 w-full object-cover lg:h-48" src={profile.coverImageUrl} alt="" />
-                </div>
-                <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-                  <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                <div className="max-w-5xl px-4 sm:px-6 lg:px-8">
+                  <div className="mt-12 sm:mt-16 sm:flex sm:items-end sm:space-x-5">
                     <div className="flex">
                       <Image
-                        className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
+                        className="ring-4 ring-white rounded-full"
                         src={profile.imageUrl}
                         alt=""
+                        width={96}
+                        height={96}
                       />
                     </div>
                     <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
@@ -374,7 +373,7 @@ export default function Directory() {
               {/* Tabs */}
               <div className="mt-6 sm:mt-2 2xl:mt-5">
                 <div className="border-b border-gray-200">
-                  <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+                  <div className="max-w-5xl px-4 sm:px-6 lg:px-8">
                     <nav className="-mb-px flex space-x-8" aria-label="Tabs">
                       {tabs.map((tab) => (
                         <a
@@ -397,7 +396,7 @@ export default function Directory() {
               </div>
 
               {/* Description list */}
-              <div className="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
+              <div className="mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
                 <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                   {Object.keys(profile.fields).map((field, index) => (
                     <div key={field} className="sm:col-span-1">
@@ -416,7 +415,7 @@ export default function Directory() {
               </div>
 
               {/* Team member list */}
-              <div className="mx-auto mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
+              <div className="mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
                 <h2 className="text-sm font-medium text-gray-500">Team members</h2>
                 <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {team.map((person) => (
@@ -425,7 +424,13 @@ export default function Directory() {
                       className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-pink-500 focus-within:ring-offset-2 hover:border-gray-400"
                     >
                       <div className="flex-shrink-0">
-                        <Image className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                        <Image
+                          className="rounded-full"
+                          src={person.imageUrl}
+                          alt=""
+                          width={40}
+                          height={40}
+                        />
                       </div>
                       <div className="min-w-0 flex-1">
                         <a href="#" className="focus:outline-none">
@@ -476,7 +481,13 @@ export default function Directory() {
                       <li key={person.id}>
                         <div className="relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500 hover:bg-gray-50">
                           <div className="flex-shrink-0">
-                            <Image className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                            <Image
+                              className="rounded-full"
+                              src={person.imageUrl}
+                              alt=""
+                              width={40}
+                              height={40}
+                            />
                           </div>
                           <div className="min-w-0 flex-1">
                             <a href="#" className="focus:outline-none">

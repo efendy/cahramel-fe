@@ -1,11 +1,11 @@
-// import Image from "next/image";
-
 import Image from "next/image";
 
 export const LogoMedium = () => (
   <Image
-    className="mx-auto h-12 w-auto"
+    className="mx-auto"
     src="/caramel.png"
     alt="caHRamel"
+    height={48}
+    width={48}
   />
 );

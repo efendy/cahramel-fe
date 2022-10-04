@@ -146,7 +146,13 @@ export default function Calendar() {
         <ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">
           {meetings.map((meeting) => (
             <li key={meeting.id} className="relative flex space-x-6 py-6 xl:static">
-              <Image src={meeting.imageUrl} alt="" className="h-14 w-14 flex-none rounded-full" />
+              <Image
+                className="h-14 w-14 flex-none rounded-full"
+                src={meeting.imageUrl}
+                alt=""
+                width={56}
+                height={56}
+              />
               <div className="flex-auto">
                 <h3 className="pr-10 font-semibold text-gray-900 xl:pr-0">{meeting.name}</h3>
                 <dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">

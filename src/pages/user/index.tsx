@@ -75,9 +75,11 @@ export default function UserProfile() {
                   </label>
                   <div className="mt-1 flex items-center">
                     <Image
-                      className="inline-block h-12 w-12 rounded-full"
+                      className="inline-block rounded-full"
                       src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2.5&w=256&h=256&q=80"
                       alt=""
+                      width={48}
+                      height={48}
                     />
                     <div className="ml-4 flex">
                       <div className="relative flex cursor-pointer items-center rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-amber-500 focus-within:ring-offset-2 focus-within:ring-offset-amber-gray-50 hover:bg-amber-gray-50">
