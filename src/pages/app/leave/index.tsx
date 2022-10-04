@@ -6,10 +6,10 @@ import {
   MapPinIcon,
 } from '@heroicons/react/20/solid';
 import { Menu, Transition } from '@headlessui/react';
-import ClientLayout from '@/components/layouts/client-layout';
+import ClientLayout from '@components/layouts/client-layout';
 import { format, isToday, setMonth, startOfMonth, startOfToday, eachDayOfInterval, endOfMonth, setDay, isSameMonth } from 'date-fns';
-import { SlidePanel } from '@/components/slide-panels';
-import ApplyLeave from '@/components/slide-panels/apply-leave';
+import { SlidePanel } from '@components/slide-panels';
+import ApplyLeave from '@components/slide-panels/apply-leave';
 import Image from 'next/image';
 
 const meetings = [
