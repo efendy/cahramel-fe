@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
-import { Logo } from '@components/logo';
-import { adminNavigation, navigation, secondaryNavigation, userNavigation } from '@helpers/navigation';
+import { Logo } from '../logo';
+import { adminNavigation, navigation, secondaryNavigation, userNavigation } from '../../helpers/navigation';
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { getCookie } from 'cookies-next';

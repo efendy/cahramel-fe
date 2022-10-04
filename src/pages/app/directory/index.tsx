@@ -29,7 +29,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronLeftIcon, EnvelopeIcon, FunnelIcon, MagnifyingGlassIcon, PhoneIcon } from '@heroicons/react/20/solid'
-import ClientLayout from '@components/layouts/client-layout'
+import ClientLayout from '../../../components/layouts/client-layout'
 import Image from 'next/image'
 
 const user = {

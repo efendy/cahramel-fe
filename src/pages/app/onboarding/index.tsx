@@ -1,5 +1,5 @@
-import ClientLayout from "@components/layouts/client-layout"
-import StepsCircle from "@components/steps-circle";
+import ClientLayout from "../../../components/layouts/client-layout"
+import StepsCircle from "../../../components/steps-circle";
 import { useState } from "react";
 
 export default function Onboarding() {

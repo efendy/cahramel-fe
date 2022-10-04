@@ -1,4 +1,4 @@
-import ClientLayout from "@components/layouts/client-layout";
+import ClientLayout from "../../../components/layouts/client-layout";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
