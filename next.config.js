@@ -15,11 +15,11 @@ const nextConfig = {
       'cahramel.com'
     ],
   },
-  // experimental: {
-  //   images: {
-  //     unoptimized: true,
-  //   },
-  // },
+  experimental: {
+    images: {
+      unoptimized: true,
+    },
+  },
 };
 
 module.exports = nextConfig;
