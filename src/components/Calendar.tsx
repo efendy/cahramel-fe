@@ -1,14 +1,14 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment } from 'react';
 import {
   CalendarIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   EllipsisHorizontalIcon,
   MapPinIcon,
-} from '@heroicons/react/20/solid'
-import { Menu, Transition } from '@headlessui/react'
-import Image from 'next/image'
+} from '@heroicons/react/20/solid';
+import { Menu, Transition } from '@headlessui/react';
+import Image from 'next/image';
 
 const meetings = [
   {
@@ -22,7 +22,8 @@ const meetings = [
     location: 'Starbucks',
   },
   // More meetings...
-]
+];
+
 const days = [
   { date: '2021-12-27' },
   { date: '2021-12-28' },
@@ -66,13 +67,13 @@ const days = [
   { date: '2022-02-04' },
   { date: '2022-02-05' },
   { date: '2022-02-06' },
-]
+];
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Calendar() {
+export function Calendar() {
   return (
     <div>
       <h2 className="text-lg font-semibold text-gray-900">Upcoming meetings</h2>
