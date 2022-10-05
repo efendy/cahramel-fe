@@ -10,7 +10,7 @@ import {
   WalletIcon,
 } from '@heroicons/react/24/outline';
 
-export const navigation = [
+export const APP_NAVIGATION_MAIN = [
   { name: 'Dashboard', href: '/app', icon: HomeIcon, current: false },
   { name: 'Directory', href: '/app/directory', icon: UsersIcon, current: false },
   { name: 'Onboarding', href: '/app/onboarding', icon: CheckIcon, current: false },
@@ -20,20 +20,20 @@ export const navigation = [
   // { name: 'Office Map', href: '#', icon: MapIcon, current: false },
 ];
 
-export const secondaryNavigation = [
-  { name: 'Users', href: '/admin/users', icon: UserGroupIcon, current: false },
-  { name: 'Company', href: '/admin/company', icon: BuildingOffice2Icon, current: false },
-  { name: 'Billings', href: '/admin/billing', icon: WalletIcon, current: false },
+export const APP_NAVIGATION_MANAGE = [
+  { name: 'Users', href: '/manage/users', icon: UserGroupIcon, current: false },
+  { name: 'Company', href: '/manage/company', icon: BuildingOffice2Icon, current: false },
+  { name: 'Billings', href: '/manage/billing', icon: WalletIcon, current: false },
   // { name: 'Settings', href: '#', icon: CogIcon },
 ];
 
-export const adminNavigation = [
-  { name: 'Onboarding', href: '/manage/onboarding', current: false },
-  { name: 'Offboarding', href: '/manage/offboarding', current: false },
-  { name: 'Leave', href: '/manage/leave', current: false },
+export const APP_NAVIGATION_CONFIGURE = [
+  { name: 'Onboarding', href: '/configure/onboarding', current: false },
+  { name: 'Offboarding', href: '/configure/offboarding', current: false },
+  { name: 'Leave', href: '/configure/leave', current: false },
 ];
 
-export const userNavigation = [
+export const APP_NAVIGATION_USER = [
   { name: 'Your Profile', href: '/user' },
   // { name: 'Settings', href: '/user/settings' },
   { name: 'Sign out', href: '/auth/login' },

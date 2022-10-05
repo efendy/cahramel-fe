@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
-import { adminNavigation, navigation, secondaryNavigation, userNavigation } from '@helpers/navigation';
+import { APP_NAVIGATION_CONFIGURE, APP_NAVIGATION_MAIN, APP_NAVIGATION_MANAGE, APP_NAVIGATION_USER } from '@helpers/navigation';
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { getCookie } from 'cookies-next';
@@ -77,7 +77,7 @@ export default function ClientLayout({ children }: any) {
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
                     <nav aria-label="Sidebar" className="mt-5">
                       <div className="space-y-1 px-2">
-                        {navigation.map((item) => (
+                        {APP_NAVIGATION_MAIN.map((item) => (
                           <a
                             key={item.name}
                             href={item.href}
@@ -104,7 +104,7 @@ export default function ClientLayout({ children }: any) {
                         Manage
                       </p>
                       <div className="space-y-1 px-2">
-                        {secondaryNavigation.map((item) => (
+                        {APP_NAVIGATION_MANAGE.map((item) => (
                           <a
                             key={item.name}
                             href={item.href}
@@ -131,7 +131,7 @@ export default function ClientLayout({ children }: any) {
                         Configure
                       </p>
                       <div className="space-y-1 px-2">
-                        {adminNavigation.map((item) => (
+                        {APP_NAVIGATION_CONFIGURE.map((item) => (
                           <a
                             key={item.name}
                             href={item.href}
@@ -167,7 +167,7 @@ export default function ClientLayout({ children }: any) {
             <div className="mt-5 flex flex-grow flex-col">
               <nav aria-label="Sidebar">
                 <div className="flex-1 space-y-1 px-2">
-                  {navigation.map((item) => (
+                  {APP_NAVIGATION_MAIN.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}
@@ -192,7 +192,7 @@ export default function ClientLayout({ children }: any) {
                   Manage
                 </p>
                 <div className="flex-1 space-y-1 px-2">
-                  {secondaryNavigation.map((item) => (
+                  {APP_NAVIGATION_MANAGE.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}
@@ -217,7 +217,7 @@ export default function ClientLayout({ children }: any) {
                   Configure
                 </p>
                 <div className="flex-1 space-y-1 px-2">
-                  {adminNavigation.map((item) => (
+                  {APP_NAVIGATION_CONFIGURE.map((item) => (
                     <a
                       key={item.name}
                       href={item.href}
@@ -280,7 +280,7 @@ export default function ClientLayout({ children }: any) {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {userNavigation.map((item) => (
+                      {APP_NAVIGATION_USER.map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
                             <a
