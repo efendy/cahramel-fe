@@ -1,6 +1,6 @@
 import ClientLayout from "@components/layouts/client-layout";
 import Pagination from "@components/pagination";
-import { SlidePanel } from "@components/slide-panels";
+import SlidePanel from "@components/slide-panels";
 import Image from "next/image";
 import { useState } from "react";
 

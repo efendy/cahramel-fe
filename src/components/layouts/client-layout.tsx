@@ -7,10 +7,7 @@ import Image from 'next/image';
 import Logo from '@components/logo';
 import AlertModal from '@components/modals/alert';
 import { getCookies } from 'cookies-next';
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
-}
+import { classNames } from '@helpers/utils';
 
 const ClientLayout = ({ children }: any) => {
   const router = useRouter();
