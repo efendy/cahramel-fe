@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StepsCircle from "../steps-circle";
+import StepsCircle from "@components/steps-circle";
 
 export default function ApplyLeave() {
   const [ currentStepIndex, setCurrentStepIndex ] = useState(0);

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { LogoMedium } from "../../components/logo";
+import { LogoMedium } from "@components/logo";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { deleteCookie } from "cookies-next";

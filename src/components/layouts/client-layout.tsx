@@ -1,11 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
-import { adminNavigation, navigation, secondaryNavigation, userNavigation } from '../../helpers/navigation';
+import { adminNavigation, navigation, secondaryNavigation, userNavigation } from '@helpers/navigation';
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { Logo } from '..';
+import { Logo } from '@components/logo';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');

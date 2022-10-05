@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { LogoMedium } from "../../components/logo";
+import { LogoMedium } from "@components/logo";
 
 export default function Forgot() {
   return (

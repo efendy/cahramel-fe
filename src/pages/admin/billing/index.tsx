@@ -1,5 +1,5 @@
-import ClientLayout from "../../../components/layouts/client-layout";
-import Pagination from "../../../components/pagination";
+import ClientLayout from "@components/layouts/client-layout";
+import Pagination from "@components/pagination";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 
 /* This example requires Tailwind CSS v2.0+ */
