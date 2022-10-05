@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
-import { LogoMedium } from "@components/logo";
 import Image from "next/image";
+import Logo, { LogoSize } from "@components/logo";
 
 const AppRegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,7 +12,7 @@ const AppRegisterPage = () => {
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
-              <LogoMedium />
+              <Logo size={LogoSize.lg} />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Register a new account</h2>
               <p className="mt-2 text-sm text-gray-600">
                 Already registered?{' '}

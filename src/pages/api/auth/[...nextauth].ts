@@ -1,4 +1,3 @@
-import { setCookie } from "cookies-next";
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -10,12 +9,11 @@ export const authOptions = {
         email: {
           label: "Email",
           type: "email",
-          placeholder: "efendy@test.com",
         },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log('authorize init', process.env.STRAPI_URL, credentials);
+        // console.log('authorize init', process.env.STRAPI_URL, credentials);
         if (credentials == null) return null;
         try {
           const res = await fetch(`${process.env.STRAPI_URL}api/auth/local`, {
@@ -31,9 +29,6 @@ export const authOptions = {
           if (responseData.error) {
             return null;
           }
-          setCookie(process.env.STRAPI_TOKEN_NAME || 'error-token', responseData.jwt, {
-            path: '/'
-          });
           return { 
             ...responseData.user,
             jwt: responseData.jwt
@@ -45,17 +40,13 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }: any) => {
-      session.id = token.id;
-      session.jwt = token.jwt;
-      return Promise.resolve(session);
-    },
     jwt: async ({ token, user }: any) => {
-      // console.log(token, user);
       const isSignIn = user ? true : false;
       if (isSignIn) {
         token.id = user.id;
         token.jwt = user.jwt;
+        console.log('jwt', process.env.STRAPI_TOKEN_NAME, token.jwt);
+        // setCookie(process.env.STRAPI_TOKEN_NAME || 'error-token', token.jwt);
       }
       return Promise.resolve(token);
     },

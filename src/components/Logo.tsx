@@ -1,24 +1,24 @@
 import Image from "next/image";
 
-export const Logo = () => {
-  return (
-    <Image
-      src="/caramel.png"
-      alt="caHRamel"
-      width={32}
-      height={32}
-    />
-  );
-};
+export const enum LogoSize { 
+  sm = 24, 
+  md = 32, 
+  lg = 48, 
+}
 
-export const LogoMedium = () => {
+export interface LogoProps {
+  size?: LogoSize;
+}
+
+export default function Logo({ size }: LogoProps) {
+  if (!size) size = LogoSize.md;
+
   return (
     <Image
-      className="mx-auto"
       src="/caramel.png"
       alt="caHRamel"
-      height={48}
-      width={48}
+      width={size}
+      height={size}
     />
   );
-};
+}

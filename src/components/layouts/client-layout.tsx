@@ -3,10 +3,10 @@ import { Dialog, Menu, Transition } from '@headlessui/react';
 import { APP_NAVIGATION_CONFIGURE, APP_NAVIGATION_MAIN, APP_NAVIGATION_MANAGE, APP_NAVIGATION_USER } from '@helpers/navigation';
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
-import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { Logo } from '@components/logo';
+import Logo from '@components/logo';
 import AlertModal from '@components/modals/alert';
+import { getCookies } from 'cookies-next';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
@@ -15,11 +15,17 @@ function classNames(...classes: any[]) {
 const ClientLayout = ({ children }: any) => {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [alertModalOpen, setAlertModalOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(true);
   const currentRoute = useRouter().route;
 
   useEffect(() => {
-    const cookie = getCookie(process.env.STRAPI_TOKEN_NAME || 'error-token');
+    // next-auth.session-token
+    const cookie = getCookies({
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      domain: 'localhost'
+    });
     console.log('cookie', cookie);
     // if (!cookie) {
     //   router.push('/auth/login');

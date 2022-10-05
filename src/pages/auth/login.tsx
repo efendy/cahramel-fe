@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { useState } from "react";
-import { LogoMedium } from "@components/logo";
 import { signIn } from "next-auth/react";
+import Logo, { LogoSize } from "@components/logo";
 import { useRouter } from "next/router";
-import { deleteCookie } from "cookies-next";
+// import { deleteCookie } from "cookies-next";
 import Image from "next/image";
 
 const AppLoginPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
-  deleteCookie('token');
+  // deleteCookie('token');
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const AppLoginPage = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     });
-    // console.log('onSubmit', result);
+    console.log('onSubmit', result);
     if (result?.ok && result?.url) {
       router.push(result.url);
       return;
@@ -34,7 +34,7 @@ const AppLoginPage = () => {
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
-              <LogoMedium />
+              <Logo size={LogoSize.lg} />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
               <p className="mt-2 text-sm text-gray-600">
                 Don’t have an account?{' '}
