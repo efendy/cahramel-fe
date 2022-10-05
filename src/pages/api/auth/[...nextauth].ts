@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -13,8 +14,8 @@ export const authOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        console.log('authorize', process.env.STRAPI_URL, credentials);
+      async authorize(credentials) {
+        console.log('authorize init', process.env.STRAPI_URL, credentials);
         if (credentials == null) return null;
         try {
           const res = await fetch(`${process.env.STRAPI_URL}api/auth/local`, {
@@ -26,9 +27,13 @@ export const authOptions = {
             }),
           })
           const responseData = await res.json();
+          // console.log('authorize responseData', responseData);
           if (responseData.error) {
             return null;
           }
+          setCookie(process.env.STRAPI_TOKEN_NAME || 'error-token', responseData.jwt, {
+            path: '/'
+          });
           return { 
             ...responseData.user,
             jwt: responseData.jwt

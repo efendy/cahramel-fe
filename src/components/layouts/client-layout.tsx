@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
 import { Logo } from '@components/logo';
+import AlertModal from '@components/modals/alert';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
@@ -14,13 +15,15 @@ function classNames(...classes: any[]) {
 const ClientLayout = ({ children }: any) => {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = useRouter().route;
 
   useEffect(() => {
-    const cookie = getCookie('token');
-    if (!cookie) {
-      router.push('/auth/login');
-    }
+    const cookie = getCookie(process.env.STRAPI_TOKEN_NAME || 'error-token');
+    console.log('cookie', cookie);
+    // if (!cookie) {
+    //   router.push('/auth/login');
+    // }
   }, [router]);
 
   return (
@@ -307,6 +310,7 @@ const ClientLayout = ({ children }: any) => {
           </main>
         </div>
       </div>
+      <AlertModal open={alertModalOpen} setOpen={setAlertModalOpen}/>
     </>
   )
 };

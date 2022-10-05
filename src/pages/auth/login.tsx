@@ -16,12 +16,13 @@ const AppLoginPage = () => {
     e.preventDefault();
     const result = await signIn('credentials', {
       redirect: false,
+      callbackUrl: '/app',
       email: e.target.email.value,
       password: e.target.password.value,
     });
-    console.log('onSubmit', result);
-    if (result?.ok) {
-      router.push('/');
+    // console.log('onSubmit', result);
+    if (result?.ok && result?.url) {
+      router.push(result.url);
       return;
     }
     alert('Credential is not valid');
