@@ -21,7 +21,7 @@ export default function Login() {
     });
     console.log('onSubmit', result);
     if (result?.ok) {
-      router.replace('/');
+      router.push('/');
       return;
     }
     alert('Credential is not valid');
