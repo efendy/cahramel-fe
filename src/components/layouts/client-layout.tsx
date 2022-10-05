@@ -5,7 +5,7 @@ import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/ou
 import { useRouter } from 'next/router';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { Logo } from '../logo';
+import { Logo } from '../../components/logo';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
@@ -100,6 +100,9 @@ export default function ClientLayout({ children }: any) {
                         ))}
                       </div>
                       <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                      <p className="px-8 pb-4 font-medium text-gray-500">
+                        Manage
+                      </p>
                       <div className="space-y-1 px-2">
                         {secondaryNavigation.map((item) => (
                           <a
@@ -125,7 +128,7 @@ export default function ClientLayout({ children }: any) {
                       </div>
                       <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
                       <p className="px-8 pb-4 font-medium text-gray-500">
-                        Manage
+                        Configure
                       </p>
                       <div className="space-y-1 px-2">
                         {adminNavigation.map((item) => (
@@ -185,6 +188,9 @@ export default function ClientLayout({ children }: any) {
                   ))}
                 </div>
                 <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
+                <p className="px-4 pb-4 text-sm font-medium text-gray-500">
+                  Manage
+                </p>
                 <div className="flex-1 space-y-1 px-2">
                   {secondaryNavigation.map((item) => (
                     <a
@@ -208,7 +214,7 @@ export default function ClientLayout({ children }: any) {
                 </div>
                 <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
                 <p className="px-4 pb-4 text-sm font-medium text-gray-500">
-                  Manage
+                  Configure
                 </p>
                 <div className="flex-1 space-y-1 px-2">
                   {adminNavigation.map((item) => (

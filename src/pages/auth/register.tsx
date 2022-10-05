@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { LogoMedium } from "../../components/logo-medium";
+import { LogoMedium } from "../../components/logo";
 import Image from "next/image";
 
 export default function Register() {
