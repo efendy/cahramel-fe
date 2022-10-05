@@ -96,7 +96,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Leave() {
+const AppLeavePage = () => {
   const today = startOfToday();
   const [currentDate, setCurrentDate] = useState(today);
   const [open, setOpen] = useState(false);
@@ -394,3 +394,5 @@ export default function Leave() {
     </>
   )
 }
+
+export default AppLeavePage;

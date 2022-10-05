@@ -11,7 +11,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function StepsCircle({ currentStepIndex, setCurrentStepIndex, steps }: StepsCircleProps) {
+const StepsCircle = ({ currentStepIndex, setCurrentStepIndex, steps }: StepsCircleProps) => {
   return (
     <nav aria-label="Progress" className="flex w-full justify-center">
       <ol role="list" className="flex items-center">
@@ -64,4 +64,6 @@ export default function StepsCircle({ currentStepIndex, setCurrentStepIndex, ste
       </ol>
     </nav>
   )
-}
+};
+
+export default StepsCircle;

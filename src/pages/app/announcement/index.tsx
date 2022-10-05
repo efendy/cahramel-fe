@@ -53,7 +53,7 @@ const items = [
   // More items...
 ];
 
-export default function Announcement() {
+const AppAnnouncementPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({
     title: "",
@@ -127,3 +127,5 @@ export default function Announcement() {
     </>
   )
 }
+
+export default AppAnnouncementPage;

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-export default function UserPage() {
+const UserPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
 
@@ -9,4 +9,6 @@ export default function UserPage() {
       <h1>TODO: {id}</h1>
     </>
   )
-}
+};
+
+export default UserPage;

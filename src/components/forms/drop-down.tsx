@@ -12,7 +12,7 @@ export interface Item {
   label: string;
 }
 
-export function DropDown({selected, setSelected, title, items}: any) {
+export const DropDown = ({selected, setSelected, title, items}: any) => {
   // const [selected, setSelected] = useState(items[3])
 
   return (
@@ -74,4 +74,4 @@ export function DropDown({selected, setSelected, title, items}: any) {
       )}
     </Listbox>
   )
-}
+};

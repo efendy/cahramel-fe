@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { LogoMedium } from "@components/logo";
 
-export default function Reset() {
+const AppResetPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -107,4 +107,6 @@ export default function Reset() {
       </div>
     </>
   )
-}
+};
+
+export default AppResetPage;

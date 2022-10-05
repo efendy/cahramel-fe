@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { deleteCookie } from "cookies-next";
 import Image from "next/image";
 
-export default function Login() {
+const AppLoginPage = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -174,4 +174,6 @@ export default function Login() {
       </div>
     </>
   )
-}
+};
+
+export default AppLoginPage;

@@ -4,7 +4,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function UserSettings() {
+const UserSettingsPage = () => {
   // const [open, setOpen] = useState(false);
 
   return (
@@ -26,4 +26,6 @@ export default function UserSettings() {
       </SlidePanel> */}
     </>
   )
-}
+};
+
+export default UserSettingsPage;

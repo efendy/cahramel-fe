@@ -11,7 +11,7 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function ClientLayout({ children }: any) {
+const ClientLayout = ({ children }: any) => {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const currentRoute = useRouter().route;
@@ -309,4 +309,6 @@ export default function ClientLayout({ children }: any) {
       </div>
     </>
   )
-}
+};
+
+export default ClientLayout;

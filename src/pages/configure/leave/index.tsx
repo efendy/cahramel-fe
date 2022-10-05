@@ -27,7 +27,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ManageLeave() {
+const ConfigureLeavePage = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -150,4 +150,6 @@ export default function ManageLeave() {
       </SlidePanel>
     </>
   )
-}
+};
+
+export default ConfigureLeavePage;

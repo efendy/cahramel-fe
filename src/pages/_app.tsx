@@ -10,4 +10,4 @@ function App({ Component, pageProps: {session, ...pageProps } }: AppProps) {
   );
 }
 
-export default App
+export default App;

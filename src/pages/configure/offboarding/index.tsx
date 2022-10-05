@@ -27,7 +27,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function ManageOffboarding() {
+const ConfigureOffboardingPage = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -150,4 +150,6 @@ export default function ManageOffboarding() {
       </SlidePanel>
     </>
   )
-}
+};
+
+export default ConfigureOffboardingPage;

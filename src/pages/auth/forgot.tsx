@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { LogoMedium } from "@components/logo";
 
-export default function Forgot() {
+const AuthForgotPage = () => {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -61,4 +61,6 @@ export default function Forgot() {
       </div>
     </>
   )
-}
+};
+
+export default AuthForgotPage;

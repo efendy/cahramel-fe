@@ -314,7 +314,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Directory() {
+const AppDirectoryPage = () => {
   return (
     <>
       <ClientLayout>
@@ -510,3 +510,5 @@ export default function Directory() {
     </>
   )
 }
+
+export default AppDirectoryPage;

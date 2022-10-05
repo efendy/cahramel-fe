@@ -1,7 +1,7 @@
 import { useState } from "react";
 import StepsCircle from "@components/steps-circle";
 
-export default function ApplyLeave() {
+const ApplyLeave = () => {
   const [ currentStepIndex, setCurrentStepIndex ] = useState(0);
   const steps = [
     "Step 1",
@@ -386,4 +386,6 @@ export default function ApplyLeave() {
       </form>
     </>
   )
-}
+};
+
+export default ApplyLeave;

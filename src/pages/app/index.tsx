@@ -1,6 +1,6 @@
 import ClientLayout from "@components/layouts/client-layout";
 
-export default function Welcome() {
+const AppWelcomePage = () => {
   return (
     <ClientLayout>
       <div className="px-4 mt-4">
@@ -32,3 +32,5 @@ export default function Welcome() {
 //     props: {},
 //   };
 // };
+
+export default AppWelcomePage;

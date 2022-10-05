@@ -4,7 +4,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Company() {
+const ManageCompanyPage = () => {
   // const [open, setOpen] = useState(false);
 
   return (
@@ -376,4 +376,6 @@ export default function Company() {
       </SlidePanel> */}
     </>
   )
-}
+};
+
+export default ManageCompanyPage;

@@ -35,7 +35,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Billing() {
+const ManageBillingPage = () => {
   return (
     <ClientLayout>
       <div className="px-4 mt-4">
@@ -246,4 +246,6 @@ export default function Billing() {
       </div>
     </ClientLayout>
   )
-}
+};
+
+export default ManageBillingPage;

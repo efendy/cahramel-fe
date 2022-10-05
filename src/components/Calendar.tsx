@@ -73,7 +73,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export function Calendar() {
+export const Calendar = () => {
   return (
     <div>
       <h2 className="text-lg font-semibold text-gray-900">Upcoming meetings</h2>
@@ -232,4 +232,4 @@ export function Calendar() {
       </div>
     </div>
   )
-}
+};

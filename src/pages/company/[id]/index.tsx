@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 
-export default function CompanyPage() {
+const CompanyPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
 
@@ -9,4 +9,6 @@ export default function CompanyPage() {
       <h1>TODO: {id}</h1>
     </>
   )
-}
+};
+
+export default CompanyPage;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { LogoMedium } from "@components/logo";
 import Image from "next/image";
 
-export default function Register() {
+const AppRegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -140,4 +140,6 @@ export default function Register() {
       </div>
     </>
   )
-}
+};
+
+export default AppRegisterPage;

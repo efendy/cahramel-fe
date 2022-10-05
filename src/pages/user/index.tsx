@@ -5,7 +5,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function UserProfile() {
+const UserProfilePage = () => {
   // const [open, setOpen] = useState(false);
 
   return (
@@ -230,4 +230,6 @@ export default function UserProfile() {
       </SlidePanel> */}
     </>
   )
-}
+};
+
+export default UserProfilePage;

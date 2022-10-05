@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export function Logo() {
+export const Logo = () => {
   return (
     <Image
       src="/caramel.png"
@@ -9,9 +9,9 @@ export function Logo() {
       height={32}
     />
   );
-}
+};
 
-export function LogoMedium() {
+export const LogoMedium = () => {
   return (
     <Image
       className="mx-auto"
@@ -21,4 +21,4 @@ export function LogoMedium() {
       width={48}
     />
   );
-}
+};

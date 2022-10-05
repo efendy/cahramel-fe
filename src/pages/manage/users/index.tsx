@@ -27,7 +27,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Users() {
+const ManageUsersPage = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -150,4 +150,6 @@ export default function Users() {
       </SlidePanel>
     </>
   )
-}
+};
+
+export default ManageUsersPage;

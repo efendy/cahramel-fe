@@ -2,7 +2,7 @@ import ClientLayout from "@components/layouts/client-layout"
 import StepsCircle from "@components/steps-circle";
 import { useState } from "react";
 
-export default function Example() {
+const AppOffboardingPage = () => {
   const [ currentStepIndex, setCurrentStepIndex ] = useState(0);
   const steps = [
     "Step 1",
@@ -77,4 +77,6 @@ export default function Example() {
       </div>
     </ClientLayout>
   )
-}
+};
+
+export default AppOffboardingPage;

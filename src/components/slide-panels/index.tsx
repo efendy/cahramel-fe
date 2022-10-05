@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
-export function SlidePanel({ open, setOpen, title, subtitle, children }: any) {
+export const SlidePanel = ({ open, setOpen, title, subtitle, children }: any) => {
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -74,4 +74,4 @@ export function SlidePanel({ open, setOpen, title, subtitle, children }: any) {
       </Dialog>
     </Transition.Root>
   )
-}
+};
