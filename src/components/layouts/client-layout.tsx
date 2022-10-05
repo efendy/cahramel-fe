@@ -5,7 +5,6 @@ import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/ou
 import { useRouter } from 'next/router';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
-import { Logo } from '../../components/logo';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
@@ -72,7 +71,7 @@ export default function ClientLayout({ children }: any) {
                     </div>
                   </Transition.Child>
                   <div className="flex flex-shrink-0 items-center px-4">
-                    <Logo />
+                    {/* <Logo /> */}
                   </div>
                   <div className="mt-5 h-0 flex-1 overflow-y-auto">
                     <nav aria-label="Sidebar" className="mt-5">
@@ -162,7 +161,7 @@ export default function ClientLayout({ children }: any) {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
             <div className="flex flex-shrink-0 items-center px-4">
-              <Logo />
+              {/* <Logo /> */}
             </div>
             <div className="mt-5 flex flex-grow flex-col">
               <nav aria-label="Sidebar">
