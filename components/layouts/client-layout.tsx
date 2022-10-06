@@ -12,7 +12,7 @@ import { classNames } from '@helpers/utils';
 const ClientLayout = ({ children }: any) => {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [alertModalOpen, setAlertModalOpen] = useState(true);
+  const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = useRouter().route;
 
   useEffect(() => {
