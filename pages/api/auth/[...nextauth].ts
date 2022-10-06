@@ -4,7 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 export const authOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Client',
+      id: "credentials",
+      name: "credentials",
       credentials: {
         email: {
           label: "Email",
@@ -12,11 +13,11 @@ export const authOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials: any) {
         // console.log('authorize init', process.env.STRAPI_URL, credentials);
         if (credentials == null) return null;
         try {
-          const res = await fetch(`${process.env.STRAPI_URL}api/auth/local`, {
+          const res = await fetch(`${process.env.STRAPI_URL}/api/auth/local`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -45,8 +46,6 @@ export const authOptions = {
       if (isSignIn) {
         token.id = user.id;
         token.jwt = user.jwt;
-        console.log('jwt', process.env.STRAPI_TOKEN_NAME, token.jwt);
-        // setCookie(process.env.STRAPI_TOKEN_NAME || 'error-token', token.jwt);
       }
       return Promise.resolve(token);
     },

@@ -3,6 +3,17 @@
 /**
  * @type {import('next').NextConfig}
  **/
+
+const composer = require('next-compose-plugins');
+const runtimeCaching = require('next-pwa/cache');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  // disabled has bug, will fix on next version
+  disable: process.env.NODE_ENV === 'development',
+  register: true,
+  runtimeCaching,
+});
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -27,6 +38,23 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  compiler: {
+    removeConsole: process.env.NODE_ENV !== 'development',
+  },
+  // env: {
+  //   APP_NAME: process.env.APP_NAME,
+  //   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+  //   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+  //   STRAPI_URL: process.env.STRAPI_URL,
+  //   STRAPI_TOKEN_NAME: process.env.STRAPI_TOKEN_NAME,
+  // },
 };
 
-module.exports = nextConfig;
+module.exports = composer(
+	[
+		withPWA,
+	],
+	nextConfig,
+);
+
+// module.exports = nextConfig;

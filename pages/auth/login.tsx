@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
-import Logo, { LogoSize } from "@components/logo";
-import { useRouter } from "next/router";
-// import { deleteCookie } from "cookies-next";
 import Image from "next/image";
+import Logo, { LogoSize } from "@components/logo";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const AppLoginPage = () => {
   const router = useRouter();
@@ -12,20 +11,22 @@ const AppLoginPage = () => {
 
   // deleteCookie('token');
 
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
+  const onSubmit = async (event: any) => {
+    event.preventDefault();
+
     const result = await signIn('credentials', {
       redirect: false,
       callbackUrl: '/app',
-      email: e.target.email.value,
-      password: e.target.password.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
     });
-    console.log('onSubmit', result);
+
+    // console.log('onSubmit', result);
     if (result?.ok && result?.url) {
       router.push(result.url);
       return;
     }
-    alert('Credential is not valid');
+    alert("Either email, password or both is not valid!");
   };
 
   return (
@@ -88,6 +89,7 @@ const AppLoginPage = () => {
                         name="password"
                         type={showPassword?"text":"password"}
                         autoComplete="current-password"
+                        minLength={6}
                         required
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
                       />
