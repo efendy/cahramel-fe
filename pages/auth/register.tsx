@@ -28,7 +28,7 @@ const AppRegisterPage = () => {
 
     if (result) {
       console.log('result', result);
-      router.push('/'); // TODO: send to Thank you for registering, please check your email to confirm.
+      router.push('/auth/complete-registration'); // TODO: send to Thank you for registering, please check your email to confirm.
       return;
     }
   };
