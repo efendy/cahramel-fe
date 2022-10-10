@@ -17,7 +17,7 @@ const AppResetPage = () => {
             <div className="mt-6">
               <div className="relative">
                 <div className="relative flex justify-center">
-                  <span className="bg-white px-2 text-gray-500 text-center">You're all set. You may sign in using your email and password now.</span>
+                  <span className="bg-white px-2 text-gray-500 text-center">You&apos;re all set. You may sign in using your email and password now.</span>
                 </div>
               </div>
 
