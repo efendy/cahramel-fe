@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('api/user/register', req);
   if (req.method === "POST") {
     let result;
     const {first_name, last_name, email, password} = req.body;
