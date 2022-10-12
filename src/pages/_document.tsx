@@ -9,7 +9,11 @@ class MyDocument extends Document {
     }
     return (
       <Html lang={currentLocale}>
-        <Head />
+        <Head>
+          <link rel="manifest" href="/manifest.webmanifest" />
+          <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+          <meta name="theme-color" content="#fff" />
+        </Head>
         <body>
           <Main />
           <NextScript />
