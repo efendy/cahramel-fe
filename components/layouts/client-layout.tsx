@@ -8,10 +8,8 @@ import Logo from '@components/logo';
 import AlertModal from '@components/modals/alert';
 import { getCookies } from 'cookies-next';
 import { classNames } from '@helpers/utils';
-import languageDetector from '@lib/language-detector';
 
 const ClientLayout = ({ children }: any) => {
-  const detectedLng = languageDetector.detect();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
@@ -88,7 +86,7 @@ const ClientLayout = ({ children }: any) => {
                         {APP_NAVIGATION_MAIN.map((item) => (
                           <a
                             key={item.name}
-                            href={`/${detectedLng}${item.href}`}
+                            href={item.href}
                             className={classNames(
                               item.href === currentRoute
                                 ? 'bg-gray-100 text-gray-900'
@@ -115,7 +113,7 @@ const ClientLayout = ({ children }: any) => {
                         {APP_NAVIGATION_MANAGE.map((item) => (
                           <a
                             key={item.name}
-                            href={`/${detectedLng}${item.href}`}
+                            href={item.href}
                             className={classNames(
                               item.href === currentRoute
                                 ? 'bg-gray-100 text-gray-900'
@@ -142,7 +140,7 @@ const ClientLayout = ({ children }: any) => {
                         {APP_NAVIGATION_CONFIGURE.map((item) => (
                           <a
                             key={item.name}
-                            href={`/${detectedLng}${item.href}`}
+                            href={item.href}
                             className={classNames(
                               item.href === currentRoute
                                 ? 'bg-gray-100 text-gray-900'
@@ -178,7 +176,7 @@ const ClientLayout = ({ children }: any) => {
                   {APP_NAVIGATION_MAIN.map((item) => (
                     <a
                       key={item.name}
-                      href={`/${detectedLng}${item.href}`}
+                      href={item.href}
                       className={classNames(
                         item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -203,7 +201,7 @@ const ClientLayout = ({ children }: any) => {
                   {APP_NAVIGATION_MANAGE.map((item) => (
                     <a
                       key={item.name}
-                      href={`/${detectedLng}${item.href}`}
+                      href={item.href}
                       className={classNames(
                         item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -228,7 +226,7 @@ const ClientLayout = ({ children }: any) => {
                   {APP_NAVIGATION_CONFIGURE.map((item) => (
                     <a
                       key={item.name}
-                      href={`/${detectedLng}${item.href}`}
+                      href={item.href}
                       className={classNames(
                         item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-10'
@@ -292,7 +290,7 @@ const ClientLayout = ({ children }: any) => {
                         <Menu.Item key={item.name}>
                           {({ active }) => (
                             <a
-                              href={`/${detectedLng}${item.href}`}
+                              href={item.href}
                               className={classNames(
                                 active ? 'bg-gray-100' : '',
                                 'block px-4 py-2 text-sm text-gray-700'
