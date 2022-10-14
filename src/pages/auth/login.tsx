@@ -4,6 +4,7 @@ import Image from "next/image";
 import Logo, { LogoSize } from "@components/logo";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const AuthLoginPage = () => {
   const router = useRouter();
@@ -31,6 +32,9 @@ const AuthLoginPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Login</title>
+      </Head>
       <div className="flex min-h-full">
         <div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
           <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -40,7 +44,7 @@ const AuthLoginPage = () => {
               <p className="mt-2 text-sm text-gray-600">
                 Don’t have an account?{' '}
                 <Link href="/auth/register">
-                  <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Register</span>
+                  <span className="font-medium text-amber-600 hover:text-amber-500" style={{ cursor: 'pointer' }}>Register</span>
                 </Link>
                 {' '}for free.
               </p>
@@ -72,12 +76,12 @@ const AuthLoginPage = () => {
                     <div className="mt-1 relative block">
                       <span className="absolute inset-y-0 right-0 flex items-center pr-3">
                         <button onClick={() => setShowPassword(!showPassword)} type="button">
-                          {showPassword?(
+                          {showPassword ? (
                             <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                               <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                          ):(
+                          ) : (
                             <svg fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
                             </svg>
@@ -87,7 +91,7 @@ const AuthLoginPage = () => {
                       <input
                         id="password"
                         name="password"
-                        type={showPassword?"text":"password"}
+                        type={showPassword ? "text" : "password"}
                         autoComplete="current-password"
                         minLength={6}
                         required
@@ -111,7 +115,7 @@ const AuthLoginPage = () => {
 
                     <div className="text-sm">
                       <Link href="/auth/forgot">
-                        <span className="font-medium text-amber-600 hover:text-amber-500" style={{cursor: 'pointer'}}>Forgot your password?</span>
+                        <span className="font-medium text-amber-600 hover:text-amber-500" style={{ cursor: 'pointer' }}>Forgot your password?</span>
                       </Link>
                     </div>
                   </div>
@@ -149,11 +153,11 @@ const AuthLoginPage = () => {
                       >
                         <span className="sr-only">Sign in with Google</span>
                         <svg width="24" height="24" viewBox="0 0 24 24">
-                          <path stroke="null" id="svg_1" d="m11.90541,4.71256c1.75605,0 3.32855,0.60519 4.5687,1.78581l3.398,-3.398c-2.0636,-1.91975 -4.7572,-3.10037 -7.9667,-3.10037c-4.65303,0 -8.67606,2.6688 -10.6355,6.55789l3.95855,3.0706c0.93755,-2.82257 3.57162,-4.91594 6.67695,-4.91594z" fill="#EA4335"/>
-                          <path stroke="null" id="svg_2" d="m23.30483,12.17824c0,-0.77881 -0.07441,-1.53282 -0.1885,-2.25707l-11.21092,0l0,4.47445l6.419,0c-0.28771,1.46833 -1.12109,2.7184 -2.37116,3.5617l3.83453,2.97635c2.23722,-2.07352 3.51706,-5.13917 3.51706,-8.75543z" fill="#4285F4"/>
-                          <path stroke="null" id="svg_3" d="m5.2235,14.18231c-0.23811,-0.71928 -0.377,-1.48322 -0.377,-2.27691s0.13394,-1.55762 0.377,-2.27691l-3.95855,-3.0706c-0.80858,1.60723 -1.26495,3.4228 -1.26495,5.34751c0,1.92471 0.45637,3.74028 1.26991,5.34751l3.95359,-3.0706z" fill="#FBBC05"/>
-                          <path stroke="null" id="svg_4" d="m11.90541,23.81081c3.21446,0 5.91798,-1.0566 7.88237,-2.8821l-3.83453,-2.97635c-1.06653,0.71928 -2.44061,1.14093 -4.04784,1.14093c-3.10533,0 -5.7394,-2.09337 -6.68191,-4.91594l-3.95855,3.0706c1.96439,3.89406 5.98743,6.56285 10.64046,6.56285z" fill="#34A853"/>
-                          <path stroke="null" id="svg_5" d="m0,0l23.81081,0l0,23.81081l-23.81081,0l0,-23.81081z" fill="none"/>
+                          <path stroke="null" id="svg_1" d="m11.90541,4.71256c1.75605,0 3.32855,0.60519 4.5687,1.78581l3.398,-3.398c-2.0636,-1.91975 -4.7572,-3.10037 -7.9667,-3.10037c-4.65303,0 -8.67606,2.6688 -10.6355,6.55789l3.95855,3.0706c0.93755,-2.82257 3.57162,-4.91594 6.67695,-4.91594z" fill="#EA4335" />
+                          <path stroke="null" id="svg_2" d="m23.30483,12.17824c0,-0.77881 -0.07441,-1.53282 -0.1885,-2.25707l-11.21092,0l0,4.47445l6.419,0c-0.28771,1.46833 -1.12109,2.7184 -2.37116,3.5617l3.83453,2.97635c2.23722,-2.07352 3.51706,-5.13917 3.51706,-8.75543z" fill="#4285F4" />
+                          <path stroke="null" id="svg_3" d="m5.2235,14.18231c-0.23811,-0.71928 -0.377,-1.48322 -0.377,-2.27691s0.13394,-1.55762 0.377,-2.27691l-3.95855,-3.0706c-0.80858,1.60723 -1.26495,3.4228 -1.26495,5.34751c0,1.92471 0.45637,3.74028 1.26991,5.34751l3.95359,-3.0706z" fill="#FBBC05" />
+                          <path stroke="null" id="svg_4" d="m11.90541,23.81081c3.21446,0 5.91798,-1.0566 7.88237,-2.8821l-3.83453,-2.97635c-1.06653,0.71928 -2.44061,1.14093 -4.04784,1.14093c-3.10533,0 -5.7394,-2.09337 -6.68191,-4.91594l-3.95855,3.0706c1.96439,3.89406 5.98743,6.56285 10.64046,6.56285z" fill="#34A853" />
+                          <path stroke="null" id="svg_5" d="m0,0l23.81081,0l0,23.81081l-23.81081,0l0,-23.81081z" fill="none" />
                         </svg>
                       </a>
                     </div>

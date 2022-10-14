@@ -21,7 +21,7 @@ export const authOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              identifier: credentials?.email, 
+              identifier: credentials?.email,
               password: credentials?.password
             }),
           })
@@ -30,7 +30,7 @@ export const authOptions = {
           if (responseData.error) {
             return null;
           }
-          return { 
+          return {
             ...responseData.user,
             jwt: responseData.jwt
           };
@@ -50,6 +50,9 @@ export const authOptions = {
       return Promise.resolve(token);
     },
   },
+  pages: {
+    signIn: '/auth/login',
+  }
 }
 
 export default NextAuth(authOptions);
