@@ -32,6 +32,7 @@ import { ChevronLeftIcon, EnvelopeIcon, FunnelIcon, MagnifyingGlassIcon, PhoneIc
 import ClientLayout from '@components/layouts/client-layout'
 import Image from 'next/image'
 import { classNames } from '@helpers/utils'
+import Head from 'next/head'
 
 const user = {
   name: 'Tom Cook',
@@ -314,6 +315,9 @@ const team = [
 const AppDirectoryPage = () => {
   return (
     <>
+      <Head>
+        <title>Directory</title>
+      </Head>
       <ClientLayout>
         <div className="relative z-0 flex flex-1 overflow-hidden">
           <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
@@ -468,7 +472,7 @@ const AppDirectoryPage = () => {
             {/* Directory list */}
             <nav className="min-h-0 flex-1 overflow-y-auto" aria-label="Directory">
               {Object.entries(directory).map(([letter, directoryValue]) => (
-              // {Object.keys(directory).map((letter: string) => (
+                // {Object.keys(directory).map((letter: string) => (
                 <div key={letter} className="relative">
                   <div className="sticky top-0 z-10 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
                     <h3>{letter}</h3>

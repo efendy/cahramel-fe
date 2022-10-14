@@ -12,6 +12,7 @@ import SlidePanel from '@components/slide-panels';
 import ApplyLeave from '@components/slide-panels/apply-leave';
 import Image from 'next/image';
 import { classNames } from '@helpers/utils';
+import Head from 'next/head';
 
 const meetings = [
   {
@@ -106,9 +107,12 @@ const AppLeavePage = () => {
     start: startOfMonthDate,
     end: endOfMonthDate,
   });
-  
+
   return (
     <>
+      <Head>
+        <title>Leave</title>
+      </Head>
       <ClientLayout>
         <div className="m-4">
           <div className="sm:flex sm:items-center">
@@ -122,7 +126,7 @@ const AppLeavePage = () => {
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md border border-transparent bg-amber-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto"
-                onClick={() => {setOpen(true);}}
+                onClick={() => { setOpen(true); }}
               >
                 Apply Leave
               </button>
@@ -197,7 +201,7 @@ const AppLeavePage = () => {
                 className="mt-4 mb-4 w-full"
               >
                 {leaveBalances.map((leaveBalance, leaveBalanceIdx) => (
-                  <div 
+                  <div
                     key={leaveBalance.title}
                     className="mb-2 rounded-md bg-white shadow ring-1 ring-gray-100"
                   >

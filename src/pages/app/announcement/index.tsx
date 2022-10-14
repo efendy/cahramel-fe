@@ -1,6 +1,7 @@
 import ClientLayout from "@components/layouts/client-layout";
 import Pagination from "@components/pagination";
 import SlidePanel from "@components/slide-panels";
+import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -72,6 +73,9 @@ const AppAnnouncementPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Announcements</title>
+      </Head>
       <ClientLayout>
         <div className="px-4 mt-4">
           <div className="sm:flex sm:items-center">
@@ -102,8 +106,8 @@ const AppAnnouncementPage = () => {
                     <div className="w-full">
                       <div className="flex justify-between space-x-3">
                         <div className="min-w-0 flex-1">
-                            <p className="truncate text-sm font-medium text-gray-900">{item.sender}</p>
-                            <p className="truncate text-sm text-gray-500">{item.subject}</p>
+                          <p className="truncate text-sm font-medium text-gray-900">{item.sender}</p>
+                          <p className="truncate text-sm text-gray-500">{item.subject}</p>
                         </div>
                         <time dateTime={item.datetime} className="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">
                           {item.time}

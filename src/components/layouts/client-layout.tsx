@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import { APP_NAVIGATION_CONFIGURE, APP_NAVIGATION_MAIN, APP_NAVIGATION_MANAGE, APP_NAVIGATION_USER } from '@helpers/navigation';
 import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -6,28 +6,15 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Logo from '@components/logo';
 import AlertModal from '@components/modals/alert';
-import { getCookies } from 'cookies-next';
 import { classNames } from '@helpers/utils';
+import Link from 'next/link';
+import { signOut } from 'next-auth/react';
 
 const ClientLayout = ({ children }: any) => {
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = router.route;
-
-  useEffect(() => {
-    // next-auth.session-token
-    const cookie = getCookies({
-      path: '/',
-      httpOnly: true,
-      sameSite: 'lax',
-      domain: 'localhost'
-    });
-    console.log('cookie', cookie);
-    // if (!cookie) {
-    //   router.push('/auth/login');
-    // }
-  }, [router]);
 
   return (
     <>
@@ -84,25 +71,25 @@ const ClientLayout = ({ children }: any) => {
                     <nav aria-label="Sidebar" className="mt-5">
                       <div className="space-y-1 px-2">
                         {APP_NAVIGATION_MAIN.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.href === currentRoute
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                              'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                            )}
-                          >
-                            <item.icon
+                          <Link key={item.name} href={'/app'}>
+                            <a
                               className={classNames(
-                                item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                'mr-4 flex-shrink-0 h-6 w-6'
+                                item.href === currentRoute
+                                  ? 'bg-gray-100 text-gray-900'
+                                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                               )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </a>
+                            >
+                              <item.icon
+                                className={classNames(
+                                  item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                  'mr-4 flex-shrink-0 h-6 w-6'
+                                )}
+                                aria-hidden="true"
+                              />
+                              {item.name}
+                            </a>
+                          </Link>
                         ))}
                       </div>
                       <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
@@ -111,25 +98,26 @@ const ClientLayout = ({ children }: any) => {
                       </p>
                       <div className="space-y-1 px-2">
                         {APP_NAVIGATION_MANAGE.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.href === currentRoute
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                              'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                            )}
-                          >
-                            <item.icon
+                          <Link key={item.name}
+                            href={item.href}>
+                            <a
                               className={classNames(
-                                item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                'mr-4 flex-shrink-0 h-6 w-6'
+                                item.href === currentRoute
+                                  ? 'bg-gray-100 text-gray-900'
+                                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                               )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </a>
+                            >
+                              <item.icon
+                                className={classNames(
+                                  item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                  'mr-4 flex-shrink-0 h-6 w-6'
+                                )}
+                                aria-hidden="true"
+                              />
+                              {item.name}
+                            </a>
+                          </Link>
                         ))}
                       </div>
                       <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
@@ -138,18 +126,19 @@ const ClientLayout = ({ children }: any) => {
                       </p>
                       <div className="space-y-1 px-2">
                         {APP_NAVIGATION_CONFIGURE.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={classNames(
-                              item.href === currentRoute
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                              'group flex items-center px-2 py-2 text-base font-medium rounded-md pl-11'
-                            )}
-                          >
-                            {item.name}
-                          </a>
+                          <Link key={item.name}
+                            href={item.href}>
+                            <a
+                              className={classNames(
+                                item.href === currentRoute
+                                  ? 'bg-gray-100 text-gray-900'
+                                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                'group flex items-center px-2 py-2 text-base font-medium rounded-md pl-11'
+                              )}
+                            >
+                              {item.name}
+                            </a>
+                          </Link>
                         ))}
                       </div>
                     </nav>
@@ -174,23 +163,23 @@ const ClientLayout = ({ children }: any) => {
               <nav aria-label="Sidebar">
                 <div className="flex-1 space-y-1 px-2">
                   {APP_NAVIGATION_MAIN.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
+                    <Link key={item.name}
+                      href={item.href}>
+                      <a className={classNames(
                         item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                       )}
-                    >
-                      <item.icon
-                        className={classNames(
-                          item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                          'mr-3 flex-shrink-0 h-6 w-6'
-                        )}
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
+                      >
+                        <item.icon
+                          className={classNames(
+                            item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                            'mr-3 flex-shrink-0 h-6 w-6'
+                          )}
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </a>
+                    </Link>
                   ))}
                 </div>
                 <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
@@ -199,23 +188,24 @@ const ClientLayout = ({ children }: any) => {
                 </p>
                 <div className="flex-1 space-y-1 px-2">
                   {APP_NAVIGATION_MANAGE.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
-                        item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                      )}
-                    >
-                      <item.icon
+                    <Link key={item.name}
+                      href={item.href}>
+                      <a
                         className={classNames(
-                          item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                          'mr-3 flex-shrink-0 h-6 w-6'
+                          item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                          'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                         )}
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </a>
+                      >
+                        <item.icon
+                          className={classNames(
+                            item.href === currentRoute ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                            'mr-3 flex-shrink-0 h-6 w-6'
+                          )}
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </a>
+                    </Link>
                   ))}
                 </div>
                 <hr className="my-5 border-t border-gray-200" aria-hidden="true" />
@@ -224,16 +214,16 @@ const ClientLayout = ({ children }: any) => {
                 </p>
                 <div className="flex-1 space-y-1 px-2">
                   {APP_NAVIGATION_CONFIGURE.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className={classNames(
+                    <Link key={item.name}
+                      href={item.href}>
+                      <a className={classNames(
                         item.href === currentRoute ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md pl-10'
                       )}
-                    >
-                      {item.name}
-                    </a>
+                      >
+                        {item.name}
+                      </a>
+                    </Link>
                   ))}
                 </div>
               </nav>
@@ -286,21 +276,18 @@ const ClientLayout = ({ children }: any) => {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      {APP_NAVIGATION_USER.map((item) => (
-                        <Menu.Item key={item.name}>
-                          {({ active }) => (
-                            <a
-                              href={item.href}
-                              className={classNames(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700'
-                              )}
-                            >
-                              {item.name}
-                            </a>
-                          )}
-                        </Menu.Item>
-                      ))}
+                      <Menu.Item key={'profile'}>
+                        <Link href={"/user"}>
+                          <a className={'block px-4 py-2 text-sm text-gray-700'}>
+                            Your Profile
+                          </a>
+                        </Link>
+                      </Menu.Item>
+                      <Menu.Item key={'signOut'}>
+                        <div className='cursor-pointer w-full block px-4 py-2 text-sm text-gray-700' onClick={() => signOut()}>
+                          Sign Out
+                        </div>
+                      </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -313,7 +300,7 @@ const ClientLayout = ({ children }: any) => {
           </main>
         </div>
       </div>
-      <AlertModal open={alertModalOpen} setOpen={setAlertModalOpen}/>
+      <AlertModal open={alertModalOpen} setOpen={setAlertModalOpen} />
     </>
   )
 };
