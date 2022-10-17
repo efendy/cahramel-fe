@@ -5,16 +5,17 @@ import { useEffect } from "react";
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { status } = useSession();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
+    console.log('EF session', session);
     if (status === "unauthenticated") {
       router.push(`/auth/login`);
     }
     if (status === "authenticated") {
       router.push(`/app`);
     }
-  }, [router, status]);
+  }, [router, status, session]);
 
   return (
     <></>

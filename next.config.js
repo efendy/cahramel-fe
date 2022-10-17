@@ -8,7 +8,6 @@ const withPWA = require('next-pwa')({
   dest: 'public',
 });
 
-
  // @ts-ignore
  const nextConfig = withPWA({
   reactStrictMode: true,
