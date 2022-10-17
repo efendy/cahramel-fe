@@ -31,8 +31,11 @@ export const authOptions = {
             return null;
           }
           return {
-            ...responseData.user,
-            jwt: responseData.jwt
+            email: {
+              ...responseData.user,
+              jwt: responseData.jwt,
+            },
+            jwt: responseData.jwt,
           };
         } catch (error) {
           return null;
