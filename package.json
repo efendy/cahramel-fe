@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next build && next export",
-    "serve": "serve out"
+    "serve": "serve out",
+    "compile": "next lint && tsc"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.2",
