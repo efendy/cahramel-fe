@@ -5,9 +5,11 @@
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@helpers/*": ["src/helpers/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "@lib/*": ["src/lib/*"],
       "@types/*": ["src/types/*"],
-      "@api/*": ["src/api/*"]
+      "@api/*": ["src/api/*"],
+      "@utils/*": ["src/utils/*"]
     }
   }
 }
