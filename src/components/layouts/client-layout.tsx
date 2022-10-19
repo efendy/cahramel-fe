@@ -15,10 +15,8 @@ import Logo from '@components/logo';
 import AlertModal from '@components/modals/alert';
 import { classNames } from '@helpers/utils';
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { UserProfileType } from '@interfaces/user-profile';
 import { UserMenu } from './user-menu';
+import { useGetProfile } from '@queries/use-user';
 
 interface IClientLayout {
   children: JSX.Element;
@@ -30,14 +28,25 @@ const ClientLayout = memo((props: IClientLayout) => {
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = router.route;
 
-  const { data, isLoading } = useQuery<UserProfileType>(
-    ['user'],
-    async () => await axios.get('/api/user/profile').then(({ data }) => data),
-  );
+  const { data, isLoading } = useGetProfile()
+
 
   const userRole = data?.contract?.access_role;
 
-  console.log(userRole, isLoading);
+  // if (!isLoading && !data?.id) {
+  //   //TODO: setup 1
+  //   return <div className='text-center mt-10 font-semibold'>Please setup your profile through cms</div>
+  // }
+
+  if (!isLoading && !data?.contract) {
+    return (
+      <div className='max-w-5xl mx-auto px-4 lg:px-2 xl:px-0 py-2 relative'>
+        <div className='absolute right-0'>
+          <UserMenu />
+        </div>
+        <div className='text-center mt-10 font-semibold'>Please setup your profile through cms</div>
+      </div>)
+  }
 
   return (
     <>

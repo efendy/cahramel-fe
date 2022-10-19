@@ -59,7 +59,7 @@ export const UserMenu = () => {
                             />
                             <div className='ml-2'>
                                 <div>
-                                    {`${user.email.first_name} ${user.email.last_name}`}
+                                    {`${user?.email?.first_name} ${user?.email?.last_name}`}
                                 </div>
                                 {/* <div>
                                     {`${user.email.email}`}

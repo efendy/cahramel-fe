@@ -1,3 +1,4 @@
+import { client } from '@utils/api-client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -22,25 +23,19 @@ const nextAuthOptions: NextAuthOptionsCallback = (req, res) => {
           // console.log('authorize init', process.env.STRAPI_URL, credentials);
           if (credentials == null) return null;
           try {
-            const res = await fetch(`${process.env.STRAPI_URL}/api/auth/local`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
+            const responseData = await client('auth/local', 'POST', {
+              data: {
                 identifier: credentials?.email,
                 password: credentials?.password
-              }),
+              }
             })
-            const responseData = await res.json();
-            // console.log('authorize responseData', responseData);
             if (responseData.error) {
               return null;
             }
             return {
-              email: {
-                ...responseData.user,
-                jwt: responseData.jwt,
-              },
               jwt: responseData.jwt,
+              id: responseData.user?.id,
+              user: responseData.user,
             };
           } catch (error) {
             return null;
@@ -49,12 +44,17 @@ const nextAuthOptions: NextAuthOptionsCallback = (req, res) => {
       }),
     ],
     callbacks: {
-      jwt: async ({ token, user }: any) => {
+      jwt: async (params) => {
+        // console.log('---start---')
+        // console.log('paramss', params)
+        // console.log('---end---')
+        const user = params.user;
+        const token = params.token
         const isSignIn = user ? true : false;
         if (isSignIn) {
           console.log('here')
-          token.id = user.id;
-          token.jwt = user.jwt;
+          token.id = user?.id;
+          token.accessToken = user?.jwt;
         }
         // checking and add new cookies to allow account switch
         const userCookies = parseCookies({ req })['loggedUsers']
@@ -63,11 +63,16 @@ const nextAuthOptions: NextAuthOptionsCallback = (req, res) => {
             email: string
           }
         }[] : [];
-        const filterUser = loggedUsers?.filter(x => x.email.email !== token.email.email);
+        const filterUser = loggedUsers?.filter(x => x?.email?.email !== token?.email);
         const newCookies = JSON.stringify([...filterUser, token])
         setCookie({ res }, 'loggedUsers', newCookies, { path: '/' })
         return Promise.resolve(token);
       },
+      async session({ session, token }) {
+        session.id = token.id
+        session.accessToken = token.accessToken
+        return session
+      }
     },
     pages: {
       signIn: '/auth/login',

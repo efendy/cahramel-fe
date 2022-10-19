@@ -2,9 +2,6 @@ import { UserProfileType } from "@interfaces/user-profile";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-
-
-
 export const useGetProfile = () => {
     const result = useQuery<UserProfileType>(
         ['user'],
