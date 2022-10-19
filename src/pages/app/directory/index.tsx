@@ -1,23 +1,4 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
 import {
-  Bars3Icon,
   CalendarIcon,
   CogIcon,
   HomeIcon,
@@ -26,31 +7,14 @@ import {
   MegaphoneIcon,
   SquaresPlusIcon,
   UserGroupIcon,
-  XMarkIcon,
+
 } from '@heroicons/react/24/outline'
-import { ChevronLeftIcon, EnvelopeIcon, FunnelIcon, MagnifyingGlassIcon, PhoneIcon } from '@heroicons/react/20/solid'
+import { ChevronLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import ClientLayout from '@components/layouts/client-layout'
 import Image from 'next/image'
 import { classNames } from '@helpers/utils'
 import Head from 'next/head'
 
-const user = {
-  name: 'Tom Cook',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-const APP_NAVIGATION_MAIN = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Teams', href: '#', icon: UserGroupIcon, current: false },
-  { name: 'Directory', href: '#', icon: MagnifyingGlassCircleIcon, current: true },
-  { name: 'Announcements', href: '#', icon: MegaphoneIcon, current: false },
-  { name: 'Office Map', href: '#', icon: MapIcon, current: false },
-]
-const APP_NAVIGATION_MANAGE = [
-  { name: 'Apps', href: '#', icon: SquaresPlusIcon },
-  { name: 'Settings', href: '#', icon: CogIcon },
-]
 const tabs = [
   { name: 'Profile', href: '#', current: true },
   { name: 'Calendar', href: '#', current: false },

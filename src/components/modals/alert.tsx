@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 import { signOut } from 'next-auth/react';
@@ -8,7 +8,7 @@ export interface AlertModalProps {
   setOpen(open: boolean): void;
 }
 
-const AlertModal = ({open, setOpen}: AlertModalProps) => {
+const AlertModal = ({ open, setOpen }: AlertModalProps) => {
   if (!open) open = false;
   const cancelButtonRef = useRef(null);
 

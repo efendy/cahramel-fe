@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { stringify } from 'querystring';
 
 type Data = {
   name: string

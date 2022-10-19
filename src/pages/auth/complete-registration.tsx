@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useState } from "react";
 import Logo, { LogoSize } from "@components/logo";
 
 const AuthCompleteRegistrationPage = () => {
@@ -20,7 +19,7 @@ const AuthCompleteRegistrationPage = () => {
                 </div>
               </div>
               <div className="mt-6">
-                <div 
+                <div
                   className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
                 >
                   <Link href="/auth/login">Back to Sign in</Link>

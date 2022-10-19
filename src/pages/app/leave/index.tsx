@@ -200,7 +200,7 @@ const AppLeavePage = () => {
               <div
                 className="mt-4 mb-4 w-full"
               >
-                {leaveBalances.map((leaveBalance, leaveBalanceIdx) => (
+                {leaveBalances.map((leaveBalance) => (
                   <div
                     key={leaveBalance.title}
                     className="mb-2 rounded-md bg-white shadow ring-1 ring-gray-100"

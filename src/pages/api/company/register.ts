@@ -2,14 +2,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    const {firstName, lastName, email, password} = req.body;
+    const { firstName, lastName } = req.body;
     try {
-      return res.status(200).end({firstName, lastName});
+      return res.status(200).end({ firstName, lastName });
     } catch (err: any) {
-      return res.status(503).json({error: err.toString()});
+      return res.status(503).json({ error: err.toString() });
     }
   } else {
-    return res.status(405).json({error: "This request only supports POST requests"});
+    return res.status(405).json({ error: "This request only supports POST requests" });
   }
 };
 
