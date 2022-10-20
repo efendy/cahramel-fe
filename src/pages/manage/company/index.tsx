@@ -1,10 +1,14 @@
 import { CompanyForm } from "@components/components/company/form";
 import ClientLayout from "@components/layouts/client-layout";
+import Head from "next/head";
 
 const ManageCompanyPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Manage / Company</title>
+      </Head>
       <ClientLayout>
         <div className="px-4 mt-4">
           <div className="sm:flex sm:items-center">
@@ -16,7 +20,7 @@ const ManageCompanyPage = () => {
             </div>
           </div>
           <div className="mt-6 mb-12">
-            <form className="space-y-8 divide-y divide-gray-200">
+            <div className="space-y-8 divide-y divide-gray-200">
               <div className="space-y-8 divide-y divide-gray-200">
 
                 <CompanyForm />
@@ -275,7 +279,7 @@ const ManageCompanyPage = () => {
                   </button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </ClientLayout>

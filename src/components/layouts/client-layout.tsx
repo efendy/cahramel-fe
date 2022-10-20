@@ -27,18 +27,14 @@ const ClientLayout = memo((props: IClientLayout) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = router.route;
-
   const { data, isLoading } = useGetProfile()
 
 
-  const userRole = data?.contract?.access_role;
+  const userRole = data?.user_contract?.access_role;
 
-  // if (!isLoading && !data?.id) {
-  //   //TODO: setup 1
-  //   return <div className='text-center mt-10 font-semibold'>Please setup your profile through cms</div>
-  // }
 
-  if (!isLoading && !data?.contract) {
+  if (!isLoading && !data?.user_contract) {
+    //step 2
     return (
       <div className='max-w-5xl mx-auto px-4 lg:px-2 xl:px-0 py-2 relative'>
         <div className='absolute right-0'>
@@ -47,6 +43,8 @@ const ClientLayout = memo((props: IClientLayout) => {
         <div className='text-center mt-10 font-semibold'>Please setup your profile through cms</div>
       </div>)
   }
+
+  //step 3 for assign contract?
 
   return (
     <>

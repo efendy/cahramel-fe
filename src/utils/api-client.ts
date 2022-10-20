@@ -12,7 +12,7 @@ const queryCache = new QueryCache({
 
 async function client(
     endpoint: string,
-    method: "GET" | "POST" | "PUT",
+    method: "GET" | "POST" | "PUT" | "DELETE",
     { data, token, headers: customHeaders, ...customConfig }: { data?: any, token?: string | null, headers?: any } & RequestInit = {},
 ) {
     const config: RequestInit = {
@@ -44,13 +44,12 @@ async function client(
 }
 
 async function queryClient(endpoint: string,
-    method: "GET" | "POST" | "PUT",
+    method: "GET" | "POST" | "PUT" | "DELETE",
     { data, withToken, headers, ...customConfig }: Parameters<typeof client>['2'] & { withToken?: boolean }) {
     let token: null | string = null;
     if (withToken) {
         const session = await getSession();
         token = session?.accessToken as string
-        console.log('toknee', session)
     }
     return await client(endpoint, method, {
         data: data,
