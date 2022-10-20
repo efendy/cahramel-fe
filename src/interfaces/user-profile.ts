@@ -1,22 +1,7 @@
+import { ImageType } from "./common";
+import { UserContractType } from "./user-contract";
 
-
-export interface ContractType {
-    date_start: string;
-    date_end: string;
-    createdAt: Date;
-    updatedAt: Date;
-    email_address: string;
-    access_role: 'owner' | 'admin' | 'user';
-    employee_id: string;
-    is_draft: boolean;
-    onboarding_status: string;
-    offboarding_status: string;
-    complete_onboarding_by: string;
-    complete_offboarding_by?: string;
-    id: number;
-}
-
-export interface UserProfileType {
+export interface UserProfileAttributes {
     first_name: string;
     createdAt: Date;
     updatedAt: Date;
@@ -29,35 +14,17 @@ export interface UserProfileType {
     nationality?: string;
     race: string;
     religion: string;
+    user_contracts: {
+        data: UserContractType[] | null
+    };
+    image_profile: {
+        data: ImageType | null
+    };
+}
+
+export interface UserProfileType {
     id: number;
-    contract: ContractType;
+    attributes: UserProfileAttributes;
 }
-
-
-
-
-interface Email {
-    id: number;
-    username: string;
-    email: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    external_data?: any;
-    createdAt: Date;
-    updatedAt: Date;
-    first_name: string;
-    last_name: string;
-    jwt: string;
-}
-
-export interface UserCookieType {
-    email: Email;
-    jwt: string;
-    iat: number;
-    exp: number;
-    jti: string;
-}
-
 
 

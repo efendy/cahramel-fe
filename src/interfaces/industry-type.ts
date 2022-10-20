@@ -11,11 +11,3 @@ export interface IndustryType {
 }
 
 
-// export interface IndustryType {
-//     data: Datum[];
-//     meta: {
-//         meta: PaginationType
-//     }
-// }
-
-
