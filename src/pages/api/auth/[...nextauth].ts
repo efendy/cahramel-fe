@@ -52,20 +52,20 @@ const nextAuthOptions: NextAuthOptionsCallback = (req, res) => {
         const token = params.token
         const isSignIn = user ? true : false;
         if (isSignIn) {
-          console.log('here')
           token.id = user?.id;
           token.accessToken = user?.jwt;
         }
         // checking and add new cookies to allow account switch
-        const userCookies = parseCookies({ req })['loggedUsers']
-        const loggedUsers = userCookies ? JSON.parse(userCookies) as {
-          email: {
-            email: string
-          }
-        }[] : [];
-        const filterUser = loggedUsers?.filter(x => x?.email?.email !== token?.email);
-        const newCookies = JSON.stringify([...filterUser, token])
-        setCookie({ res }, 'loggedUsers', newCookies, { path: '/' })
+        // const userCookies = parseCookies({ req })['loggedUsers']
+        // const loggedUsers = userCookies ? JSON.parse(userCookies) as {
+        //   email: {
+        //     email: string
+        //   }
+        // }[] : [];
+        // console.log('new cookies >', token)
+        // const filterUser = loggedUsers?.filter(x => x?.email?.email !== token?.email);
+        // const newCookies = JSON.stringify([...filterUser, token])
+        // setCookie({ res }, 'loggedUsers', newCookies, { path: '/' })
         return Promise.resolve(token);
       },
       async session({ session, token }) {
