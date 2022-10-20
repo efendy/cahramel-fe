@@ -3,9 +3,9 @@ import { Menu, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link'
 import { signOut } from 'next-auth/react';
-import { getCookieUsers } from '@utils/cookie-user';
+// import { getCookieUsers } from '@utils/cookie-user';
 
-const users = getCookieUsers()
+// const users = getCookieUsers()
 export const UserMenu = () => {
 
     return (
@@ -46,7 +46,7 @@ export const UserMenu = () => {
                             Sign Out
                         </div>
                     </Menu.Item>
-                    <hr />
+                    {/* <hr />
                     <div className='text-sm px-4 py-2 text-gray-700'>Other Profiles</div>
                     {users.map(user => (
                         <div className='text-xs cursor-pointer flex items-center px-4 py-2'>
@@ -61,15 +61,9 @@ export const UserMenu = () => {
                                 <div>
                                     {`${user?.email?.first_name} ${user?.email?.last_name}`}
                                 </div>
-                                {/* <div>
-                                    {`${user.email.email}`}
-                                </div> */}
                             </div>
                         </div>
-                    ))}
-                    {/* <Menu.Item key={''}>
-
-                    </Menu.Item> */}
+                    ))} */}
                 </Menu.Items>
             </Transition>
         </Menu >
