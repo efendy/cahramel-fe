@@ -59,6 +59,35 @@ async function queryClient(endpoint: string,
     })
 }
 
-export { client, queryClient }
+async function uploadFiles(files: Blob[]): Promise<{
+    id: number
+}[]> {
+    if (files.length === 0) {
+        return []
+    }
+    const formData = new FormData();
+    for (const file of files) {
+        formData.append('files', file)
+    };
+
+    const session = await getSession();
+    const options: RequestInit = {
+        method: 'POST',
+        body: formData,
+        headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+        },
+    };
+    const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/upload`, options);
+    const data = await response.json()
+    if (response.ok) {
+        return data
+    } else {
+        return Promise.reject(data)
+    }
+}
+
+export { client, queryClient, uploadFiles }
+
 
 
