@@ -1,7 +1,8 @@
-import { UserCookieType } from '@interfaces/user-profile';
-import nookies from 'nookies';
+// import { UserCookieType } from '@interfaces/user-profile';
+// import nookies from 'nookies';
 
-export const getCookieUsers = (): UserCookieType[] => {
-    const cookies = nookies.get()['loggedUsers'];
-    return cookies ? JSON.parse(cookies) : []
+export const getCookieUsers = () => {
+    return []
+    // const cookies = nookies.get()['loggedUsers'];
+    // return cookies ? JSON.parse(cookies) : []
 }
