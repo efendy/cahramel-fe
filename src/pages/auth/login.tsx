@@ -147,9 +147,9 @@ const AuthLoginPage = () => {
                 <div>
                   <div className="mt-6">
                     <div>
-                      <a
-                        href="#"
-                        className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+                      <div
+                        onClick={() => signIn('google', { callbackUrl: '/app' })}
+                        className="cursor-pointer inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
                       >
                         <span className="sr-only">Sign in with Google</span>
                         <svg width="24" height="24" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@ const AuthLoginPage = () => {
                           <path stroke="null" id="svg_4" d="m11.90541,23.81081c3.21446,0 5.91798,-1.0566 7.88237,-2.8821l-3.83453,-2.97635c-1.06653,0.71928 -2.44061,1.14093 -4.04784,1.14093c-3.10533,0 -5.7394,-2.09337 -6.68191,-4.91594l-3.95855,3.0706c1.96439,3.89406 5.98743,6.56285 10.64046,6.56285z" fill="#34A853" />
                           <path stroke="null" id="svg_5" d="m0,0l23.81081,0l0,23.81081l-23.81081,0l0,-23.81081z" fill="none" />
                         </svg>
-                      </a>
+                      </div>
                     </div>
 
                   </div>
