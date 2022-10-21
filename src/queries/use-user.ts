@@ -1,4 +1,4 @@
-import { UserProfileType } from "@interfaces/user-profile";
+import { UserProfileAttributes, UserProfileType } from "@interfaces/user-profile";
 import { useQuery } from "@tanstack/react-query";
 import { queryClient } from "@utils/api-client";
 
@@ -38,5 +38,35 @@ const getUser = async () => {
             user_contract,
             id: queryData.id
         };
+    })
+}
+
+type ProfileByCompanyOmit = Omit<UserProfileAttributes, 'user_contracts'>
+type ProfileByCompanyType = {
+    id: number;
+    attributes: ProfileByCompanyOmit
+}[]
+/**
+ * 
+ * @param id as company's id
+ */
+export const useGetProfileByCompany = (id: number) => {
+    const result = useQuery(
+        ['company-users'],
+        async () => await getProfileByCompany(id),
+    );
+    return result
+};
+
+const getProfileByCompany = async (id: number) => {
+    return queryClient(`user-profiles?filters[registered_companies]=${id}&populate[]=image_profile`, 'GET', { withToken: true }).then(data => {
+        const queryData = data?.data as ProfileByCompanyType;
+        if (!data?.data) {
+            return []
+        }
+        return queryData.map(q => ({
+            ...q.attributes,
+            id: q.id
+        }))
     })
 }

@@ -2,11 +2,11 @@ import { client } from '@utils/api-client';
 import { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { parseCookies, setCookie } from 'nookies'
+import GoogleProvider from 'next-auth/providers/google'
 
 type NextAuthOptionsCallback = (req: NextApiRequest, res: NextApiResponse) => NextAuthOptions
 
-const nextAuthOptions: NextAuthOptionsCallback = (req, res) => {
+const nextAuthOptions: NextAuthOptionsCallback = () => {
   return {
     providers: [
       CredentialsProvider({
@@ -42,18 +42,25 @@ const nextAuthOptions: NextAuthOptionsCallback = (req, res) => {
           }
         },
       }),
+      GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID as string,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      }),
     ],
     callbacks: {
-      jwt: async (params) => {
-        // console.log('---start---')
-        // console.log('paramss', params)
-        // console.log('---end---')
-        const user = params.user;
-        const token = params.token
-        const isSignIn = user ? true : false;
-        if (isSignIn) {
+      jwt: async ({ token, user, account }) => {
+        const isGoogle = account?.provider === 'google'
+        if (user && !isGoogle) {
           token.id = user?.id;
           token.accessToken = user?.jwt;
+        }
+        if (user && isGoogle) {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/auth/${account.provider}/callback?access_token=${account?.access_token}`
+          );
+          const data = await response.json();
+          token.id = data.user.id;
+          token.accessToken = data.jwt;
         }
         // checking and add new cookies to allow account switch
         // const userCookies = parseCookies({ req })['loggedUsers']
@@ -72,7 +79,10 @@ const nextAuthOptions: NextAuthOptionsCallback = (req, res) => {
         session.id = token.id
         session.accessToken = token.accessToken
         return session
-      }
+      },
+      async signIn() {
+        return true
+      },
     },
     pages: {
       signIn: '/auth/login',
