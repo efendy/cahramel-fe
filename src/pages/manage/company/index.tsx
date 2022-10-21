@@ -1,4 +1,4 @@
-import { CompanyForm } from "@components/components/company/form";
+import { CompanyForm } from "@components/components/company/edit-company";
 import ClientLayout from "@components/layouts/client-layout";
 import Head from "next/head";
 
