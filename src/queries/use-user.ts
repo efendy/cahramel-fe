@@ -23,8 +23,8 @@ const getUser = async () => {
             const contract = attributes?.user_contracts?.data[0];
             const contractA = contract.attributes;
             const companyProfile = {
-                ...contractA.company_profile.data?.attributes,
-                id: contractA.company_profile.data?.id
+                ...contractA?.company_profile?.data?.attributes,
+                id: contractA?.company_profile?.data?.id
             }
 
             user_contract = {
