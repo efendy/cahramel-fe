@@ -5,12 +5,13 @@ import Logo, { LogoSize } from "@components/logo";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import toast, { Toaster } from "react-hot-toast";
+import { linkUser } from "@queries/use-user-contract";
 
 const AuthLoginPage = () => {
   const router = useRouter();
+  const code = router.query?.code
   const [showPassword, setShowPassword] = useState(false);
-
-  // deleteCookie('token');
 
   const onSubmit = async (event: any) => {
     event.preventDefault();
@@ -22,12 +23,15 @@ const AuthLoginPage = () => {
       password: event.target.password.value,
     });
 
-    // console.log('onSubmit', result);
-    if (result?.ok && result?.url) {
-      router.push(result.url);
+    if (!result?.ok || !result?.url) {
+      console.log('here err', result?.ok)
+      toast.error('Either email, password or both is not valid!')
       return;
     }
-    alert("Either email, password or both is not valid!");
+    if (code) {
+      await linkUser(code as string)
+    }
+    router.push(result.url);
   };
 
   return (
@@ -41,13 +45,13 @@ const AuthLoginPage = () => {
             <div>
               <Logo size={LogoSize.lg} />
               <h2 className="mt-6 text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-              <p className="mt-2 text-sm text-gray-600">
+              {/* <p className="mt-2 text-sm text-gray-600">
                 Don’t have an account?{' '}
                 <Link href="/auth/register">
                   <span className="font-medium text-amber-600 hover:text-amber-500" style={{ cursor: 'pointer' }}>Register</span>
                 </Link>
                 {' '}for free.
-              </p>
+              </p> */}
             </div>
 
             <div className="mt-8">
@@ -130,11 +134,7 @@ const AuthLoginPage = () => {
                   </div>
                 </form>
               </div>
-
-
               <div>
-
-
                 <div className="relative mt-6">
                   <div className="absolute inset-0 flex items-center" aria-hidden="true">
                     <div className="w-full border-t border-gray-300" />
@@ -148,7 +148,7 @@ const AuthLoginPage = () => {
                   <div className="mt-6">
                     <div>
                       <div
-                        onClick={() => signIn('google', { callbackUrl: '/app' })}
+                        onClick={() => signIn('google', { callbackUrl: code ? `/auth/invite?code=${code}` : '/app' })}
                         className="cursor-pointer inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
                       >
                         <span className="sr-only">Sign in with Google</span>
@@ -179,6 +179,7 @@ const AuthLoginPage = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   )
 };
