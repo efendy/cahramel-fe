@@ -1,6 +1,7 @@
-import { CompanyForm } from "@components/components/company/edit-company";
+import { CompanyForm } from "@components/company/edit-company";
 import ClientLayout from "@components/layouts/client-layout";
 import Head from "next/head";
+import { Toaster } from "react-hot-toast";
 
 const ManageCompanyPage = () => {
 
@@ -283,6 +284,7 @@ const ManageCompanyPage = () => {
           </div>
         </div>
       </ClientLayout>
+      <Toaster />
       {/* <SlidePanel open={open} setOpen={setOpen} title={"Draft User"} subtitle={"Every moment is a fresh beginning."}>
       </SlidePanel> */}
     </>
