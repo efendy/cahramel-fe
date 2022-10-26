@@ -3,10 +3,10 @@ import { IndustryType } from "./industry-type";
 export interface JobTitleAttributes {
     title: string;
     description: string;
-    industry_type: {
+    industry_type?: {
         data?: IndustryType
     };
-    parents: {
+    parents?: {
         data?: JobTitleType
     }
 }

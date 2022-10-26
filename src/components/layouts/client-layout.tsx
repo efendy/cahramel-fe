@@ -17,6 +17,7 @@ import { classNames } from '@helpers/utils';
 import Link from 'next/link';
 import { UserMenu } from './user-menu';
 import { useGetProfile } from '@queries/use-user';
+import { Toaster } from 'react-hot-toast';
 
 interface IClientLayout {
   children: JSX.Element;
@@ -316,6 +317,7 @@ const ClientLayout = memo((props: IClientLayout) => {
         </div>
       </div>
       <AlertModal open={alertModalOpen} setOpen={setAlertModalOpen} />
+      <Toaster />
     </>
   );
 });

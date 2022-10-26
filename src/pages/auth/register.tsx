@@ -1,38 +1,60 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Logo, { LogoSize } from "@components/logo";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Head from "next/head";
+import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { linkPublicUser } from "@queries/use-user-contract";
+
+type FormValues = {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+}
 
 const AuthRegisterPage = () => {
   const router = useRouter();
+  const query = router.query
   const [showPassword, setShowPassword] = useState(false);
+  const { register, handleSubmit, reset } = useForm<FormValues>();
 
-  // deleteCookie('token');
-
-  const onSubmit = async (event: any) => {
-    event.preventDefault();
-
-    let result;
+  const onSubmit = handleSubmit(async (data) => {
     try {
-      result = await axios.post('/api/user/register', {
-        first_name: event.target.first_name.value,
-        last_name: event.target.last_name.value,
-        email: event.target.email.value,
-        password: event.target.password.value,
-      });
-    } catch (error: any) {
-      alert(error.response.data.error.message);
-    }
+      const { data: result } = await axios.post('/api/user/register', data);
+      if (!result || !result?.user) {
+        throw new Error('Something went wrong')
+      }
+      if (query?.code) {
+        const user = result.user;
+        const postData = {
+          code: query.code,
+          email: user.email,
+          user_id: user.id
 
-    if (result) {
-      console.log('result', result);
+        };
+        await linkPublicUser(postData)
+      }
       router.push('/auth/complete-registration'); // TODO: send to Thank you for registering, please check your email to confirm.
+    } catch (error: any) {
+      toast.error(error.response?.data?.error?.message)
+    }
+  });
+
+  useEffect(() => {
+    if (!query?.first_name || !query?.last_name || !query?.email || !query?.code) {
       return;
     }
-  };
+    if (query?.code) {
+      toast('Please register to accept invitation')
+    }
+
+    reset(query)
+  }, [query, reset])
+
 
   return (
     <>
@@ -64,9 +86,10 @@ const AuthRegisterPage = () => {
                     <div className="mt-1">
                       <input
                         id="first_name"
-                        name="first_name"
+                        {...register('first_name')}
                         type="text"
                         required
+                        autoFocus
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
                       />
                     </div>
@@ -79,7 +102,7 @@ const AuthRegisterPage = () => {
                     <div className="mt-1">
                       <input
                         id="last_name"
-                        name="last_name"
+                        {...register('last_name')}
                         type="text"
                         className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
                       />
@@ -93,7 +116,7 @@ const AuthRegisterPage = () => {
                     <div className="mt-1">
                       <input
                         id="email"
-                        name="email"
+                        {...register('email')}
                         type="email"
                         autoComplete="email"
                         required
@@ -123,7 +146,7 @@ const AuthRegisterPage = () => {
                       </span>
                       <input
                         id="password"
-                        name="password"
+                        {...register('password')}
                         type={showPassword ? "text" : "password"}
                         autoComplete="current-password"
                         minLength={6}
@@ -171,6 +194,7 @@ const AuthRegisterPage = () => {
             />
           </div>
         </div>
+        <Toaster />
       </div>
     </>
   )

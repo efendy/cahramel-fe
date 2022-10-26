@@ -1,34 +1,17 @@
-import { DraftUser } from "@components/components/user/draft-user";
+import { DraftUser } from "@components/user/draft-user";
 import ClientLayout from "@components/layouts/client-layout"
 import Pagination from "@components/pagination"
 import SlidePanel from "@components/slide-panels";
 import { classNames } from "@helpers/utils";
 import Head from "next/head";
 import { useState } from "react";
-
-/* This example requires Tailwind CSS v2.0+ */
-const people = [
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  { name: 'Lindsay Walton', title: 'Front-end Developer', email: 'lindsay.walton@example.com', role: 'Member' },
-  // More people...
-]
+import { useGetContracts } from "@queries/use-user-contract";
 
 const ManageUsersPage = () => {
   const [open, setOpen] = useState(false);
+  const { data: contracts } = useGetContracts(2) //TODO: change 2 to logged in user company's id
 
+  console.log(contracts)
   return (
     <>
       <Head>
@@ -94,48 +77,48 @@ const ManageUsersPage = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white">
-                        {people.map((person, personIdx) => (
-                          <tr key={person.email}>
+                        {contracts?.map((person, personIdx) => (
+                          <tr key={person.id}>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
+                                personIdx !== contracts.length - 1 ? 'border-b border-gray-200' : '',
                                 'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                               )}
                             >
-                              {person.name}
+                              {person.user_profile?.data?.attributes?.first_name + ' ' + person.user_profile?.data?.attributes?.last_name}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
+                                personIdx !== contracts.length - 1 ? 'border-b border-gray-200' : '',
                                 'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell'
                               )}
                             >
-                              {person.title}
+                              {person.job_title?.data?.attributes?.title}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
+                                personIdx !== contracts.length - 1 ? 'border-b border-gray-200' : '',
                                 'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell'
                               )}
                             >
-                              {person.email}
+                              {person.email_address}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500'
+                                personIdx !== contracts.length - 1 ? 'border-b border-gray-200' : '',
+                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize'
                               )}
                             >
-                              {person.role}
+                              {person.access_role}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1 ? 'border-b border-gray-200' : '',
+                                personIdx !== contracts.length - 1 ? 'border-b border-gray-200' : '',
                                 'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8'
                               )}
                             >
                               <a href="#" className="text-amber-600 hover:text-amber-900">
-                                Edit<span className="sr-only">, {person.name}</span>
+                                Edit<span className="sr-only">, {person.email_address}</span>
                               </a>
                             </td>
                           </tr>
@@ -147,7 +130,7 @@ const ManageUsersPage = () => {
               </div>
             </div>
           </div>
-          <Pagination />
+          {/* <Pagination /> */}
         </>
       </ClientLayout>
       <SlidePanel open={open} setOpen={setOpen} title={"Draft User"} subtitle={"Every moment is a fresh beginning."}>
