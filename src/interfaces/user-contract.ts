@@ -1,4 +1,7 @@
 import { CompanyProfileType } from "./company-profile";
+import { DepartmentType } from "./department";
+import { JobTitleType } from "./job-title";
+import { UserProfileType } from "./user-profile";
 
 interface Attributes {
     date_start: string;
@@ -13,9 +16,24 @@ interface Attributes {
     offboarding_status: string;
     complete_onboarding_by: string;
     complete_offboarding_by?: string;
-    company_profile: {
-        data: CompanyProfileType | null
+    company_profile?: {
+        data?: CompanyProfileType
     };
+    job_title?: {
+        data?: JobTitleType
+    };
+    reporting_to_main?: {
+        data?: UserContractType
+    };
+    reporting_to_secondary?: {
+        data?: UserContractType
+    };
+    department?: {
+        data: DepartmentType
+    };
+    user_profile?: {
+        data?: UserProfileType
+    }
 }
 
 export interface UserContractType {

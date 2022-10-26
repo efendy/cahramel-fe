@@ -14,11 +14,11 @@ export interface UserProfileAttributes {
     nationality?: string;
     race: string;
     religion: string;
-    user_contracts: {
+    user_contracts?: {
         data: UserContractType[] | null
     };
-    image_profile: {
-        data: ImageType | null
+    image_profile?: {
+        data?: ImageType | null
     };
 }
 
