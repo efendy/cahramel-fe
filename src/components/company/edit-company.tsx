@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useGetProfile } from "@queries/use-user";
 import { uploadFiles } from "@utils/api-client";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 type FormValues = {
     title: string;
@@ -47,9 +48,10 @@ export const CompanyForm = ({ isCreate }: { isCreate?: boolean }) => {
         }
         if (isCreate) {
             create(uploadData)
+            return;
         }
         update({ ...uploadData, id: companyProfile?.id ?? 0 })
-        return;
+        toast.success('Updated successfully')
     });
 
     useEffect(() => {

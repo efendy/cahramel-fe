@@ -1,12 +1,15 @@
+import { Button } from '@components/ui/button';
 import { useGetDepartments, useGetJobTitles } from '@queries/use-app-utils';
-import { useGetProfileByCompany } from '@queries/use-user';
+import { useDraftUserContract, useGetContracts } from '@queries/use-user-contract';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 type FormValues = {
     first_name: string;
     last_name: string;
-    email_address: string;
-    phone_number: string;
+    email: string;
+    phone: string;
     employee_id: string;
     job_title: number;
     department: number;
@@ -21,23 +24,55 @@ type FormValues = {
 }
 
 export const DraftUser = () => {
+    const clickedButton = useRef<string | null>(null);
     const { data: jobTitles } = useGetJobTitles()
     const { data: departments } = useGetDepartments()
-    const { data: reportingTo } = useGetProfileByCompany(2) //TODO: change 2 to logged in user company's id
+    const { data: reportingTo } = useGetContracts(2) //TODO: change 2 to logged in user company's id
+    const { mutate: draftUser, isLoading } = useDraftUserContract({
+        onSuccess: () => {
+            toast.success('Data added or updated successfully')
+        }
+    });
+
+    console.log('reportingTo', JSON.stringify(reportingTo))
 
     const { register, handleSubmit } = useForm<FormValues>();
+
     const onSubmit = handleSubmit((data, e) => {
         const nativeEvent = e?.nativeEvent as unknown as {
             submitter: { id?: string }
         };
-        let isDraft = true;
         const id = nativeEvent.submitter?.id
-        if (id === 'confirm') {
-            isDraft = false
 
+        const { first_name, last_name, email, phone, employee_id, date_start, date_end, access_role } = data;
+        const uploadData = {
+            profile: {
+                first_name,
+                last_name,
+                email,
+                phone
+            },
+            contract: {
+                employee_id,
+                job_title_id: data.job_title,
+                reporting_to_main_id: data.reporting_to_main,
+                reporting_to_secondary_id: data.reporting_to_secondary,
+                department_id: data.department,
+                date_start,
+                date_end,
+                onboarding_status: data.needOffBoard ? 'need' : "noneed",
+                offboarding_status: data.needOffBoard ? 'need' : "noneed",
+                email: data.cor_email_address,
+                access_role,
+                company_id: 2
+            },
+            method: id === 'confirm' ? 'confirm' : 'save'
         }
-        console.log('isDraft', isDraft)
-        console.log('on save draft', data)
+        clickedButton.current = id ?? null
+
+        draftUser(uploadData)
+
+        console.log('isDraft', JSON.stringify(uploadData))
     })
 
     return (
@@ -83,7 +118,7 @@ export const DraftUser = () => {
                                     Email address
                                 </label>
                                 <input
-                                    {...register('email_address')}
+                                    {...register('email')}
                                     type="text"
                                     required
                                     id="email-address"
@@ -97,7 +132,7 @@ export const DraftUser = () => {
                                     Phone number (optional)
                                 </label>
                                 <input
-                                    {...register('phone_number')}
+                                    {...register('phone')}
                                     type="text"
                                     id="phone-no"
                                     autoComplete="phone"
@@ -167,6 +202,7 @@ export const DraftUser = () => {
                                     {...register('reporting_to_main')}
                                     id="reporting-main"
                                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
+                                    defaultValue={reportingTo && reportingTo?.length > 0 ? reportingTo[0].id : undefined}
                                 >
                                     {reportingTo?.map(r => (
                                         <option key={r.id} value={r.id}>{r?.email_address}</option>
@@ -182,6 +218,7 @@ export const DraftUser = () => {
                                     {...register('reporting_to_secondary')}
                                     id="reporting-secondary"
                                     className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
+                                    defaultValue={reportingTo && reportingTo?.length > 0 ? reportingTo[0].id : undefined}
                                 >
                                     {reportingTo?.map(r => (
                                         <option key={r.id} value={r.id}>{r?.email_address}</option>
@@ -284,27 +321,28 @@ export const DraftUser = () => {
                 </div>
             </div>
 
-            <div className="flex justify-end pr-8">
+            <div className="flex justify-end pr-8 space-x-3">
                 <button
                     type="button"
                     className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                 >
                     Cancel
                 </button>
-                <button
+                <Button
                     id='draft'
                     type='submit'
-                    className="ml-3 inline-flex justify-center rounded-md border border-amber-600 py-2 px-4 text-sm font-medium text-amber-700 shadow-sm hover:text-amber-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    className='border border-amber-600 bg-slate-50 text-gray-800'
+                    loading={clickedButton.current === 'draft' && isLoading}
                 >
                     Save as draft
-                </button>
-                <button
+                </Button>
+                <Button
                     id='confirm'
                     type='submit'
-                    className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                    loading={clickedButton.current === 'confirm' && isLoading}
                 >
                     Confirm and send out invitation
-                </button>
+                </Button>
             </div>
         </form>
     );
