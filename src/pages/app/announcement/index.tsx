@@ -1,9 +1,9 @@
-import ClientLayout from "@components/layouts/client-layout";
-import Pagination from "@components/pagination";
-import SlidePanel from "@components/slide-panels";
-import Head from "next/head";
-import Image from "next/image";
-import { useState } from "react";
+import ClientLayout from '@components/layouts/client-layout';
+import Pagination from '@components/pagination';
+import SlidePanel from '@components/slide-panels';
+import Head from 'next/head';
+import Image from 'next/image';
+import {useState} from 'react';
 
 const items = [
   {
@@ -30,8 +30,7 @@ const items = [
     sender: 'Gloria Roberston',
     time: '3d ago',
     datetime: '2021-01-25T16:35',
-    preview:
-      'Doloremque dolorem maiores assumenda dolorem facilis.',
+    preview: 'Doloremque dolorem maiores assumenda dolorem facilis.',
   },
   {
     id: 4,
@@ -48,8 +47,7 @@ const items = [
     sender: 'Gloria Roberston',
     time: '3d ago',
     datetime: '2021-01-25T16:35',
-    preview:
-      'Doloremque dolorem maiores assumenda dolorem facilis.',
+    preview: 'Doloremque dolorem maiores assumenda dolorem facilis.',
   },
   // More items...
 ];
@@ -57,9 +55,9 @@ const items = [
 const AppAnnouncementPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState({
-    title: "",
-    subtitle: "",
-    message: "",
+    title: '',
+    subtitle: '',
+    message: '',
   });
 
   const onOpenAnnouncement = async (item: any) => {
@@ -69,7 +67,7 @@ const AppAnnouncementPage = () => {
       message: item.preview,
     });
     setOpen(true);
-  }
+  };
 
   return (
     <>
@@ -80,21 +78,23 @@ const AppAnnouncementPage = () => {
         <div className="px-4 mt-4">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <h1 className="text-xl font-semibold text-gray-900">Announcements</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Announcements
+              </h1>
               <p className="mt-2 text-sm text-gray-700">
-                Keep smiling, because life is a beautiful thing and there&apos;s so much to smile about.
+                Keep smiling, because life is a beautiful thing and there&apos;s
+                so much to smile about.
               </p>
             </div>
           </div>
           <div className="mt-8 flex flex-col">
             <ul role="list" className="space-y-3">
-              {items.map((item) => (
+              {items.map(item => (
                 <li
                   key={item.id}
                   // className="relative bg-white py-5 px-4 focus-within:ring-2 focus-within:ring-inset focus-within:ring-amber-600 hover:bg-gray-50"
                   className="rounded-md bg-white px-4 py-4 shadow ring-1 ring-gray-100 hover:bg-gray-50"
-                  onClick={() => onOpenAnnouncement(item)}
-                >
+                  onClick={() => onOpenAnnouncement(item)}>
                   <a href="#" className="flex space-x-4 focus:outline-none">
                     <Image
                       className="inline-block rounded-md"
@@ -106,15 +106,23 @@ const AppAnnouncementPage = () => {
                     <div className="w-full">
                       <div className="flex justify-between space-x-3">
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-medium text-gray-900">{item.sender}</p>
-                          <p className="truncate text-sm text-gray-500">{item.subject}</p>
+                          <p className="truncate text-sm font-medium text-gray-900">
+                            {item.sender}
+                          </p>
+                          <p className="truncate text-sm text-gray-500">
+                            {item.subject}
+                          </p>
                         </div>
-                        <time dateTime={item.datetime} className="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">
+                        <time
+                          dateTime={item.datetime}
+                          className="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">
                           {item.time}
                         </time>
                       </div>
                       <div className="mt-1">
-                        <p className="text-sm text-gray-600 line-clamp-2">{item.preview}</p>
+                        <p className="text-sm text-gray-600 line-clamp-2">
+                          {item.preview}
+                        </p>
                       </div>
                     </div>
                   </a>
@@ -125,11 +133,15 @@ const AppAnnouncementPage = () => {
           <Pagination />
         </div>
       </ClientLayout>
-      <SlidePanel open={open} setOpen={setOpen} title={selectedItem.title} subtitle={selectedItem.subtitle}>
+      <SlidePanel
+        open={open}
+        setOpen={setOpen}
+        title={selectedItem.title}
+        subtitle={selectedItem.subtitle}>
         {selectedItem.message}
       </SlidePanel>
     </>
-  )
-}
+  );
+};
 
 export default AppAnnouncementPage;

@@ -7,19 +7,18 @@ import {
   MegaphoneIcon,
   SquaresPlusIcon,
   UserGroupIcon,
-
-} from '@heroicons/react/24/outline'
-import { ChevronLeftIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import ClientLayout from '@components/layouts/client-layout'
-import Image from 'next/image'
-import { classNames } from '@helpers/utils'
-import Head from 'next/head'
+} from '@heroicons/react/24/outline';
+import {ChevronLeftIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid';
+import ClientLayout from '@components/layouts/client-layout';
+import Image from 'next/image';
+import {classNames} from '@helpers/utils';
+import Head from 'next/head';
 
 const tabs = [
-  { name: 'Profile', href: '#', current: true },
-  { name: 'Calendar', href: '#', current: false },
-  { name: 'Recognition', href: '#', current: false },
-]
+  {name: 'Profile', href: '#', current: true},
+  {name: 'Calendar', href: '#', current: false},
+  {name: 'Recognition', href: '#', current: false},
+];
 const profile = {
   name: 'Ricardo Cooper',
   imageUrl:
@@ -40,7 +39,7 @@ const profile = {
     Salary: '$145,000',
     Birthday: 'June 8, 1990',
   },
-}
+};
 const directory = {
   A: [
     {
@@ -244,7 +243,7 @@ const directory = {
         'https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
     },
   ],
-}
+};
 const team = [
   {
     name: 'Leslie Alexander',
@@ -274,7 +273,7 @@ const team = [
     imageUrl:
       'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
-]
+];
 
 const AppDirectoryPage = () => {
   return (
@@ -286,9 +285,16 @@ const AppDirectoryPage = () => {
         <div className="relative z-0 flex flex-1 overflow-hidden">
           <main className="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
             {/* Breadcrumb */}
-            <nav className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden" aria-label="Breadcrumb">
-              <a href="#" className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900">
-                <ChevronLeftIcon className="-ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+            <nav
+              className="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden"
+              aria-label="Breadcrumb">
+              <a
+                href="#"
+                className="inline-flex items-center space-x-3 text-sm font-medium text-gray-900">
+                <ChevronLeftIcon
+                  className="-ml-2 h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
                 <span>Directory</span>
               </a>
             </nav>
@@ -309,7 +315,9 @@ const AppDirectoryPage = () => {
                     </div>
                     <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                       <div className="mt-6 min-w-0 flex-1 sm:hidden 2xl:block">
-                        <h1 className="truncate text-2xl font-bold text-gray-900">{profile.name}</h1>
+                        <h1 className="truncate text-2xl font-bold text-gray-900">
+                          {profile.name}
+                        </h1>
                       </div>
                       {/* <div className="justify-stretch mt-6 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                         <button
@@ -330,7 +338,9 @@ const AppDirectoryPage = () => {
                     </div>
                   </div>
                   <div className="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
-                    <h1 className="truncate text-2xl font-bold text-gray-900">{profile.name}</h1>
+                    <h1 className="truncate text-2xl font-bold text-gray-900">
+                      {profile.name}
+                    </h1>
                   </div>
                 </div>
               </div>
@@ -340,7 +350,7 @@ const AppDirectoryPage = () => {
                 <div className="border-b border-gray-200">
                   <div className="max-w-5xl px-4 sm:px-6 lg:px-8">
                     <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-                      {tabs.map((tab) => (
+                      {tabs.map(tab => (
                         <a
                           key={tab.name}
                           href={tab.href}
@@ -348,10 +358,9 @@ const AppDirectoryPage = () => {
                             tab.current
                               ? 'border-pink-500 text-gray-900'
                               : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300',
-                            'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm'
+                            'whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm',
                           )}
-                          aria-current={tab.current ? 'page' : undefined}
-                        >
+                          aria-current={tab.current ? 'page' : undefined}>
                           {tab.name}
                         </a>
                       ))}
@@ -365,15 +374,19 @@ const AppDirectoryPage = () => {
                 <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                   {Object.keys(profile.fields).map((field, index) => (
                     <div key={field} className="sm:col-span-1">
-                      <dt className="text-sm font-medium text-gray-500">{field}</dt>
-                      <dd className="mt-1 text-sm text-gray-900">{Object.values(profile.fields)[index]}</dd>
+                      <dt className="text-sm font-medium text-gray-500">
+                        {field}
+                      </dt>
+                      <dd className="mt-1 text-sm text-gray-900">
+                        {Object.values(profile.fields)[index]}
+                      </dd>
                     </div>
                   ))}
                   <div className="sm:col-span-2">
                     <dt className="text-sm font-medium text-gray-500">About</dt>
                     <dd
                       className="mt-1 max-w-prose space-y-5 text-sm text-gray-900"
-                      dangerouslySetInnerHTML={{ __html: profile.about }}
+                      dangerouslySetInnerHTML={{__html: profile.about}}
                     />
                   </div>
                 </dl>
@@ -381,13 +394,14 @@ const AppDirectoryPage = () => {
 
               {/* Team member list */}
               <div className="mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
-                <h2 className="text-sm font-medium text-gray-500">Team members</h2>
+                <h2 className="text-sm font-medium text-gray-500">
+                  Team members
+                </h2>
                 <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {team.map((person) => (
+                  {team.map(person => (
                     <div
                       key={person.handle}
-                      className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-pink-500 focus-within:ring-offset-2 hover:border-gray-400"
-                    >
+                      className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-pink-500 focus-within:ring-offset-2 hover:border-gray-400">
                       <div className="flex-shrink-0">
                         <Image
                           className="rounded-full"
@@ -399,9 +413,16 @@ const AppDirectoryPage = () => {
                       </div>
                       <div className="min-w-0 flex-1">
                         <a href="#" className="focus:outline-none">
-                          <span className="absolute inset-0" aria-hidden="true" />
-                          <p className="text-sm font-medium text-gray-900">{person.name}</p>
-                          <p className="truncate text-sm text-gray-500">{person.role}</p>
+                          <span
+                            className="absolute inset-0"
+                            aria-hidden="true"
+                          />
+                          <p className="text-sm font-medium text-gray-900">
+                            {person.name}
+                          </p>
+                          <p className="truncate text-sm text-gray-500">
+                            {person.role}
+                          </p>
                         </a>
                       </div>
                     </div>
@@ -420,7 +441,10 @@ const AppDirectoryPage = () => {
                   </label>
                   <div className="relative rounded-md shadow-sm">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                      <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <MagnifyingGlassIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
+                      />
                     </div>
                     <input
                       type="search"
@@ -434,14 +458,18 @@ const AppDirectoryPage = () => {
               </form>
             </div>
             {/* Directory list */}
-            <nav className="min-h-0 flex-1 overflow-y-auto" aria-label="Directory">
+            <nav
+              className="min-h-0 flex-1 overflow-y-auto"
+              aria-label="Directory">
               {Object.entries(directory).map(([letter, directoryValue]) => (
                 // {Object.keys(directory).map((letter: string) => (
                 <div key={letter} className="relative">
                   <div className="sticky top-0 z-10 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
                     <h3>{letter}</h3>
                   </div>
-                  <ul role="list" className="relative z-0 divide-y divide-gray-200">
+                  <ul
+                    role="list"
+                    className="relative z-0 divide-y divide-gray-200">
                     {directoryValue.map((person: any) => (
                       <li key={person.id}>
                         <div className="relative flex items-center space-x-3 px-6 py-5 focus-within:ring-2 focus-within:ring-inset focus-within:ring-pink-500 hover:bg-gray-50">
@@ -457,9 +485,16 @@ const AppDirectoryPage = () => {
                           <div className="min-w-0 flex-1">
                             <a href="#" className="focus:outline-none">
                               {/* Extend touch target to entire panel */}
-                              <span className="absolute inset-0" aria-hidden="true" />
-                              <p className="text-sm font-medium text-gray-900">{person.name}</p>
-                              <p className="truncate text-sm text-gray-500">{person.role}</p>
+                              <span
+                                className="absolute inset-0"
+                                aria-hidden="true"
+                              />
+                              <p className="text-sm font-medium text-gray-900">
+                                {person.name}
+                              </p>
+                              <p className="truncate text-sm text-gray-500">
+                                {person.role}
+                              </p>
                             </a>
                           </div>
                         </div>
@@ -473,7 +508,7 @@ const AppDirectoryPage = () => {
         </div>
       </ClientLayout>
     </>
-  )
-}
+  );
+};
 
 export default AppDirectoryPage;

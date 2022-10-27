@@ -1,5 +1,5 @@
-import ClientLayout from "@components/layouts/client-layout";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import ClientLayout from '@components/layouts/client-layout';
+import {QuestionMarkCircleIcon} from '@heroicons/react/24/outline';
 
 /* This example requires Tailwind CSS v2.0+ */
 const payments = [
@@ -50,18 +50,22 @@ const ManageBillingPage = () => {
               <div className="shadow sm:overflow-hidden sm:rounded-md">
                 <div className="bg-white py-6 px-4 sm:p-6">
                   <div>
-                    <h2 id="payment-details-heading" className="text-lg font-medium leading-6 text-gray-900">
+                    <h2
+                      id="payment-details-heading"
+                      className="text-lg font-medium leading-6 text-gray-900">
                       Payment details
                     </h2>
                     <p className="mt-1 text-sm text-gray-500">
-                      Update your billing information. Please note that updating your location could affect your tax
-                      rates.
+                      Update your billing information. Please note that updating
+                      your location could affect your tax rates.
                     </p>
                   </div>
 
                   <div className="mt-6 grid grid-cols-4 gap-6">
                     <div className="col-span-4 sm:col-span-2">
-                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="first-name"
+                        className="block text-sm font-medium text-gray-700">
                         First name
                       </label>
                       <input
@@ -74,7 +78,9 @@ const ManageBillingPage = () => {
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
-                      <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="last-name"
+                        className="block text-sm font-medium text-gray-700">
                         Last name
                       </label>
                       <input
@@ -87,7 +93,9 @@ const ManageBillingPage = () => {
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
-                      <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="email-address"
+                        className="block text-sm font-medium text-gray-700">
                         Email address
                       </label>
                       <input
@@ -100,7 +108,9 @@ const ManageBillingPage = () => {
                     </div>
 
                     <div className="col-span-4 sm:col-span-1">
-                      <label htmlFor="expiration-date" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="expiration-date"
+                        className="block text-sm font-medium text-gray-700">
                         Expration date
                       </label>
                       <input
@@ -116,8 +126,7 @@ const ManageBillingPage = () => {
                     <div className="col-span-4 sm:col-span-1">
                       <label
                         htmlFor="security-code"
-                        className="flex items-center text-sm font-medium text-gray-700"
-                      >
+                        className="flex items-center text-sm font-medium text-gray-700">
                         <span>Security code</span>
                         <QuestionMarkCircleIcon
                           className="ml-1 h-5 w-5 flex-shrink-0 text-gray-300"
@@ -134,15 +143,16 @@ const ManageBillingPage = () => {
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
-                      <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="country"
+                        className="block text-sm font-medium text-gray-700">
                         Country
                       </label>
                       <select
                         id="country"
                         name="country"
                         autoComplete="country-name"
-                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-gray-900 focus:outline-none focus:ring-gray-900 sm:text-sm"
-                      >
+                        className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-gray-900 focus:outline-none focus:ring-gray-900 sm:text-sm">
                         <option>United States</option>
                         <option>Canada</option>
                         <option>Mexico</option>
@@ -150,7 +160,9 @@ const ManageBillingPage = () => {
                     </div>
 
                     <div className="col-span-4 sm:col-span-2">
-                      <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="postal-code"
+                        className="block text-sm font-medium text-gray-700">
                         ZIP / Postal code
                       </label>
                       <input
@@ -166,8 +178,7 @@ const ManageBillingPage = () => {
                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-amber-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
-                  >
+                    className="inline-flex justify-center rounded-md border border-transparent bg-amber-800 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
                     Save
                   </button>
                 </div>
@@ -179,7 +190,9 @@ const ManageBillingPage = () => {
           <section aria-labelledby="billing-history-heading">
             <div className="bg-white pt-6 shadow sm:overflow-hidden sm:rounded-md">
               <div className="px-4 sm:px-6">
-                <h2 id="billing-history-heading" className="text-lg font-medium leading-6 text-gray-900">
+                <h2
+                  id="billing-history-heading"
+                  className="text-lg font-medium leading-6 text-gray-900">
                   Billing history
                 </h2>
               </div>
@@ -190,13 +203,19 @@ const ManageBillingPage = () => {
                       <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                           <tr>
-                            <th scope="col" className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
                               Date
                             </th>
-                            <th scope="col" className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
                               Description
                             </th>
-                            <th scope="col" className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                            <th
+                              scope="col"
+                              className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
                               Amount
                             </th>
                             {/*
@@ -204,17 +223,18 @@ const ManageBillingPage = () => {
                             */}
                             <th
                               scope="col"
-                              className="relative px-6 py-3 text-left text-sm font-medium text-gray-500"
-                            >
+                              className="relative px-6 py-3 text-left text-sm font-medium text-gray-500">
                               <span className="sr-only">View receipt</span>
                             </th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 bg-white">
-                          {payments.map((payment) => (
+                          {payments.map(payment => (
                             <tr key={payment.id}>
                               <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
-                                <time dateTime={payment.datetime}>{payment.date}</time>
+                                <time dateTime={payment.datetime}>
+                                  {payment.date}
+                                </time>
                               </td>
                               <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-500">
                                 {payment.description}
@@ -223,7 +243,9 @@ const ManageBillingPage = () => {
                                 {payment.amount}
                               </td>
                               <td className="whitespace-nowrap px-6 py-4 text-right text-sm font-medium">
-                                <a href={payment.href} className="text-amber-600 hover:text-amber-900">
+                                <a
+                                  href={payment.href}
+                                  className="text-amber-600 hover:text-amber-900">
                                   View receipt
                                 </a>
                               </td>
@@ -240,7 +262,7 @@ const ManageBillingPage = () => {
         </div>
       </div>
     </ClientLayout>
-  )
+  );
 };
 
 export default ManageBillingPage;

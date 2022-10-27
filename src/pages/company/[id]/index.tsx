@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router';
 
 const CompanyPage = () => {
   const router = useRouter();
@@ -8,7 +8,7 @@ const CompanyPage = () => {
     <>
       <h1>TODO: {id}</h1>
     </>
-  )
+  );
 };
 
 export default CompanyPage;
