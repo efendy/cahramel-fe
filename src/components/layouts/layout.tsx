@@ -1,6 +1,6 @@
-import Meta from '@components/meta'
+import Meta from '@components/meta';
 
-const Layout = ({ children }: any) => {
+const Layout = ({children}: any) => {
   return (
     <>
       <Meta />
@@ -8,7 +8,7 @@ const Layout = ({ children }: any) => {
         <main>{children}</main>
       </div>
     </>
-  )
+  );
 };
 
 export default Layout;

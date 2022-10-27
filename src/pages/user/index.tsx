@@ -1,5 +1,5 @@
-import ClientLayout from "@components/layouts/client-layout";
-import Image from "next/image";
+import ClientLayout from '@components/layouts/client-layout';
+import Image from 'next/image';
 
 const UserProfilePage = () => {
   // const [open, setOpen] = useState(false);
@@ -10,7 +10,9 @@ const UserProfilePage = () => {
         <div className="px-4 mt-4">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <h1 className="text-xl font-semibold text-gray-900">Your Profile</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Your Profile
+              </h1>
               <p className="mt-2 text-sm text-gray-700">
                 This information will be displayed for others.
               </p>
@@ -20,9 +22,10 @@ const UserProfilePage = () => {
           <div className="mt-6 mb-12">
             <form className="divide-y-amber-gray-200 mt-6 mb-12 space-y-8 divide-y">
               <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-6 sm:gap-x-6">
-
                 <div className="sm:col-span-3">
-                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="first-name"
+                    className="block text-sm font-medium text-gray-700">
                     First name
                   </label>
                   <input
@@ -35,7 +38,9 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="last-name"
+                    className="block text-sm font-medium text-gray-700">
                     Last name
                   </label>
                   <input
@@ -48,7 +53,9 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-6">
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="username"
+                    className="block text-sm font-medium text-gray-700">
                     Username
                   </label>
                   <div className="mt-1 flex rounded-md shadow-sm">
@@ -66,7 +73,9 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-6">
-                  <label htmlFor="photo" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="photo"
+                    className="block text-sm font-medium text-gray-700">
                     Photo
                   </label>
                   <div className="mt-1 flex items-center">
@@ -81,8 +90,7 @@ const UserProfilePage = () => {
                       <div className="relative flex cursor-pointer items-center rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-amber-500 focus-within:ring-offset-2 focus-within:ring-offset-amber-gray-50 hover:bg-amber-gray-50">
                         <label
                           htmlFor="user-photo"
-                          className="pointer-events-none relative text-sm font-medium text-gray-700"
-                        >
+                          className="pointer-events-none relative text-sm font-medium text-gray-700">
                           <span>Change</span>
                           <span className="sr-only"> user photo</span>
                         </label>
@@ -95,8 +103,7 @@ const UserProfilePage = () => {
                       </div>
                       <button
                         type="button"
-                        className="ml-3 rounded-md border border-transparent bg-transparent py-2 px-3 text-sm font-medium focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-amber-gray-50 text-gray-700"
-                      >
+                        className="ml-3 rounded-md border border-transparent bg-transparent py-2 px-3 text-sm font-medium focus:border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-amber-gray-50 text-gray-700">
                         Remove
                       </button>
                     </div>
@@ -104,7 +111,9 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-6">
-                  <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="description"
+                    className="block text-sm font-medium text-gray-700">
                     Description
                   </label>
                   <div className="mt-1">
@@ -122,7 +131,9 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-6">
-                  <label htmlFor="url" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="url"
+                    className="block text-sm font-medium text-gray-700">
                     URL
                   </label>
                   <input
@@ -138,12 +149,15 @@ const UserProfilePage = () => {
                 <div className="sm:col-span-6">
                   <h2 className="text-xl font-medium">Personal Information</h2>
                   <p className="mt-1 text-sm">
-                    This information will be displayed publicly so be careful what you share.
+                    This information will be displayed publicly so be careful
+                    what you share.
                   </p>
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="email-address"
+                    className="block text-sm font-medium text-gray-700">
                     Email address
                   </label>
                   <input
@@ -156,7 +170,9 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="phone-number" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="phone-number"
+                    className="block text-sm font-medium text-gray-700">
                     Phone number
                   </label>
                   <input
@@ -169,15 +185,16 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="country"
+                    className="block text-sm font-medium text-gray-700">
                     Country
                   </label>
                   <select
                     id="country"
                     name="country"
                     autoComplete="country-name"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-                  >
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm">
                     <option />
                     <option>United States</option>
                     <option>Canada</option>
@@ -186,7 +203,9 @@ const UserProfilePage = () => {
                 </div>
 
                 <div className="sm:col-span-3">
-                  <label htmlFor="language" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="language"
+                    className="block text-sm font-medium text-gray-700">
                     Language
                   </label>
                   <input
@@ -199,33 +218,33 @@ const UserProfilePage = () => {
 
                 <p className="text-sm sm:col-span-6">
                   This account was created on{' '}
-                  <time dateTime="2017-01-05T20:35:40">January 5, 2017, 8:35:40 PM</time>.
+                  <time dateTime="2017-01-05T20:35:40">
+                    January 5, 2017, 8:35:40 PM
+                  </time>
+                  .
                 </p>
               </div>
 
               <div className="flex justify-end pt-8">
                 <button
                   type="button"
-                  className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium shadow-sm hover:bg-amber-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                >
+                  className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium shadow-sm hover:bg-amber-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                >
+                  className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
                   Save
                 </button>
               </div>
             </form>
           </div>
-          
         </div>
       </ClientLayout>
       {/* <SlidePanel open={open} setOpen={setOpen} title={"Draft User"} subtitle={"Every moment is a fresh beginning."}>
       </SlidePanel> */}
     </>
-  )
+  );
 };
 
 export default UserProfilePage;

@@ -1,5 +1,5 @@
-import ClientLayout from "@components/layouts/client-layout";
-import Head from "next/head";
+import ClientLayout from '@components/layouts/client-layout';
+import Head from 'next/head';
 
 const AppWelcomePage = () => {
   return (
@@ -13,14 +13,15 @@ const AppWelcomePage = () => {
             <div className="sm:flex-auto">
               <h1 className="text-xl font-semibold text-gray-900">Welcome</h1>
               <p className="mt-2 text-sm text-gray-700">
-                Good company, good wine, good welcome, can make good people. Life is sweeter with caHRamel.
+                Good company, good wine, good welcome, can make good people.
+                Life is sweeter with caHRamel.
               </p>
             </div>
           </div>
         </div>
       </ClientLayout>
     </>
-  )
-}
+  );
+};
 
 export default AppWelcomePage;

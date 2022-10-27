@@ -1,19 +1,25 @@
-import Link from "next/link";
-import Logo, { LogoSize } from "@components/logo";
+import Link from 'next/link';
+import Logo, {LogoSize} from '@components/logo';
 
 const AuthForgotPage = () => {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="mx-auto w-max"><Logo size={LogoSize.lg} /></div>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Forgot your password?</h2>
+          <div className="mx-auto w-max">
+            <Logo size={LogoSize.lg} />
+          </div>
+          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            Forgot your password?
+          </h2>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form className="space-y-6" action="#" method="POST">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700">
                   Email address
                 </label>
                 <div className="mt-1">
@@ -31,8 +37,7 @@ const AuthForgotPage = () => {
               <div>
                 <button
                   type="submit"
-                  className="flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                >
+                  className="flex w-full justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
                   Submit
                 </button>
               </div>
@@ -49,9 +54,7 @@ const AuthForgotPage = () => {
               </div>
 
               <div className="mt-6">
-                <div 
-                  className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
-                >
+                <div className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
                   <Link href="/auth/login">Back to Sign in</Link>
                 </div>
               </div>
@@ -60,7 +63,7 @@ const AuthForgotPage = () => {
         </div>
       </div>
     </>
-  )
+  );
 };
 
 export default AuthForgotPage;

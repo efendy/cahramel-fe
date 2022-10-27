@@ -1,10 +1,9 @@
-import { CompanyForm } from "@components/company/edit-company";
-import ClientLayout from "@components/layouts/client-layout";
-import Head from "next/head";
-import { Toaster } from "react-hot-toast";
+import {CompanyForm} from '@components/company/edit-company';
+import ClientLayout from '@components/layouts/client-layout';
+import Head from 'next/head';
+import {Toaster} from 'react-hot-toast';
 
 const ManageCompanyPage = () => {
-
   return (
     <>
       <Head>
@@ -14,26 +13,34 @@ const ManageCompanyPage = () => {
         <div className="px-4 mt-4">
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <h1 className="text-xl font-semibold text-gray-900">Company Profile</h1>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Company Profile
+              </h1>
               <p className="mt-2 text-sm text-gray-700">
-                The whole secret of a successful life is to find out what is one’s destiny to do, and then do it.
+                The whole secret of a successful life is to find out what is
+                one’s destiny to do, and then do it.
               </p>
             </div>
           </div>
           <div className="mt-6 mb-12">
             <div className="space-y-8 divide-y divide-gray-200">
               <div className="space-y-8 divide-y divide-gray-200">
-
                 <CompanyForm />
 
                 <div className="pt-8">
                   <div>
-                    <h3 className="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
-                    <p className="mt-1 text-sm text-gray-500">Use a permanent address where you can receive mail.</p>
+                    <h3 className="text-lg font-medium leading-6 text-gray-900">
+                      Personal Information
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      Use a permanent address where you can receive mail.
+                    </p>
                   </div>
                   <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     <div className="sm:col-span-3">
-                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="first-name"
+                        className="block text-sm font-medium text-gray-700">
                         First name
                       </label>
                       <div className="mt-1">
@@ -48,7 +55,9 @@ const ManageCompanyPage = () => {
                     </div>
 
                     <div className="sm:col-span-3">
-                      <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="last-name"
+                        className="block text-sm font-medium text-gray-700">
                         Last name
                       </label>
                       <div className="mt-1">
@@ -63,7 +72,9 @@ const ManageCompanyPage = () => {
                     </div>
 
                     <div className="sm:col-span-4">
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700">
                         Email address
                       </label>
                       <div className="mt-1">
@@ -78,7 +89,9 @@ const ManageCompanyPage = () => {
                     </div>
 
                     <div className="sm:col-span-3">
-                      <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="country"
+                        className="block text-sm font-medium text-gray-700">
                         Country
                       </label>
                       <div className="mt-1">
@@ -86,8 +99,7 @@ const ManageCompanyPage = () => {
                           id="country"
                           name="country"
                           autoComplete="country-name"
-                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-                        >
+                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm">
                           <option>United States</option>
                           <option>Canada</option>
                           <option>Mexico</option>
@@ -96,7 +108,9 @@ const ManageCompanyPage = () => {
                     </div>
 
                     <div className="sm:col-span-6">
-                      <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="street-address"
+                        className="block text-sm font-medium text-gray-700">
                         Street address
                       </label>
                       <div className="mt-1">
@@ -111,7 +125,9 @@ const ManageCompanyPage = () => {
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="city"
+                        className="block text-sm font-medium text-gray-700">
                         City
                       </label>
                       <div className="mt-1">
@@ -126,7 +142,9 @@ const ManageCompanyPage = () => {
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label htmlFor="region" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="region"
+                        className="block text-sm font-medium text-gray-700">
                         State / Province
                       </label>
                       <div className="mt-1">
@@ -141,7 +159,9 @@ const ManageCompanyPage = () => {
                     </div>
 
                     <div className="sm:col-span-2">
-                      <label htmlFor="postal-code" className="block text-sm font-medium text-gray-700">
+                      <label
+                        htmlFor="postal-code"
+                        className="block text-sm font-medium text-gray-700">
                         ZIP / Postal code
                       </label>
                       <div className="mt-1">
@@ -159,15 +179,20 @@ const ManageCompanyPage = () => {
 
                 <div className="pt-8">
                   <div>
-                    <h3 className="text-lg font-medium leading-6 text-gray-900">Notifications</h3>
+                    <h3 className="text-lg font-medium leading-6 text-gray-900">
+                      Notifications
+                    </h3>
                     <p className="mt-1 text-sm text-gray-500">
-                      We&apos;ll always let you know about important changes, but you pick what else you want to hear about.
+                      We&apos;ll always let you know about important changes,
+                      but you pick what else you want to hear about.
                     </p>
                   </div>
                   <div className="mt-6">
                     <fieldset>
                       <legend className="sr-only">By Email</legend>
-                      <div className="text-base font-medium text-gray-900" aria-hidden="true">
+                      <div
+                        className="text-base font-medium text-gray-900"
+                        aria-hidden="true">
                         By Email
                       </div>
                       <div className="mt-4 space-y-4">
@@ -181,10 +206,15 @@ const ManageCompanyPage = () => {
                             />
                           </div>
                           <div className="ml-3 text-sm">
-                            <label htmlFor="comments" className="font-medium text-gray-700">
+                            <label
+                              htmlFor="comments"
+                              className="font-medium text-gray-700">
                               Comments
                             </label>
-                            <p className="text-gray-500">Get notified when someones posts a comment on a posting.</p>
+                            <p className="text-gray-500">
+                              Get notified when someones posts a comment on a
+                              posting.
+                            </p>
                           </div>
                         </div>
                         <div className="relative flex items-start">
@@ -197,10 +227,14 @@ const ManageCompanyPage = () => {
                             />
                           </div>
                           <div className="ml-3 text-sm">
-                            <label htmlFor="candidates" className="font-medium text-gray-700">
+                            <label
+                              htmlFor="candidates"
+                              className="font-medium text-gray-700">
                               Candidates
                             </label>
-                            <p className="text-gray-500">Get notified when a candidate applies for a job.</p>
+                            <p className="text-gray-500">
+                              Get notified when a candidate applies for a job.
+                            </p>
                           </div>
                         </div>
                         <div className="relative flex items-start">
@@ -213,17 +247,26 @@ const ManageCompanyPage = () => {
                             />
                           </div>
                           <div className="ml-3 text-sm">
-                            <label htmlFor="offers" className="font-medium text-gray-700">
+                            <label
+                              htmlFor="offers"
+                              className="font-medium text-gray-700">
                               Offers
                             </label>
-                            <p className="text-gray-500">Get notified when a candidate accepts or rejects an offer.</p>
+                            <p className="text-gray-500">
+                              Get notified when a candidate accepts or rejects
+                              an offer.
+                            </p>
                           </div>
                         </div>
                       </div>
                     </fieldset>
                     <fieldset className="mt-6">
-                      <legend className="contents text-base font-medium text-gray-900">Push Notifications</legend>
-                      <p className="text-sm text-gray-500">These are delivered via SMS to your mobile phone.</p>
+                      <legend className="contents text-base font-medium text-gray-900">
+                        Push Notifications
+                      </legend>
+                      <p className="text-sm text-gray-500">
+                        These are delivered via SMS to your mobile phone.
+                      </p>
                       <div className="mt-4 space-y-4">
                         <div className="flex items-center">
                           <input
@@ -232,7 +275,9 @@ const ManageCompanyPage = () => {
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-amber-600 focus:ring-amber-500"
                           />
-                          <label htmlFor="push-everything" className="ml-3 block text-sm font-medium text-gray-700">
+                          <label
+                            htmlFor="push-everything"
+                            className="ml-3 block text-sm font-medium text-gray-700">
                             Everything
                           </label>
                         </div>
@@ -243,7 +288,9 @@ const ManageCompanyPage = () => {
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-amber-600 focus:ring-amber-500"
                           />
-                          <label htmlFor="push-email" className="ml-3 block text-sm font-medium text-gray-700">
+                          <label
+                            htmlFor="push-email"
+                            className="ml-3 block text-sm font-medium text-gray-700">
                             Same as email
                           </label>
                         </div>
@@ -254,7 +301,9 @@ const ManageCompanyPage = () => {
                             type="radio"
                             className="h-4 w-4 border-gray-300 text-amber-600 focus:ring-amber-500"
                           />
-                          <label htmlFor="push-nothing" className="ml-3 block text-sm font-medium text-gray-700">
+                          <label
+                            htmlFor="push-nothing"
+                            className="ml-3 block text-sm font-medium text-gray-700">
                             No push notifications
                           </label>
                         </div>
@@ -268,14 +317,12 @@ const ManageCompanyPage = () => {
                 <div className="flex justify-end">
                   <button
                     type="button"
-                    className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                  >
+                    className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                  >
+                    className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
                     Save
                   </button>
                 </div>
@@ -288,7 +335,7 @@ const ManageCompanyPage = () => {
       {/* <SlidePanel open={open} setOpen={setOpen} title={"Draft User"} subtitle={"Every moment is a fresh beginning."}>
       </SlidePanel> */}
     </>
-  )
+  );
 };
 
 export default ManageCompanyPage;

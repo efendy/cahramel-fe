@@ -1,12 +1,11 @@
 import ClientLayout from '@components/layouts/client-layout';
 import StepsCircle from '@components/steps-circle';
-import { useState } from 'react';
+import {useState} from 'react';
 
 const steps = ['Fill in your profile', 'Register your company'];
 
 const AppWelcomePage = () => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-
 
   return (
     <ClientLayout>

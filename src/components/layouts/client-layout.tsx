@@ -1,5 +1,5 @@
-import { Fragment, memo, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+import {Fragment, memo, useState} from 'react';
+import {Dialog, Transition} from '@headlessui/react';
 import {
   APP_NAVIGATION_CONFIGURE,
   APP_NAVIGATION_MAIN,
@@ -10,14 +10,14 @@ import {
   BellIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
-import { useRouter } from 'next/router';
+import {useRouter} from 'next/router';
 import Logo from '@components/logo';
 import AlertModal from '@components/modals/alert';
-import { classNames } from '@helpers/utils';
+import {classNames} from '@helpers/utils';
 import Link from 'next/link';
-import { UserMenu } from './user-menu';
-import { useGetProfile } from '@queries/use-user';
-import { Toaster } from 'react-hot-toast';
+import {UserMenu} from './user-menu';
+import {useGetProfile} from '@queries/use-user';
+import {Toaster} from 'react-hot-toast';
 
 interface IClientLayout {
   children: JSX.Element;
@@ -28,21 +28,22 @@ const ClientLayout = memo((props: IClientLayout) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = router.route;
-  const { data, isLoading } = useGetProfile()
-
+  const {data, isLoading} = useGetProfile();
 
   const userRole = data?.user_contract?.access_role;
-
 
   if (!isLoading && !data?.user_contract) {
     //step 2
     return (
-      <div className='max-w-5xl mx-auto px-4 lg:px-2 xl:px-0 py-2 relative'>
-        <div className='absolute right-0'>
+      <div className="max-w-5xl mx-auto px-4 lg:px-2 xl:px-0 py-2 relative">
+        <div className="absolute right-0">
           <UserMenu />
         </div>
-        <div className='text-center mt-10 font-semibold'>Please setup your profile through cms</div>
-      </div>)
+        <div className="text-center mt-10 font-semibold">
+          Please setup your profile through cms
+        </div>
+      </div>
+    );
   }
 
   //step 3 for assign contract?
@@ -238,28 +239,32 @@ const ClientLayout = memo((props: IClientLayout) => {
                       Manage
                     </p>
                     <div className="flex-1 space-y-1 px-2">
-                      {APP_NAVIGATION_MANAGE.map(item => item.href === '/manage/billing' && userRole && userRole !== 'owner' ? null : (
-                        <Link key={item.name} href={item.href}>
-                          <a
-                            className={classNames(
-                              item.href === currentRoute
-                                ? 'bg-gray-100 text-gray-900'
-                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                              'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-                            )}>
-                            <item.icon
+                      {APP_NAVIGATION_MANAGE.map(item =>
+                        item.href === '/manage/billing' &&
+                        userRole &&
+                        userRole !== 'owner' ? null : (
+                          <Link key={item.name} href={item.href}>
+                            <a
                               className={classNames(
                                 item.href === currentRoute
-                                  ? 'text-gray-500'
-                                  : 'text-gray-400 group-hover:text-gray-500',
-                                'mr-3 flex-shrink-0 h-6 w-6',
-                              )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </a>
-                        </Link>
-                      ))}
+                                  ? 'bg-gray-100 text-gray-900'
+                                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
+                              )}>
+                              <item.icon
+                                className={classNames(
+                                  item.href === currentRoute
+                                    ? 'text-gray-500'
+                                    : 'text-gray-400 group-hover:text-gray-500',
+                                  'mr-3 flex-shrink-0 h-6 w-6',
+                                )}
+                                aria-hidden="true"
+                              />
+                              {item.name}
+                            </a>
+                          </Link>
+                        ),
+                      )}
                     </div>
                     <hr
                       className="my-5 border-t border-gray-200"

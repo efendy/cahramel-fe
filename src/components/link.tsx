@@ -1,8 +1,8 @@
-import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import React from 'react';
+import Link from 'next/link';
+import {useRouter} from 'next/router';
 
-const LinkComponent = ({ children, skipLocaleHandling, ...rest }: any) => {
+const LinkComponent = ({children, skipLocaleHandling, ...rest}: any) => {
   const router = useRouter();
   const locale = rest.locale || router.query.locale || '';
 
@@ -20,7 +20,7 @@ const LinkComponent = ({ children, skipLocaleHandling, ...rest }: any) => {
         <a {...rest}>{children}</a>
       </Link>
     </>
-  )
+  );
 };
 
 export default LinkComponent;
