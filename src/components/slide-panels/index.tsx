@@ -1,13 +1,18 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import {Fragment} from 'react';
+import {Dialog, Transition} from '@headlessui/react';
+import {XMarkIcon} from '@heroicons/react/24/outline';
 
-export default function SlidePanel({ open, setOpen, title, subtitle, children }: any) {
-
+export default function SlidePanel({
+  open,
+  onClose,
+  title,
+  subtitle,
+  children,
+}: any) {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -15,8 +20,7 @@ export default function SlidePanel({ open, setOpen, title, subtitle, children }:
           enterTo="opacity-100"
           leave="ease-in-out duration-500"
           leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
+          leaveTo="opacity-0">
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
@@ -30,8 +34,7 @@ export default function SlidePanel({ open, setOpen, title, subtitle, children }:
                 enterTo="translate-x-0"
                 leave="transform transition ease-in-out duration-500 sm:duration-700"
                 leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
+                leaveTo="translate-x-full">
                 <Dialog.Panel className="pointer-events-auto relative w-screen max-w-3xl">
                   <Transition.Child
                     as={Fragment}
@@ -40,14 +43,12 @@ export default function SlidePanel({ open, setOpen, title, subtitle, children }:
                     enterTo="opacity-100"
                     leave="ease-in-out duration-500"
                     leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
+                    leaveTo="opacity-0">
                     <div className="absolute top-0 left-0 -ml-8 flex pt-4 pr-2 sm:-ml-10 sm:pr-4">
                       <button
                         type="button"
                         className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-                        onClick={() => setOpen(false)}
-                      >
+                        onClick={onClose}>
                         <span className="sr-only">Close panel</span>
                         <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
@@ -56,7 +57,9 @@ export default function SlidePanel({ open, setOpen, title, subtitle, children }:
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
                       <Dialog.Title className="text-lg font-medium text-gray-900">
-                        <h3 className="text-lg font-medium leading-6 text-gray-900">{title}</h3>
+                        <div className="text-lg font-medium leading-6 text-gray-900">
+                          {title}
+                        </div>
                         <p className="mt-1 text-sm text-gray-500">{subtitle}</p>
                       </Dialog.Title>
                     </div>
@@ -71,5 +74,5 @@ export default function SlidePanel({ open, setOpen, title, subtitle, children }:
         </div>
       </Dialog>
     </Transition.Root>
-  )
-};
+  );
+}
