@@ -9,15 +9,38 @@ import toast from 'react-hot-toast';
 import {ContractForm} from './contract-form';
 import {ContractFormValues} from './user-form.type';
 
-export const UpdateContract = ({contractId}: {contractId: number}) => {
-  const {data: contract, isLoading} = useGetContract(contractId);
-  const {register, handleSubmit, control} = useForm<ContractFormValues>();
+export const UpdateContract = ({
+  contractId,
+  onClose,
+}: {
+  contractId: number;
+  onClose: () => void;
+}) => {
+  const {register, handleSubmit, control, reset} =
+    useForm<ContractFormValues>();
+  const {data: contract, isLoading} = useGetContract(contractId, {
+    onSuccess: data => {
+      if (!data) {
+        return null;
+      }
+      reset({
+        needOffBoard: data?.offboarding_status === 'need',
+        needOnBoard: data?.onboarding_status === 'need',
+      });
+    },
+  });
 
   const {mutate: updateContract, isLoading: updating} = useUpdateContract({
-    onSuccess: () => toast.success('Data updated'),
+    onSuccess: () => {
+      toast.success('Data updated');
+      onClose();
+    },
   });
   const {mutate: deleteContract, isLoading: deleting} = useDeleteContract({
-    onSuccess: () => toast.success('Data deleted'),
+    onSuccess: () => {
+      toast.success('Data deleted');
+      onClose();
+    },
   });
 
   const onSubmit = handleSubmit(data =>

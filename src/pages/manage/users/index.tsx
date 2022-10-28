@@ -7,11 +7,15 @@ import Head from 'next/head';
 import {useState} from 'react';
 import {useGetContracts} from '@queries/use-user-contract';
 import {UpdateContract} from '@components/user/update-contract';
+import {useUserContractStore} from '@zustand/user.store';
 
 const ManageUsersPage = () => {
   const [modal, setModal] = useState<'update' | 'draft' | null>(null);
   const [contractId, setContractId] = useState(0);
-  const {data: contracts} = useGetContracts(2); //TODO: change 2 to logged in user company's id
+  const {activeContract} = useUserContractStore();
+  const {data: contracts} = useGetContracts(
+    activeContract?.company_profile?.data?.id,
+  );
 
   const onClose = () => {
     setContractId(0);
@@ -74,12 +78,12 @@ const ManageUsersPage = () => {
                           </th>
                           <th
                             scope="col"
-                            className="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
+                            className="sticky top-0 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
                             Role
                           </th>
                           <th
                             scope="col"
-                            className="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
+                            className="sticky top-0 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
                             <span className="sr-only">Edit</span>
                           </th>
                         </tr>
@@ -169,9 +173,9 @@ const ManageUsersPage = () => {
         title={modal === 'draft' ? 'Draft User' : 'Contract Information'}
         subtitle={'Every moment is a fresh beginning.'}>
         {modal === 'update' ? (
-          <UpdateContract contractId={contractId} />
+          <UpdateContract contractId={contractId} onClose={onClose} />
         ) : modal === 'draft' ? (
-          <DraftUser contractId={contractId} />
+          <DraftUser contractId={contractId} onClose={onClose} />
         ) : null}
       </SlidePanel>
     </>

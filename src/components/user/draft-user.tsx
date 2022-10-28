@@ -1,5 +1,6 @@
 import {Button} from '@components/ui/button';
 import {useDraftUserContract, useGetContract} from '@queries/use-user-contract';
+import {useUserContractStore} from '@zustand/user.store';
 import {useRef} from 'react';
 import {useForm} from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -8,19 +9,76 @@ import {ContractFormValues, UserFormValues} from './user-form.type';
 
 type FormValues = UserFormValues & ContractFormValues;
 
-export const DraftUser = ({contractId}: {contractId: number}) => {
+export const DraftUser = ({
+  contractId,
+  onClose,
+}: {
+  contractId: number;
+  onClose: () => void;
+}) => {
   const clickedButton = useRef<string | null>(null);
-  const {data: contract} = useGetContract(contractId);
-  const userProfile = contract?.user_profile?.data?.attributes;
+  const {register, handleSubmit, control, reset} = useForm<FormValues>();
+  const {activeContract} = useUserContractStore();
+
+  const {data: contract} = useGetContract(contractId, {
+    onSuccess: data => {
+      if (!data) {
+        return null;
+      }
+      const userProfile = data?.user_profile?.data?.attributes;
+      reset({
+        access_role: data?.access_role,
+        date_end: data.date_end,
+        date_start: data.date_start,
+        department: data.department?.data
+          ? {
+              label: data.department.data?.attributes?.title,
+              value: data.department.data?.id,
+            }
+          : undefined,
+        email: data.email_address,
+        email_address: userProfile?.email_address,
+        employee_id: data.employee_id,
+        first_name: userProfile?.first_name,
+        last_name: userProfile?.last_name,
+        job_title: data.job_title?.data
+          ? {
+              label: data.job_title.data.attributes.title,
+              value: data.job_title.data.id,
+            }
+          : undefined,
+        needOffBoard: data?.offboarding_status === 'need',
+        needOnBoard: data?.onboarding_status === 'need',
+        phone: userProfile?.phone_number,
+        reporting_to_main: data.reporting_to_main?.data
+          ? {
+              label: data.reporting_to_main.data?.attributes?.email_address,
+              value: data.reporting_to_main.data.id,
+            }
+          : undefined,
+        reporting_to_secondary: data.reporting_to_secondary?.data
+          ? {
+              label:
+                data.reporting_to_secondary.data?.attributes?.email_address,
+              value: data.reporting_to_secondary.data.id,
+            }
+          : undefined,
+      });
+    },
+  });
 
   const {mutate: draftUser, isLoading} = useDraftUserContract({
-    onSuccess: () => toast.success('Data saved successfully'),
+    onSuccess: () => {
+      toast.success('Data saved successfully');
+      onClose();
+    },
     onError: () => toast.error('Something went wrong'),
   });
 
-  const {register, handleSubmit, control} = useForm<FormValues>();
-
   const onSubmit = handleSubmit((data, e) => {
+    if (!activeContract?.company_profile?.data) {
+      return;
+    }
     const nativeEvent = e?.nativeEvent as unknown as {
       submitter: {id?: string};
     };
@@ -44,10 +102,9 @@ export const DraftUser = ({contractId}: {contractId: number}) => {
         date_end,
         onboarding_status: data.needOnBoard ? 'need' : 'noneed',
         offboarding_status: data.needOffBoard ? 'need' : 'noneed',
-
         email,
         access_role,
-        company_profile: 2,
+        company_profile: activeContract?.company_profile?.data?.id,
       },
       method: id === 'confirm' ? 'confirm' : 'save',
       id: contractId ? contractId : undefined,
@@ -84,7 +141,6 @@ export const DraftUser = ({contractId}: {contractId: number}) => {
                   id="first-name"
                   autoComplete="given-name"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-                  defaultValue={userProfile?.first_name}
                 />
               </div>
 
@@ -101,7 +157,6 @@ export const DraftUser = ({contractId}: {contractId: number}) => {
                   id="last-name"
                   autoComplete="family-name"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-                  defaultValue={userProfile?.last_name}
                 />
               </div>
 
@@ -118,7 +173,6 @@ export const DraftUser = ({contractId}: {contractId: number}) => {
                   id="email-address"
                   autoComplete="email"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-                  defaultValue={userProfile?.email_address}
                 />
               </div>
 
@@ -134,7 +188,6 @@ export const DraftUser = ({contractId}: {contractId: number}) => {
                   id="phone-no"
                   autoComplete="phone"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-                  defaultValue={userProfile?.phone_number}
                 />
               </div>
             </div>
