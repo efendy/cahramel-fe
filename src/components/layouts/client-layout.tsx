@@ -16,8 +16,8 @@ import AlertModal from '@components/modals/alert';
 import {classNames} from '@helpers/utils';
 import Link from 'next/link';
 import {UserMenu} from './user-menu';
-import {useGetProfile} from '@queries/use-user';
 import {Toaster} from 'react-hot-toast';
+import {useUserContractStore, useUserStore} from '@zustand/user.store';
 
 interface IClientLayout {
   children: JSX.Element;
@@ -25,14 +25,14 @@ interface IClientLayout {
 
 const ClientLayout = memo((props: IClientLayout) => {
   const router = useRouter();
+  const {user} = useUserStore();
+  const {activeContract, setContract} = useUserContractStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = router.route;
-  const {data, isLoading} = useGetProfile();
 
-  const userRole = data?.user_contract?.access_role;
-
-  if (!isLoading && !data?.user_contract) {
+  const userRole = activeContract?.access_role;
+  if (!user?.user_contracts || user?.user_contracts?.length === 0) {
     //step 2
     return (
       <div className="max-w-5xl mx-auto px-4 lg:px-2 xl:px-0 py-2 relative">
@@ -41,6 +41,30 @@ const ClientLayout = memo((props: IClientLayout) => {
         </div>
         <div className="text-center mt-10 font-semibold">
           Please setup your profile through cms
+        </div>
+      </div>
+    );
+  }
+
+  if (!activeContract) {
+    return (
+      <div className="max-w-5xl mx-auto px-4 lg:px-2 xl:px-0 py-2 relative">
+        <div className="absolute right-0">
+          <UserMenu />
+        </div>
+        <div className="text-center mt-4 font-semibold">
+          Please select one profile
+        </div>
+        <div className="justify-center mt-10 space-y-4">
+          {user.user_contracts.map(x => (
+            <div
+              key={x.id}
+              onClick={() => setContract(x)}
+              className="border-amber-500 border-2 px-4 py-2 rounded-lg hover:bg-amber-500 cursor-pointer">
+              <div>{x.company_profile?.data?.attributes?.title}</div>
+              <div>{x.email_address}</div>
+            </div>
+          ))}
         </div>
       </div>
     );
