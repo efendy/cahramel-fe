@@ -4,10 +4,10 @@ import {
   useUpdateCompanyMutation,
 } from '@queries/use-company';
 import {useForm} from 'react-hook-form';
-import {useGetProfile} from '@queries/use-user';
 import {uploadFiles} from '@utils/api-client';
 import {useEffect} from 'react';
 import toast from 'react-hot-toast';
+import {useUserContractStore, useUserStore} from '@zustand/user.store';
 
 type FormValues = {
   title: string;
@@ -21,10 +21,10 @@ type FormValues = {
 };
 
 export const CompanyForm = ({isCreate}: {isCreate?: boolean}) => {
-  const {data, isLoading} = useGetProfile();
-  const userRole = data?.user_contract?.access_role;
+  const {activeContract} = useUserContractStore();
+  const userRole = activeContract?.access_role;
   const isOwner = userRole === 'owner';
-  const companyProfile = data?.user_contract?.company_profile;
+  const companyProfile = activeContract?.company_profile?.data?.attributes;
 
   const {register, handleSubmit, reset, watch} = useForm<FormValues>();
   const imageUpload = watch('image_blobs');
@@ -52,7 +52,7 @@ export const CompanyForm = ({isCreate}: {isCreate?: boolean}) => {
       create(uploadData);
       return;
     }
-    update({...uploadData, id: companyProfile?.id ?? 0});
+    update({...uploadData, id: activeContract?.company_profile?.data?.id ?? 0});
     toast.success('Updated successfully');
   });
 
@@ -74,10 +74,6 @@ export const CompanyForm = ({isCreate}: {isCreate?: boolean}) => {
 
   if (!isCreate && (!userRole || userRole === 'user')) {
     return null;
-  }
-
-  if (!isCreate && isLoading) {
-    return <div>Loading ....</div>;
   }
 
   return (

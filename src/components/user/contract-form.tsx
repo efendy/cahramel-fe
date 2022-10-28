@@ -1,6 +1,7 @@
 import {UserContractType} from '@interfaces/user-contract';
 import {useGetDepartments, useGetJobTitles} from '@queries/use-app-utils';
 import {useGetContracts} from '@queries/use-user-contract';
+import {useUserContractStore} from '@zustand/user.store';
 import React from 'react';
 import {Control, Controller, UseFormRegister} from 'react-hook-form';
 import Select from 'react-select';
@@ -12,9 +13,12 @@ interface IContractForm {
 }
 
 export const ContractForm = ({contract, control, register}: IContractForm) => {
+  const {activeContract} = useUserContractStore();
   const {data: jobTitles} = useGetJobTitles();
   const {data: departments} = useGetDepartments();
-  const {data: reportingTo} = useGetContracts(2); //TODO: change 2 to logged in user company's id
+  const {data: reportingTo} = useGetContracts(
+    activeContract?.company_profile?.data?.id,
+  );
 
   return (
     <div className="grid grid-cols-6 gap-6">
@@ -174,8 +178,6 @@ export const ContractForm = ({contract, control, register}: IContractForm) => {
             aria-describedby="onboard"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
-            defaultChecked={contract?.onboarding_status === 'need'}
-            // checked={data?.onboarding_status === 'need'}
           />
         </div>
         <div className="ml-3 text-sm">
@@ -211,8 +213,6 @@ export const ContractForm = ({contract, control, register}: IContractForm) => {
             aria-describedby="offboard"
             type="checkbox"
             className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
-            defaultChecked={contract?.offboarding_status === 'need'}
-            // checked={data?.offboarding_status === 'need'}
           />
         </div>
         <div className="ml-3 text-sm">

@@ -331,7 +331,6 @@ const ManageCompanyPage = () => {
           </div>
         </div>
       </ClientLayout>
-      <Toaster />
       {/* <SlidePanel open={open} setOpen={setOpen} title={"Draft User"} subtitle={"Every moment is a fresh beginning."}>
       </SlidePanel> */}
     </>
