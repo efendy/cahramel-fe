@@ -8,7 +8,7 @@ import {queryClient} from '@utils/api-client';
 import {getSession} from 'next-auth/react';
 import {UserContractType} from '@interfaces/user-contract';
 
-export const useGetContracts = (companyId: number) => {
+export const useGetContracts = (companyId?: number) => {
   const result = useQuery(
     ['user-contracts', companyId],
     async () => await getContracts(companyId),
@@ -16,7 +16,10 @@ export const useGetContracts = (companyId: number) => {
   return result;
 };
 
-const getContracts = async (companyId: number) => {
+const getContracts = async (companyId?: number) => {
+  if (!companyId) {
+    return [];
+  }
   return queryClient(
     `user-contracts?filters[company_profile]=${companyId}&filters[user_profile][id][$notNull]=true&populate=*`,
     'GET',
@@ -33,14 +36,19 @@ const getContracts = async (companyId: number) => {
   });
 };
 
-export const useGetContract = (id: number) => {
+export const useGetContract = (
+  id: number,
+  options?: {onSuccess?: (data: ContractType) => void},
+) => {
   const result = useQuery(
     ['user-contract', id],
     async () => await getContract(id),
-    {enabled: !!id},
+    {enabled: !!id, onSuccess: options?.onSuccess},
   );
   return result;
 };
+
+export type ContractType = Awaited<ReturnType<typeof getContract>>;
 
 const getContract = async (id: number) => {
   return queryClient(`user-contracts/${id}?populate=*`, 'GET', {
