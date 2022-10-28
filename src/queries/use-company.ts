@@ -1,9 +1,9 @@
 import {useMutation} from '@tanstack/react-query';
 import {queryClient} from '@utils/api-client';
-import {useGetProfile} from './use-user';
+import {useUserStore} from '@zustand/user.store';
 
 export const useSetCompanyMutation = () => {
-  const {data: user} = useGetProfile();
+  const {user} = useUserStore();
   const mutation = useMutation((data: {[key: string]: any}) =>
     queryClient('company-profiles', 'POST', {
       data: {data: {...data, registered_by: user?.id}},

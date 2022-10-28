@@ -22,7 +22,7 @@ const nextAuthOptions: NextAuthOptionsCallback = () => {
           },
           password: {label: 'Password', type: 'password'},
         },
-        async authorize(credentials: any) {
+        async authorize(credentials) {
           // console.log('authorize init', process.env.STRAPI_URL, credentials);
           if (credentials == null) return null;
           try {
@@ -38,7 +38,7 @@ const nextAuthOptions: NextAuthOptionsCallback = () => {
             return {
               jwt: responseData.jwt,
               id: responseData.user?.id,
-              user: responseData.user,
+              email: responseData?.user?.email,
             };
           } catch (error) {
             return null;
@@ -65,17 +65,6 @@ const nextAuthOptions: NextAuthOptionsCallback = () => {
           token.id = data.user.id;
           token.accessToken = data.jwt;
         }
-        // checking and add new cookies to allow account switch
-        // const userCookies = parseCookies({ req })['loggedUsers']
-        // const loggedUsers = userCookies ? JSON.parse(userCookies) as {
-        //   email: {
-        //     email: string
-        //   }
-        // }[] : [];
-        // console.log('new cookies >', token)
-        // const filterUser = loggedUsers?.filter(x => x?.email?.email !== token?.email);
-        // const newCookies = JSON.stringify([...filterUser, token])
-        // setCookie({ res }, 'loggedUsers', newCookies, { path: '/' })
         return Promise.resolve(token);
       },
       async session({session, token}) {
