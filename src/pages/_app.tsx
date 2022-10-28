@@ -28,7 +28,7 @@ export default function App({
 function Auth({children}: {children: JSX.Element}) {
   const {setUser} = useUserStore();
   const {activeContract, setContract} = useUserContractStore();
-  const {status, data: session} = useSession({required: true});
+  const {status, data: session} = useSession();
   useGetProfile({
     enabled: status === 'authenticated',
     onSuccess: data => {
