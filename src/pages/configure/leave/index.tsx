@@ -102,6 +102,8 @@ const people = [
 const ConfigureLeavePage = () => {
   const [open, setOpen] = useState(false);
 
+  const onClose = () => setOpen(false);
+
   return (
     <>
       <ClientLayout>
@@ -231,7 +233,7 @@ const ConfigureLeavePage = () => {
       </ClientLayout>
       <SlidePanel
         open={open}
-        setOpen={setOpen}
+        onClose={onClose}
         title={'Configure New Leave'}
         subtitle={'Life is a flower of which love is the honey.'}></SlidePanel>
     </>

@@ -69,6 +69,8 @@ const AppAnnouncementPage = () => {
     setOpen(true);
   };
 
+  const onClose = () => setOpen(false);
+
   return (
     <>
       <Head>
@@ -135,7 +137,7 @@ const AppAnnouncementPage = () => {
       </ClientLayout>
       <SlidePanel
         open={open}
-        setOpen={setOpen}
+        onClose={onClose}
         title={selectedItem.title}
         subtitle={selectedItem.subtitle}>
         {selectedItem.message}

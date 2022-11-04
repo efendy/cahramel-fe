@@ -1,106 +1,17 @@
+import {EditOnBoardForm} from '@components/configure/onboarding/edit-onboard-form';
 import ClientLayout from '@components/layouts/client-layout';
 import Pagination from '@components/pagination';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
+import {useGetOnBoardings} from '@queries/use-onboard';
 import {useState} from 'react';
-
-/* This example requires Tailwind CSS v2.0+ */
-const people = [
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  // More people...
-];
 
 const ConfigureOnboardingPage = () => {
   const [open, setOpen] = useState(false);
+  const {data} = useGetOnBoardings();
+  const [onBoardId, setOnBoardId] = useState<number | undefined>();
+
+  const onClose = () => setOpen(false);
 
   return (
     <>
@@ -119,7 +30,10 @@ const ConfigureOnboardingPage = () => {
               </div>
               <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                 <button
-                  onClick={() => setOpen(true)}
+                  onClick={() => {
+                    setOnBoardId(undefined);
+                    setOpen(true);
+                  }}
                   type="button"
                   className="inline-flex items-center justify-center rounded-md border border-transparent bg-amber-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto">
                   Configure New Onboarding
@@ -138,22 +52,22 @@ const ConfigureOnboardingPage = () => {
                           <th
                             scope="col"
                             className="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
-                            Name
-                          </th>
-                          <th
-                            scope="col"
-                            className="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
                             Title
                           </th>
                           <th
                             scope="col"
+                            className="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
+                            Description
+                          </th>
+                          <th
+                            scope="col"
                             className="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter lg:table-cell">
-                            Email
+                            Job Title
                           </th>
                           <th
                             scope="col"
                             className="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
-                            Role
+                            Is Activated?
                           </th>
                           <th
                             scope="col"
@@ -163,57 +77,64 @@ const ConfigureOnboardingPage = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white">
-                        {people.map((person, personIdx) => (
-                          <tr key={person.email}>
+                        {data?.map((onboard, personIdx) => (
+                          <tr key={onboard.id}>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1
+                                personIdx !== data.length - 1
                                   ? 'border-b border-gray-200'
                                   : '',
                                 'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8',
                               )}>
-                              {person.name}
+                              {onboard.title}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1
+                                personIdx !== data.length - 1
                                   ? 'border-b border-gray-200'
                                   : '',
                                 'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell',
                               )}>
-                              {person.title}
+                              {onboard.description}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1
+                                personIdx !== data.length - 1
                                   ? 'border-b border-gray-200'
                                   : '',
                                 'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell',
                               )}>
-                              {person.email}
+                              {onboard.job_titles?.data
+                                ?.map(x => x.attributes.title)
+                                .join(', ')}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1
+                                personIdx !== data.length - 1
                                   ? 'border-b border-gray-200'
                                   : '',
                                 'whitespace-nowrap px-3 py-4 text-sm text-gray-500',
                               )}>
-                              {person.role}
+                              {onboard.is_activated ? 'Yes' : 'No'}
                             </td>
                             <td
                               className={classNames(
-                                personIdx !== people.length - 1
+                                personIdx !== data.length - 1
                                   ? 'border-b border-gray-200'
                                   : '',
                                 'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8',
                               )}>
-                              <a
-                                href="#"
-                                className="text-amber-600 hover:text-amber-900">
+                              <div
+                                onClick={() => {
+                                  setOnBoardId(onboard.id);
+                                  setOpen(true);
+                                }}
+                                className="text-amber-600 hover:text-amber-900 cursor-pointer">
                                 Edit
-                                <span className="sr-only">, {person.name}</span>
-                              </a>
+                                <span className="sr-only">
+                                  , {onboard.title}
+                                </span>
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -224,14 +145,16 @@ const ConfigureOnboardingPage = () => {
               </div>
             </div>
           </div>
-          <Pagination />
+          {/* <Pagination /> */}
         </>
       </ClientLayout>
       <SlidePanel
         open={open}
-        setOpen={setOpen}
+        onClose={onClose}
         title={'Configure New Onboarding'}
-        subtitle={'The healthiest response to life is joy.'}></SlidePanel>
+        subtitle={'The healthiest response to life is joy.'}>
+        <EditOnBoardForm onBoardId={onBoardId} onClose={onClose} />
+      </SlidePanel>
     </>
   );
 };

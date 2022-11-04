@@ -1,4 +1,5 @@
 import '../assets/styles/globals.css';
+import 'easymde/dist/easymde.min.css';
 import {useState} from 'react';
 import type {AppProps} from 'next/app';
 import {SessionProvider, useSession} from 'next-auth/react';

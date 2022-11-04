@@ -10,8 +10,9 @@
       "@types/*": ["src/types/*"],
       "@api/*": ["src/api/*"],
       "@utils/*": ["src/utils/*"],
-      "@queries/*": ["src/queries/*"], // for react-query
-      "@zustand/*": ["src/zustand/*"]
+      "@queries/*": ["src/queries/*"],  // for react-query
+      "@zustand/*": ["src/zustand/*"],
+      "@constants/*": ["src/constants/*"]
     }
   }
 }

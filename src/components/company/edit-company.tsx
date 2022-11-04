@@ -7,7 +7,7 @@ import {useForm} from 'react-hook-form';
 import {uploadFiles} from '@utils/api-client';
 import {useEffect} from 'react';
 import toast from 'react-hot-toast';
-import {useUserContractStore, useUserStore} from '@zustand/user.store';
+import {useUserContractStore} from '@zustand/user.store';
 
 type FormValues = {
   title: string;

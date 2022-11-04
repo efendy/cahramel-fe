@@ -102,6 +102,8 @@ const people = [
 const ConfigureOffboardingPage = () => {
   const [open, setOpen] = useState(false);
 
+  const onClose = () => setOpen(false);
+
   return (
     <>
       <ClientLayout>
@@ -229,7 +231,7 @@ const ConfigureOffboardingPage = () => {
       </ClientLayout>
       <SlidePanel
         open={open}
-        setOpen={setOpen}
+        onClose={onClose}
         title={'Configure New Offboarding'}
         subtitle={
           'Life is not a problem to be solved, but a reality to be experienced.'
