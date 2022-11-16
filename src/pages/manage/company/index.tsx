@@ -1,7 +1,6 @@
 import {CompanyForm} from '@components/company/edit-company';
 import ClientLayout from '@components/layouts/client-layout';
 import Head from 'next/head';
-import {Toaster} from 'react-hot-toast';
 
 const ManageCompanyPage = () => {
   return (

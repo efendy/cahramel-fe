@@ -72,7 +72,7 @@ async function uploadFiles(files: Blob[]): Promise<
     id: number;
   }[]
 > {
-  if (files.length === 0) {
+  if (!files || files?.length === 0) {
     return [];
   }
   const formData = new FormData();

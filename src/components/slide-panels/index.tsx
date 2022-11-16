@@ -1,7 +1,14 @@
-/* This example requires Tailwind CSS v2.0+ */
-import {Fragment} from 'react';
+import {Fragment, ReactNode} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
+
+interface ISidePanel {
+  open: boolean;
+  onClose: () => void;
+  title?: string;
+  subtitle?: string;
+  children?: ReactNode;
+}
 
 export default function SlidePanel({
   open,
@@ -9,7 +16,7 @@ export default function SlidePanel({
   title,
   subtitle,
   children,
-}: any) {
+}: ISidePanel) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>

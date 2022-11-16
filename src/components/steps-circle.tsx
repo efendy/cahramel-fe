@@ -2,8 +2,8 @@
 import {CheckIcon} from '@heroicons/react/20/solid';
 
 export interface StepsCircleProps {
-  currentStepIndex: number;
-  setCurrentStepIndex: any;
+  currentStepIndex?: number;
+  setCurrentStepIndex: (id: number) => void;
   steps: string[];
 }
 
@@ -26,7 +26,7 @@ const StepsCircle = ({
               stepIdx !== steps.length - 1 ? 'pr-4 sm:pr-6 lg:pr-10' : '',
               'relative',
             )}>
-            {currentStepIndex > stepIdx ? (
+            {currentStepIndex && currentStepIndex > stepIdx ? (
               <>
                 <div
                   className="absolute inset-0 flex items-center"
@@ -67,7 +67,9 @@ const StepsCircle = ({
                   aria-hidden="true">
                   <div className="h-0.5 w-full bg-gray-200" />
                 </div>
-                <div className="group relative flex h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
+                <div
+                  onClick={() => setCurrentStepIndex(stepIdx)}
+                  className="cursor-pointer group relative flex h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
                   <span
                     className="h-2.5 w-2.5 rounded-full bg-transparent bg-gray-300"
                     aria-hidden="true"

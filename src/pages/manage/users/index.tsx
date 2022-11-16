@@ -1,6 +1,6 @@
 import {DraftUser} from '@components/user/draft-user';
 import ClientLayout from '@components/layouts/client-layout';
-import Pagination from '@components/pagination';
+// import Pagination from '@components/pagination';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
 import Head from 'next/head';

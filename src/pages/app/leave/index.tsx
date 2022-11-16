@@ -110,7 +110,6 @@ const AppLeavePage = () => {
 
   const startOfMonthDate = setDay(startOfMonth(currentDate), 0);
   const endOfMonthDate = setDay(endOfMonth(currentDate), 6);
-  console.log(startOfMonthDate.toString());
 
   const days = eachDayOfInterval({
     start: startOfMonthDate,
@@ -426,7 +425,7 @@ const AppLeavePage = () => {
       </ClientLayout>
       <SlidePanel
         open={open}
-        setOpen={setOpen}
+        onClose={() => setOpen(false)}
         title={'Apply Leave'}
         subtitle={'Love the life you live.'}>
         <ApplyLeave />

@@ -12,7 +12,6 @@ import {
 } from '@heroicons/react/24/outline';
 import {useRouter} from 'next/router';
 import Logo from '@components/logo';
-import AlertModal from '@components/modals/alert';
 import {classNames} from '@helpers/utils';
 import Link from 'next/link';
 import {UserMenu} from './user-menu';
@@ -28,7 +27,6 @@ const ClientLayout = memo((props: IClientLayout) => {
   const {user} = useUserStore();
   const {activeContract, setContract} = useUserContractStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [alertModalOpen, setAlertModalOpen] = useState(false);
   const currentRoute = router.route;
 
   const userRole = activeContract?.access_role;
@@ -345,7 +343,6 @@ const ClientLayout = memo((props: IClientLayout) => {
           <main className="flex-1">{props.children}</main>
         </div>
       </div>
-      <AlertModal open={alertModalOpen} setOpen={setAlertModalOpen} />
       <Toaster />
     </>
   );
