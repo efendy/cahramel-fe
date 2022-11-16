@@ -8,7 +8,6 @@ const Home: NextPage = () => {
   const {data: session, status} = useSession();
 
   useEffect(() => {
-    console.log('EF session', session);
     if (status === 'unauthenticated') {
       router.push(`/auth/login`);
     }

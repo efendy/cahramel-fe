@@ -1,6 +1,6 @@
 import {EditOnBoardForm} from '@components/configure/onboarding/edit-onboard-form';
 import ClientLayout from '@components/layouts/client-layout';
-import Pagination from '@components/pagination';
+// import Pagination from '@components/pagination';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
 import {useGetOnBoardings} from '@queries/use-onboard';

@@ -1,13 +1,3 @@
-import {
-  CalendarIcon,
-  CogIcon,
-  HomeIcon,
-  MagnifyingGlassCircleIcon,
-  MapIcon,
-  MegaphoneIcon,
-  SquaresPlusIcon,
-  UserGroupIcon,
-} from '@heroicons/react/24/outline';
 import {ChevronLeftIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid';
 import ClientLayout from '@components/layouts/client-layout';
 import Image from 'next/image';
