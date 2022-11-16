@@ -49,9 +49,7 @@ export interface OnBoardingStepAttributes {
   image?: {
     data?: ImageType;
   };
-  video_url?: {
-    data?: ImageType;
-  };
+  video_url?: string;
   document?: {
     data?: ImageType;
   };

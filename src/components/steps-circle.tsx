@@ -67,7 +67,9 @@ const StepsCircle = ({
                   aria-hidden="true">
                   <div className="h-0.5 w-full bg-gray-200" />
                 </div>
-                <div className="group relative flex h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
+                <div
+                  onClick={() => setCurrentStepIndex(stepIdx)}
+                  className="cursor-pointer group relative flex h-6 w-6 lg:h-8 lg:w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
                   <span
                     className="h-2.5 w-2.5 rounded-full bg-transparent bg-gray-300"
                     aria-hidden="true"

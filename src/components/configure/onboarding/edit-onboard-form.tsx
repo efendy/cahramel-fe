@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import toast from 'react-hot-toast';
 import {useUserContractStore} from '@zustand/user.store';
@@ -5,7 +6,6 @@ import {useGetDepartments, useGetJobTitles} from '@queries/use-app-utils';
 import Select from 'react-select';
 import {Button} from '@components/ui/button';
 import {useEditOnBoarding, useGetOnBoarding} from '@queries/use-onboard';
-import {useState} from 'react';
 import {OnboardSteps} from './onboard-steps';
 
 type FormValues = {
@@ -65,7 +65,7 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
       company_profile: companyId,
       id,
     };
-    console.log('upp', uploadData);
+    // console.log('upp', uploadData);
     editOnBoard(uploadData);
   });
 

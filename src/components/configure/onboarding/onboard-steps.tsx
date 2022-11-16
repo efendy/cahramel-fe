@@ -1,28 +1,36 @@
 import StepsCircle from '@components/steps-circle';
+import {Button} from '@components/ui/button';
 import {useGetOnBoardingSteps} from '@queries/use-onboard-step';
 import React, {useMemo, useState} from 'react';
 import {EditOnBoardStep} from './edit-onboard-step';
 
 export const OnboardSteps = ({onBoardId}: {onBoardId: number}) => {
-  const [activeStepIndex, setActiveStepIndex] = useState<number>();
+  const [activeStepIndex, setActiveStepIndex] = useState<number>(-1);
+  const [steps, setSteps] = useState<string[]>([]);
 
   const {data: onboardingSteps, isLoading} = useGetOnBoardingSteps(onBoardId, {
-    onSuccess: data => {
-      if (data?.length === 0) {
+    onSuccess: newData => {
+      if (newData?.length === 0) {
         return;
       }
-      setActiveStepIndex(0);
+      setSteps(newData?.map(x => x?.type));
     },
   });
+  const isCreating = onboardingSteps && steps.length > onboardingSteps?.length;
+
+  const handleCreateStep = () => {
+    setActiveStepIndex(steps.length);
+    setSteps(currSteps => {
+      const nextStep = (currSteps.length + 1).toString();
+      return [...currSteps, nextStep];
+    });
+  };
 
   const activeStep = useMemo(
     () => onboardingSteps?.find((_, i) => i === activeStepIndex),
     [activeStepIndex, onboardingSteps],
   );
-
-  console.log('onboardingSteps', activeStep);
-
-  console.log('onBoardId', onBoardId);
+  const prevOrder = onboardingSteps?.[onboardingSteps?.length - 1]?.order;
 
   if (isLoading) {
     return (
@@ -45,14 +53,28 @@ export const OnboardSteps = ({onBoardId}: {onBoardId: number}) => {
   console.log('activeStepIndex', activeStepIndex);
 
   return (
-    <div>
+    <div className="mt-10">
       <StepsCircle
         currentStepIndex={activeStepIndex}
         setCurrentStepIndex={setActiveStepIndex}
-        steps={onboardingSteps ? onboardingSteps?.map(x => x.type) : []}
+        steps={steps}
       />
-
-      <EditOnBoardStep step={activeStepIndex} onBardStep={activeStep} />
+      {/* showing next step order  */}
+      {!isCreating ? (
+        <Button
+          onClick={handleCreateStep}
+          className="mb-3 mr-8 ml-auto border-primary bg-slate-50 text-black hover:bg-slate-200">
+          Create New Step {steps.length + 1}
+        </Button>
+      ) : null}
+      {activeStepIndex >= 0 ? (
+        <EditOnBoardStep
+          step={activeStepIndex}
+          onBardStepId={activeStep?.id}
+          onBoardId={onBoardId}
+          prevOrder={prevOrder}
+        />
+      ) : null}
     </div>
   );
 };

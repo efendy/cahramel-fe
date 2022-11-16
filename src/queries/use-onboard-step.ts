@@ -4,6 +4,7 @@ import {
   UseMutationOptions,
   useQuery,
   useQueryClient,
+  UseQueryOptions,
 } from '@tanstack/react-query';
 import {queryClient} from '@utils/api-client';
 
@@ -20,9 +21,7 @@ export const useGetOnBoardingSteps = (
     },
   );
 };
-export type OnBoardingStepResponseType = Awaited<
-  ReturnType<typeof getOnBoardingSteps>
->[number];
+
 const getOnBoardingSteps = async (onBoardId?: number) => {
   if (!onBoardId) {
     return [];
@@ -43,33 +42,46 @@ const getOnBoardingSteps = async (onBoardId?: number) => {
   });
 };
 
-// export type OnBoardingStepResponseType = Awaited<
-//   ReturnType<typeof getOnBoardingStep>
-// >;
-// export const useGetOnBoarding = (id: number) => {
-//   const result = useQuery(
-//     ['onboarding-step', id],
-//     async () => await getOnBoardingStep(id),
-//   );
-//   return result;
-// };
-// const getOnBoardingStep = async (id?: number) => {
-//   if (!id) {
-//     return null;
-//   }
-//   return queryClient(`onboardings/${id}?populate=*`, 'GET', {
-//     withToken: true,
-//   }).then(data => {
-//     const queryData = data?.data as OnBoardingStepType;
-//     if (!queryData) {
-//       return null;
-//     }
-//     return {
-//       ...queryData.attributes,
-//       id: queryData.id,
-//     };
-//   });
-// };
+export type OnBoardingStepResponseType = Awaited<
+  ReturnType<typeof getOnBoardingSteps>
+>[number];
+
+export const useGetOnBoardingStep = (
+  id?: number,
+  options?: Omit<
+    UseQueryOptions<
+      OnBoardingStepResponseType | null,
+      unknown,
+      OnBoardingStepResponseType,
+      ['onboarding-step', number | undefined]
+    >,
+    'queryKey' | 'queryFn'
+  >,
+) => {
+  const result = useQuery(
+    ['onboarding-step', id],
+    async () => await getOnBoardingStep(id),
+    {...options, enabled: !!id},
+  );
+  return result;
+};
+const getOnBoardingStep = async (id?: number) => {
+  if (!id) {
+    return null;
+  }
+  return queryClient(`onboarding-steps/${id}?populate=*`, 'GET', {
+    withToken: true,
+  }).then(data => {
+    const queryData = data?.data as OnBoardingStepType;
+    if (!queryData) {
+      return null;
+    }
+    return {
+      ...queryData.attributes,
+      id: queryData.id,
+    };
+  });
+};
 
 /**
  * For Create and Update
@@ -97,6 +109,28 @@ export const useEditOnBoardingStep = (
           withToken: true,
         },
       ),
+    {
+      ...options,
+      onSettled: () => {
+        client.invalidateQueries(['onboarding-steps']);
+      },
+    },
+  );
+};
+
+export const useDeleteOnBoardingStep = (
+  options?: Omit<
+    UseMutationOptions<{data: OnBoardingType}, unknown, number, unknown>,
+    'mutationFn'
+  >,
+) => {
+  const client = useQueryClient();
+
+  return useMutation(
+    (id: number) =>
+      queryClient(`onboarding-steps/${id}`, 'DELETE', {
+        withToken: true,
+      }),
     {
       ...options,
       onSettled: () => {
