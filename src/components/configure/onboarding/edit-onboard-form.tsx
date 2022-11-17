@@ -13,6 +13,7 @@ type FormValues = {
   description: string;
   job_titles: {label: string; value: number}[] | undefined;
   departments: {label: string; value: number}[] | undefined;
+  is_activated: boolean;
 };
 
 interface IEditOnBoard {
@@ -39,6 +40,7 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
           label: x.attributes.title,
           value: x.id,
         })),
+        is_activated: data?.is_activated,
       });
     },
   });
@@ -48,14 +50,9 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
   const {mutate: editOnBoard, isLoading} = useEditOnBoarding({
     onSuccess: ({data}) => {
       toast.success(`${onBoarding?.id ? 'Updated' : 'Created'} successfully`);
-      // onClose();
       setOnBoardId(data.id);
     },
   });
-
-  if (!userRole || userRole === 'user') {
-    return null;
-  }
 
   const onSubmit = handleSubmit(data => {
     const uploadData = {
@@ -68,6 +65,10 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
     // console.log('upp', uploadData);
     editOnBoard(uploadData);
   });
+
+  if (!userRole || userRole === 'user') {
+    return null;
+  }
 
   return (
     <div>
@@ -153,6 +154,23 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
               defaultValue={onBoarding?.description}
             />
           </div>
+          <div className="col-span-full relative flex items-center">
+            <div className="flex h-5">
+              <input
+                {...register('is_activated')}
+                id="onboard"
+                aria-describedby="onboard"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
+              />
+            </div>
+
+            <label
+              htmlFor="onboard"
+              className="font-medium text-gray-700 text-sm ml-3">
+              Activated?
+            </label>
+          </div>
         </div>
         <div className="flex justify-end pr-8 space-x-3 mt-4">
           <button
@@ -167,7 +185,6 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
         </div>
       </form>
       {onBoardId ? <OnboardSteps onBoardId={onBoardId} /> : null}
-      {/* {onBoardId ? <EditOnBoardStep onBoardId={1} /> */}
     </div>
   );
 };
