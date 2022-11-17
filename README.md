@@ -1,34 +1,91 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+Make sure that you have minimum Node.js v16 and npm v6 or above installed.
 
 ```bash
-npm run dev
-# or
-yarn dev
+yarn && yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Project Structure
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Current project structure will look similar to this:
 
-## Learn More
+```
+├── .github                         # GitHub folder
+├── public                          # Public assets folder
+├── src
+│   ├── assets                      # Assets folder
+│   ├── components                  # Components folder
+│   │   ├── ui                      # Reusable ui components
+│   │   ├── forms                   # Form components which include input, textarea, dropdown ....
+│   │   ├── other..                 # Other components
+│   ├── constants                   
+│   ├── helpers                     
+│   ├── interfaces                  # App's model types interfaces
+│   ├── pages                      
+│   ├── queries                     # List of queries for react-query
+│   └── types                       # Custom type definition
+│   └── utils                       
+│   └── zustand                     # State management
+│   └── middleware.ts               # Nex-auth middleware to protect routes
+├── tailwind.config.js              # Tailwind CSS configuration
+└── tsconfig.json                   # TypeScript configuration
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Here's a curated list of packages that you should be at least familiar with before starting project. However, the best way to see a complete list of the dependencies is to check [package.json](https://github.com/growfi-ai/cahramel-fe/blob/main/package.json).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Core
 
-## Deploy on Vercel
+- [ ] [NextJS](https://nextjs.org/docs/getting-started)
+- [ ] [Tailwindcss](https://tailwindcss.com/docs/utility-first)
+- [ ] [React Hook Form](https://react-hook-form.com/get-started)
+- [ ] [React Query](https://tanstack.com/query/v4/docs/overview)
+- [ ] [Zustand](https://redux-saga.github.io/redux-saga/)
+- [ ] [NextAuth](https://next-auth.js.org/getting-started/example)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Linting
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [ ] [ESLint](http://eslint.org/)
+- [ ] [Prettier](https://prettier.io/)
+- [ ] [TS ESLint](https://typescript-eslint.io/docs/)
+
+
+
+## Naming Convention
+
+### Naming Folder/ File name
+
+For naming folder or file name, follow the `Kebab Case`.
+
+Kebab case is similar to snake case, but you use a hyphen (-) instead of an underscore (_) to separate the words.
+
+`Here are some examples of kebab case: client-layout and user-menu.`
+
+### Naming function, class, variables or others
+
+Follow [this rules](https://stackoverflow.com/a/56196707/14364980) for other namings.
+
+
+## Naming under `queries` folder
+
+For queries, the file name needs to start with `use-` and strapi cms table name.
+
+For example naming of `User Contract`: `use-user-contract.ts`.
+
+## Naming under `components` folder
+
+Example of naming a components file is as follow:
+
+ 1. Check page's file name (example: `pages/configure/onboarding`)
+ 2. Naming for component folder will be `components/configure/onboarding/your-file-name.tsx`
+
+## Naming under `interfaces` folder
+
+Interfaces' file name is the same as strapi cms name.
+
+Here is example: `User Contract`: `user-contract.ts`.
