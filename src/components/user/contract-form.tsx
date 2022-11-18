@@ -1,10 +1,9 @@
+import {Select} from '@components/ui/select';
 import {UserContractType} from '@interfaces/user-contract';
 import {useGetDepartments, useGetJobTitles} from '@queries/use-app-utils';
 import {useGetContracts} from '@queries/use-user-contract';
-import {useUserContractStore} from '@zustand/user.store';
 import React from 'react';
 import {Control, Controller, UseFormRegister} from 'react-hook-form';
-import Select from 'react-select';
 
 interface IContractForm {
   contract?: UserContractType['attributes'] | null;
@@ -13,12 +12,9 @@ interface IContractForm {
 }
 
 export const ContractForm = ({contract, control, register}: IContractForm) => {
-  const {activeContract} = useUserContractStore();
   const {data: jobTitles} = useGetJobTitles();
   const {data: departments} = useGetDepartments();
-  const {data: reportingTo} = useGetContracts(
-    activeContract?.company_profile?.data?.id,
-  );
+  const {data: reportingTo} = useGetContracts();
 
   return (
     <div className="grid grid-cols-6 gap-6">
@@ -114,7 +110,7 @@ export const ContractForm = ({contract, control, register}: IContractForm) => {
                     }
                   : undefined
               }
-              options={reportingTo?.map(x => ({
+              options={reportingTo?.data?.map(x => ({
                 value: x.id,
                 label: x.email_address,
               }))}
@@ -145,7 +141,7 @@ export const ContractForm = ({contract, control, register}: IContractForm) => {
                     }
                   : undefined
               }
-              options={reportingTo?.map(x => ({
+              options={reportingTo?.data?.map(x => ({
                 value: x.id,
                 label: x.email_address,
               }))}

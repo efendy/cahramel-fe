@@ -1,5 +1,5 @@
 import ClientLayout from '@components/layouts/client-layout';
-import Pagination from '@components/pagination';
+// import Pagination from '@components/ui/pagination';
 import SlidePanel from '@components/slide-panels';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -132,7 +132,7 @@ const AppAnnouncementPage = () => {
               ))}
             </ul>
           </div>
-          <Pagination />
+          {/* <Pagination /> */}
         </div>
       </ClientLayout>
       <SlidePanel

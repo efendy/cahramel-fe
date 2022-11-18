@@ -7,35 +7,55 @@ import {
 import {queryClient} from '@utils/api-client';
 import {getSession} from 'next-auth/react';
 import {UserContractType} from '@interfaces/user-contract';
+import {useUserContractStore} from '@zustand/user.store';
+import {PaginationType} from '@interfaces/common';
 
-export const useGetContracts = (companyId?: number) => {
+interface IGetContracts {
+  page?: number;
+  pageSize?: number;
+}
+/**
+ * List of User's Contracts
+ */
+export const useGetContracts = (props?: IGetContracts) => {
+  const {activeContract} = useUserContractStore();
+  const companyId = activeContract?.company_profile?.data?.id;
   const result = useQuery(
-    ['user-contracts', companyId],
-    async () => await getContracts(companyId),
+    ['user-contracts', companyId, `page-${props?.page ?? 1}`],
+    async () => await getContracts({...props, companyId}),
   );
   return result;
 };
 
-const getContracts = async (companyId?: number) => {
+const getContracts = async ({
+  companyId,
+  page = 1,
+  pageSize = 20,
+}: IGetContracts & {companyId?: number}) => {
   if (!companyId) {
-    return [];
+    return;
   }
   return queryClient(
-    `user-contracts?filters[company_profile]=${companyId}&filters[user_profile][id][$notNull]=true&populate=*`,
+    `user-contracts?filters[company_profile]=${companyId}&filters[user_profile][id][$notNull]=true&populate=*&pagination[pageSize]=${pageSize}&pagination[page]=${page}`,
     'GET',
     {withToken: true},
   ).then(data => {
     const queryData = data?.data as UserContractType[];
-    if (!data?.data) {
-      return [];
-    }
-    return queryData.map(q => ({
-      ...q.attributes,
-      id: q.id,
-    }));
+
+    return {
+      data:
+        queryData?.map(q => ({
+          ...q.attributes,
+          id: q.id,
+        })) ?? [],
+      pagination: data?.meta?.pagination as PaginationType | undefined,
+    };
   });
 };
 
+/**
+ * One User's Contract
+ */
 export const useGetContract = (
   id: number,
   options?: {onSuccess?: (data: ContractType) => void},
@@ -65,6 +85,9 @@ const getContract = async (id: number) => {
   });
 };
 
+/**
+ * Update User's Contract
+ */
 export const useUpdateContract = (
   options?: Omit<
     UseMutationOptions<any, unknown, {[key: string]: any}, unknown>,
@@ -87,6 +110,9 @@ export const useUpdateContract = (
   );
 };
 
+/**
+ * Delete User's Contract
+ */
 export const useDeleteContract = (
   options?: Omit<
     UseMutationOptions<any, unknown, number, unknown>,
@@ -108,6 +134,9 @@ export const useDeleteContract = (
   );
 };
 
+/**
+ * Save or confirm User's Contract
+ */
 export const useDraftUserContract = (
   options: Omit<
     UseMutationOptions<any, unknown, {[key: string]: any}, unknown>,
@@ -130,6 +159,9 @@ export const useDraftUserContract = (
   );
 };
 
+/**
+ * Check invite and link user
+ */
 export const useGetContractInvite = (code?: string) => {
   return useQuery(
     ['contract-invite', code],

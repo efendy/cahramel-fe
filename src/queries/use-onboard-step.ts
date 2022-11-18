@@ -8,6 +8,9 @@ import {
 } from '@tanstack/react-query';
 import {queryClient} from '@utils/api-client';
 
+/**
+ * List of OnBoardingSteps
+ */
 export const useGetOnBoardingSteps = (
   onBoardId?: number,
   options?: {onSuccess?: (data: OnBoardingStepResponseType[]) => void},
@@ -46,6 +49,9 @@ export type OnBoardingStepResponseType = Awaited<
   ReturnType<typeof getOnBoardingSteps>
 >[number];
 
+/**
+ * One OnBoardingStep
+ */
 export const useGetOnBoardingStep = (
   id?: number,
   options?: Omit<
@@ -84,7 +90,7 @@ const getOnBoardingStep = async (id?: number) => {
 };
 
 /**
- * For Create and Update
+ * Create Or Update OnBoardingStep
  */
 export const useEditOnBoardingStep = (
   options?: Omit<
@@ -118,6 +124,9 @@ export const useEditOnBoardingStep = (
   );
 };
 
+/**
+ * Delete OnBoardingStep
+ */
 export const useDeleteOnBoardingStep = (
   options?: Omit<
     UseMutationOptions<{data: OnBoardingType}, unknown, number, unknown>,
