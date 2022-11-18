@@ -116,7 +116,7 @@ export const DraftUser = ({
 
   return (
     <form id="draft-user-form" onSubmit={onSubmit} className="pb-8 space-y-6">
-      <div className="px-4 py-5 sm:p-6">
+      <div className="sm:px-4 py-5">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="col-span-full">
             <h3 className="text-lg font-medium leading-6 text-gray-900">
@@ -195,7 +195,7 @@ export const DraftUser = ({
         </div>
       </div>
       <div className="bg-gray-200 h-[2px] w-full" />
-      <div className="px-4 py-5 sm:p-6">
+      <div className="sm:px-4 py-5">
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="col-span-full">
             <h3 className="text-lg font-medium leading-6 text-gray-900">
@@ -215,7 +215,7 @@ export const DraftUser = ({
         </div>
       </div>
 
-      <div className="flex justify-end pr-8 space-x-3">
+      <div className="flex md:flex-row justify-end pr-8  md:space-x-3 flex-col space-y-3 md:space-y-0">
         <button
           type="button"
           className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
