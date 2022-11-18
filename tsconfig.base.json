@@ -12,7 +12,8 @@
       "@utils/*": ["src/utils/*"],
       "@queries/*": ["src/queries/*"],  // for react-query
       "@zustand/*": ["src/zustand/*"],
-      "@constants/*": ["src/constants/*"]
+      "@constants/*": ["src/constants/*"],
+      "@theme/*": ["src/theme/*"]
     }
   }
 }

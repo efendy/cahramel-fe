@@ -1,3 +1,4 @@
+import {PaginationType} from '@interfaces/common';
 import {OnBoardingType} from '@interfaces/onboarding';
 import {
   useMutation,
@@ -8,38 +9,54 @@ import {
 import {queryClient} from '@utils/api-client';
 import {useUserContractStore} from '@zustand/user.store';
 
-export const useGetOnBoardings = () => {
+interface IGetOnBoardings {
+  page?: number;
+  pageSize?: number;
+}
+/**
+ * List of OnBoardings
+ */
+export const useGetOnBoardings = (props?: IGetOnBoardings) => {
   const {activeContract} = useUserContractStore();
   const companyId = activeContract?.company_profile?.data?.id;
   return useQuery(
-    ['onboardings', companyId],
-    async () => await getOnBoardings(companyId),
+    ['onboardings', companyId, `page-${props?.page ?? 1}`],
+    async () => await getOnBoardings({...props, companyId}),
     {
       enabled: !!companyId,
     },
   );
 };
-const getOnBoardings = async (companyId?: number) => {
+const getOnBoardings = async ({
+  companyId,
+  page = 1,
+  pageSize = 20,
+}: IGetOnBoardings & {companyId?: number}) => {
   if (!companyId) {
-    return [];
+    return;
   }
   return queryClient(
-    `onboardings?filters[company_profile]=${companyId}&populate=*`,
+    `onboardings?filters[company_profile]=${companyId}&populate=*&pagination[pageSize]=${pageSize}&pagination[page]=${page}`,
     'GET',
     {withToken: true},
   ).then(data => {
     const queryData = data?.data as OnBoardingType[];
-    if (!data?.data) {
-      return [];
-    }
-    return queryData.map(q => ({
-      ...q.attributes,
-      id: q.id,
-    }));
+    return {
+      data:
+        queryData?.map(q => ({
+          ...q.attributes,
+          id: q.id,
+        })) ?? [],
+      pagination: data?.meta?.pagination as PaginationType | undefined,
+    };
   });
 };
 
 export type OnBoardingResponseType = Awaited<ReturnType<typeof getOnBoarding>>;
+
+/**
+ * One OnBoardingStep
+ */
 export const useGetOnBoarding = (
   id?: number,
   options?: {onSuccess?: (data: OnBoardingResponseType) => void},
@@ -70,7 +87,7 @@ const getOnBoarding = async (id?: number) => {
 };
 
 /**
- * For Create and Update
+ * Create Or Update OnBarding
  */
 export const useEditOnBoarding = (
   options?: Omit<

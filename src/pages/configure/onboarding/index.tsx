@@ -1,20 +1,25 @@
+import {useState} from 'react';
 import {EditOnBoardForm} from '@components/configure/onboarding/edit-onboard-form';
 import ClientLayout from '@components/layouts/client-layout';
-// import Pagination from '@components/pagination';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
 import {useGetOnBoardings} from '@queries/use-onboard';
-import {useState} from 'react';
+import {Pagination} from '@components/ui/pagination';
+import {MetaHeader} from '@components/ui/meta-header';
 
 const ConfigureOnboardingPage = () => {
   const [open, setOpen] = useState(false);
-  const {data} = useGetOnBoardings();
+  const [page, setPage] = useState(1);
+  const {data} = useGetOnBoardings({
+    page,
+  });
   const [onBoardId, setOnBoardId] = useState<number | undefined>();
 
   const onClose = () => setOpen(false);
 
   return (
     <>
+      <MetaHeader title="Configure / OnBoarding" />
       <ClientLayout>
         <>
           <div className="px-4 mt-4">
@@ -77,67 +82,68 @@ const ConfigureOnboardingPage = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white">
-                        {data?.map((onboard, personIdx) => (
-                          <tr key={onboard.id}>
-                            <td
-                              className={classNames(
-                                personIdx !== data.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8',
-                              )}>
-                              {onboard.title}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== data.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell',
-                              )}>
-                              {onboard.description}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== data.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell',
-                              )}>
-                              {onboard.job_titles?.data
-                                ?.map(x => x.attributes.title)
-                                .join(', ')}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== data.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500',
-                              )}>
-                              {onboard.is_activated ? 'Yes' : 'No'}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== data.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8',
-                              )}>
-                              <div
-                                onClick={() => {
-                                  setOnBoardId(onboard.id);
-                                  setOpen(true);
-                                }}
-                                className="text-amber-600 hover:text-amber-900 cursor-pointer">
-                                Edit
-                                <span className="sr-only">
-                                  , {onboard.title}
-                                </span>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
+                        {data?.data &&
+                          data.data?.map((onboard, personIdx) => (
+                            <tr key={onboard.id}>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8',
+                                )}>
+                                {onboard.title}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell',
+                                )}>
+                                {onboard.description}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell',
+                                )}>
+                                {onboard.job_titles?.data
+                                  ?.map(x => x.attributes.title)
+                                  .join(', ')}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500',
+                                )}>
+                                {onboard.is_activated ? 'Yes' : 'No'}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8',
+                                )}>
+                                <div
+                                  onClick={() => {
+                                    setOnBoardId(onboard.id);
+                                    setOpen(true);
+                                  }}
+                                  className="text-amber-600 hover:text-amber-900 cursor-pointer">
+                                  Edit
+                                  <span className="sr-only">
+                                    , {onboard.title}
+                                  </span>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
@@ -145,7 +151,13 @@ const ConfigureOnboardingPage = () => {
               </div>
             </div>
           </div>
-          {/* <Pagination /> */}
+          {data?.pagination ? (
+            <Pagination
+              pagination={data?.pagination}
+              setPage={setPage}
+              currentPage={page}
+            />
+          ) : null}
         </>
       </ClientLayout>
       <SlidePanel

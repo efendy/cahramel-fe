@@ -1,5 +1,4 @@
 import ClientLayout from '@components/layouts/client-layout';
-import Pagination from '@components/pagination';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
 import {useState} from 'react';
@@ -228,7 +227,7 @@ const ConfigureLeavePage = () => {
               </div>
             </div>
           </div>
-          <Pagination />
+          {/* <Pagination /> */}
         </>
       </ClientLayout>
       <SlidePanel

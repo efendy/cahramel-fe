@@ -50,23 +50,24 @@ export const OnboardSteps = ({onBoardId}: {onBoardId: number}) => {
     );
   }
 
-  console.log('activeStepIndex', activeStepIndex);
-
   return (
     <div className="mt-10">
-      <StepsCircle
-        currentStepIndex={activeStepIndex}
-        setCurrentStepIndex={setActiveStepIndex}
-        steps={steps}
-      />
       {/* showing next step order  */}
       {!isCreating ? (
         <Button
           onClick={handleCreateStep}
-          className="mb-3 mr-8 ml-auto border-primary bg-slate-50 text-black hover:bg-slate-200">
+          className="my-3 mr-8 ml-auto border-primary bg-slate-50 text-black hover:bg-slate-200">
           Create New Step {steps.length + 1}
         </Button>
       ) : null}
+      <div className="overflow-x-auto px-10">
+        <StepsCircle
+          currentStepIndex={activeStepIndex}
+          setCurrentStepIndex={setActiveStepIndex}
+          steps={steps}
+          clickAnywhere={true}
+        />
+      </div>
       {activeStepIndex >= 0 ? (
         <EditOnBoardStep
           step={activeStepIndex}

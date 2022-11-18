@@ -1,7 +1,6 @@
 import {Controller, useForm} from 'react-hook-form';
 import toast from 'react-hot-toast';
 import {useUserContractStore} from '@zustand/user.store';
-import Select from 'react-select';
 import {Button} from '@components/ui/button';
 import {
   useDeleteOnBoardingStep,
@@ -12,6 +11,7 @@ import {OnBoardStepTypes} from '@interfaces/onboarding';
 import {TypeOptions} from '@constants/onboard';
 import dynamic from 'next/dynamic';
 import {uploadFiles} from '@utils/api-client';
+import {Select} from '@components/ui/select';
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {ssr: false});
 

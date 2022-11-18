@@ -1,21 +1,20 @@
 import {DraftUser} from '@components/user/draft-user';
 import ClientLayout from '@components/layouts/client-layout';
-// import Pagination from '@components/pagination';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
 import Head from 'next/head';
 import {useState} from 'react';
 import {useGetContracts} from '@queries/use-user-contract';
 import {UpdateContract} from '@components/user/update-contract';
-import {useUserContractStore} from '@zustand/user.store';
+import {Pagination} from '@components/ui/pagination';
 
 const ManageUsersPage = () => {
   const [modal, setModal] = useState<'update' | 'draft' | null>(null);
   const [contractId, setContractId] = useState(0);
-  const {activeContract} = useUserContractStore();
-  const {data: contracts} = useGetContracts(
-    activeContract?.company_profile?.data?.id,
-  );
+  const [page, setPage] = useState(1);
+  const {data: contracts} = useGetContracts({
+    page,
+  });
 
   const onClose = () => {
     setContractId(0);
@@ -89,74 +88,75 @@ const ManageUsersPage = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white">
-                        {contracts?.map((person, personIdx) => (
-                          <tr key={person.id}>
-                            <td
-                              className={classNames(
-                                personIdx !== contracts.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8',
-                              )}>
-                              {`${
-                                person.user_profile?.data?.attributes
-                                  ?.first_name ?? ''
-                              } ${
-                                person.user_profile?.data?.attributes
-                                  ?.last_name ?? ''
-                              }`}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== contracts.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell',
-                              )}>
-                              {person.job_title?.data?.attributes?.title}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== contracts.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell',
-                              )}>
-                              {person.email_address}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== contracts.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize',
-                              )}>
-                              {person.access_role}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== contracts.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8',
-                              )}>
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setContractId(person.id);
-                                  setModal(
-                                    person.is_draft ? 'draft' : 'update',
-                                  );
-                                }}
-                                className="text-amber-600 hover:text-amber-900">
-                                Edit
-                                <span className="sr-only">
-                                  , {person.email_address}
-                                </span>
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
+                        {contracts?.data &&
+                          contracts.data?.map((person, personIdx) => (
+                            <tr key={person.id}>
+                              <td
+                                className={classNames(
+                                  personIdx !== contracts.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8',
+                                )}>
+                                {`${
+                                  person.user_profile?.data?.attributes
+                                    ?.first_name ?? ''
+                                } ${
+                                  person.user_profile?.data?.attributes
+                                    ?.last_name ?? ''
+                                }`}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== contracts.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell',
+                                )}>
+                                {person.job_title?.data?.attributes?.title}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== contracts.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell',
+                                )}>
+                                {person.email_address}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== contracts.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize',
+                                )}>
+                                {person.access_role}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== contracts.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8',
+                                )}>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setContractId(person.id);
+                                    setModal(
+                                      person.is_draft ? 'draft' : 'update',
+                                    );
+                                  }}
+                                  className="text-amber-600 hover:text-amber-900">
+                                  Edit
+                                  <span className="sr-only">
+                                    , {person.email_address}
+                                  </span>
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
@@ -164,7 +164,13 @@ const ManageUsersPage = () => {
               </div>
             </div>
           </div>
-          {/* <Pagination /> */}
+          {contracts?.pagination ? (
+            <Pagination
+              currentPage={page}
+              pagination={contracts.pagination}
+              setPage={setPage}
+            />
+          ) : null}
         </>
       </ClientLayout>
       <SlidePanel

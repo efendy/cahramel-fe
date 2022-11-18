@@ -3,10 +3,10 @@ import {Controller, useForm} from 'react-hook-form';
 import toast from 'react-hot-toast';
 import {useUserContractStore} from '@zustand/user.store';
 import {useGetDepartments, useGetJobTitles} from '@queries/use-app-utils';
-import Select from 'react-select';
 import {Button} from '@components/ui/button';
 import {useEditOnBoarding, useGetOnBoarding} from '@queries/use-onboard';
 import {OnboardSteps} from './onboard-steps';
+import {Select} from '@components/ui/select';
 
 type FormValues = {
   title: string;
