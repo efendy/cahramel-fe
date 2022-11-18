@@ -20,6 +20,17 @@
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/react-in-jsx-scope": "off",
-    "@typescript-eslint/no-misused-promises": "off"
+    "@typescript-eslint/no-misused-promises": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "react-select",
+            "message": "Use <Select> instead from @components/ui/select"
+          }
+        ]
+      }
+    ]
   }
 }
