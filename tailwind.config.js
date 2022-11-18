@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+// /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -8,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#F59E0B',
+        primary25: '#f7c674',
       },
     },
   },
