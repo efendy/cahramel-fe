@@ -1,11 +1,11 @@
 import {useGetIndustryType} from '@queries/use-industry-type';
 import {
+  useGetCompany,
   useSetCompanyMutation,
   useUpdateCompanyMutation,
 } from '@queries/use-company';
 import {useForm} from 'react-hook-form';
 import {uploadFiles} from '@utils/api-client';
-import {useEffect} from 'react';
 import toast from 'react-hot-toast';
 import {useUserContractStore} from '@zustand/user.store';
 
@@ -24,7 +24,24 @@ export const CompanyForm = ({isCreate}: {isCreate?: boolean}) => {
   const {activeContract} = useUserContractStore();
   const userRole = activeContract?.access_role;
   const isOwner = userRole === 'owner';
-  const companyProfile = activeContract?.company_profile?.data?.attributes;
+  const companyId = activeContract?.company_profile?.data?.id;
+  const {data: companyProfile, isLoading} = useGetCompany(companyId, {
+    onSuccess: newValue => {
+      if (!newValue) {
+        return;
+      }
+      const defaultValue = {
+        contact_address: newValue?.contact_address,
+        contact_postal_code: newValue?.contact_postal_code,
+        description: newValue?.description,
+        title: newValue?.title,
+        uen: newValue?.uen,
+        unique_id: newValue?.unique_id,
+        industry_type: newValue?.industry_type?.data?.id,
+      };
+      reset(defaultValue);
+    },
+  });
 
   const {register, handleSubmit, reset, watch} = useForm<FormValues>();
   const imageUpload = watch('image_blobs');
@@ -55,22 +72,6 @@ export const CompanyForm = ({isCreate}: {isCreate?: boolean}) => {
     update({...uploadData, id: activeContract?.company_profile?.data?.id ?? 0});
     toast.success('Updated successfully');
   });
-
-  useEffect(() => {
-    if (!companyProfile) {
-      return;
-    }
-    const defaultValue = {
-      contact_address: companyProfile?.contact_address,
-      contact_postal_code: companyProfile?.contact_postal_code,
-      description: companyProfile?.description,
-      title: companyProfile?.title,
-      uen: companyProfile?.uen,
-      unique_id: companyProfile?.unique_id,
-      industry_type: companyProfile?.industry_type?.data?.id,
-    };
-    reset(defaultValue);
-  }, [companyProfile, reset]);
 
   if (!isCreate && (!userRole || userRole === 'user')) {
     return null;
