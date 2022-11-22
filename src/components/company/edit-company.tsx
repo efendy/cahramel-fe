@@ -25,7 +25,7 @@ export const CompanyForm = ({isCreate}: {isCreate?: boolean}) => {
   const userRole = activeContract?.access_role;
   const isOwner = userRole === 'owner';
   const companyId = activeContract?.company_profile?.data?.id;
-  const {data: companyProfile, isLoading} = useGetCompany(companyId, {
+  const {data: companyProfile} = useGetCompany(companyId, {
     onSuccess: newValue => {
       if (!newValue) {
         return;
