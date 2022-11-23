@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import {useUserStore} from '@zustand/user.store';
 import {Select} from '@components/ui/select';
 import national from '@assets/nationalities.json';
+import {Button} from '@components/ui/button';
 import {
   GenderOptions,
   MaritalOptions,
@@ -306,16 +307,9 @@ export const ProfileForm = () => {
       </div>
 
       <div className="flex justify-end pt-8">
-        <button
-          type="button"
-          className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium shadow-sm hover:bg-amber-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-amber-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+        <Button type="submit" disabled={isUpdating} loading={isUpdating}>
           Save
-        </button>
+        </Button>
       </div>
     </form>
   );
