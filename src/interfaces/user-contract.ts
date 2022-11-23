@@ -16,6 +16,8 @@ interface Attributes {
   offboarding_status: string;
   complete_onboarding_by: string;
   complete_offboarding_by?: string;
+  current_onboard_order: number;
+  current_offboard_order: number;
   company_profile?: {
     data?: CompanyProfileType;
   };

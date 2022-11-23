@@ -7,6 +7,7 @@ import {
   UseQueryOptions,
 } from '@tanstack/react-query';
 import {queryClient} from '@utils/api-client';
+import {useUserContractStore} from '@zustand/user.store';
 
 /**
  * List of OnBoardingSteps
@@ -147,4 +148,53 @@ export const useDeleteOnBoardingStep = (
       },
     },
   );
+};
+
+/**
+ * List of My OnBoardingSteps
+ */
+export const useGetMyOnBoardingSteps = (
+  onBoardId?: number,
+  options?: {onSuccess?: (data: OnBoardingStepResponseType[]) => void},
+) => {
+  const {activeContract} = useUserContractStore();
+  const departmentId = activeContract?.department?.data.id;
+  return useQuery(
+    ['onboarding-steps', onBoardId],
+    async () => await getMyOnBoardingSteps(departmentId),
+    {
+      enabled: !!departmentId,
+      onSuccess: options?.onSuccess,
+    },
+  );
+};
+
+const getMyOnBoardingSteps = async (departmentId?: number) => {
+  if (!departmentId) {
+    return [];
+  }
+  const onBoardsData = await queryClient(
+    `onboardings?filters[departments]=${departmentId}`,
+    'GET',
+    {withToken: true},
+  );
+  const onBoards = onBoardsData?.data as OnBoardingType[];
+  if (!onBoards || onBoards.length === 0) {
+    return [];
+  }
+  const onBoardData = onBoards[0];
+  return queryClient(
+    `onboarding-steps?filters[onboarding]=${onBoardData.id}&sort=order&populate=*`,
+    'GET',
+    {withToken: true},
+  ).then(data => {
+    const onBoardSteps = data?.data as OnBoardingStepType[];
+    if (!onBoardSteps || onBoardSteps.length === 0) {
+      return [];
+    }
+    return onBoardSteps.map(x => ({
+      ...x.attributes,
+      id: x.id,
+    }));
+  });
 };

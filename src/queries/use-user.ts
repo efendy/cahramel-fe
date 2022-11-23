@@ -21,7 +21,7 @@ export type ProfileResponseType =
 
 const getUserProfile = async () => {
   return queryClient(
-    'user-profiles/me?populate[]=user_contracts.company_profile&populate[]=user_contracts.company_profile.image_profile&populate[]=user_contracts.company_profile.industry_type&populate[]=image_profile',
+    'user-profiles/me?populate[]=user_contracts.company_profile&populate[]=user_contracts.company_profile.image_profile&populate[]=user_contracts.company_profile.industry_type&populate[]=image_profile&populate[]=user_contracts.department',
     'GET',
     {withToken: true},
   ).then(data => {

@@ -1,25 +1,89 @@
 import ClientLayout from '@components/layouts/client-layout';
 import StepsCircle from '@components/steps-circle';
-import Head from 'next/head';
+import {MetaHeader} from '@components/ui/meta-header';
+import {useGetMyOnBoardingSteps} from '@queries/use-onboard-step';
+import {useGetContract, useUpdateMyContract} from '@queries/use-user-contract';
+import {useUserContractStore} from '@zustand/user.store';
+import Link from 'next/link';
 import {useState} from 'react';
+import ReactMarkdown from 'react-markdown';
 
 const AppOnboardingPage = () => {
+  const {activeContract} = useUserContractStore();
+  const {data, isLoading} = useGetMyOnBoardingSteps();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const steps = [
-    'Step 1',
-    'Step 2',
-    'Step 3',
-    'Step 4',
-    'Step 5',
-    'Step 6',
-    'Step 7',
-  ];
+  useGetContract(activeContract?.id, {
+    onSuccess: newData => {
+      const indexOfContract = data?.findIndex(
+        x => x.order === newData?.current_onboard_order,
+      );
+      if (!indexOfContract) {
+        return;
+      }
+      setCurrentStepIndex(indexOfContract);
+    },
+    enabled: !!activeContract?.id && !!data && data?.length > 0,
+  });
+  const steps = data?.map(x => x.type) ?? [];
+
+  const {mutate} = useUpdateMyContract();
+
+  const renderStepContent = (
+    type: Exclude<typeof data, undefined>[number]['type'],
+    step: Exclude<typeof data, undefined>[number],
+  ) => {
+    switch (type) {
+      case 'image':
+        return (
+          <img
+            src={step?.image?.data?.attributes?.url}
+            className="w-10/12 h-auto"
+          />
+        );
+      case 'video_url':
+        return (
+          <a href={step.video_url} target={'_blank'}>
+            Click here to open link
+          </a>
+        );
+      case 'document':
+        return (
+          <a
+            className="underline"
+            target={'_blank'}
+            href={step?.document?.data?.attributes?.url}
+            download={step?.document?.data?.attributes?.name}>
+            Download this document
+          </a>
+        );
+      case 'user_profile_update_data':
+        return (
+          <Link href={'/user'}>
+            <a className="underline">Go to profile to update your info</a>
+          </Link>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const setStepIndex = (index: number) => {
+    const stepIndex = data?.find((_, i) => i === index);
+    if (!stepIndex) {
+      return;
+    }
+    mutate({
+      current_onboard_order: stepIndex.order + 1,
+    });
+  };
+
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
 
   return (
     <>
-      <Head>
-        <title>Onboarding</title>
-      </Head>
+      <MetaHeader title="Onboarding" />
       <ClientLayout>
         <div className="px-4 mt-4">
           <div className="sm:flex sm:items-center">
@@ -42,9 +106,18 @@ const AppOnboardingPage = () => {
             />
             <form className="mt-8 space-y-8 divide-y divide-gray-200">
               <div className="space-y-8 divide-y divide-gray-200">
-                {steps.map((step, stepIdx) =>
-                  currentStepIndex === stepIdx ? <div>{step} WIP</div> : null,
-                )}
+                {data &&
+                  data.map((step, stepIdx) =>
+                    currentStepIndex === stepIdx ? (
+                      <div>
+                        <ReactMarkdown className="prose">
+                          {step.content}
+                        </ReactMarkdown>
+                        <div>{step.type}</div>
+                        {renderStepContent(step.type, step)}
+                      </div>
+                    ) : null,
+                  )}
               </div>
 
               <div className="pt-5">
@@ -60,7 +133,10 @@ const AppOnboardingPage = () => {
 
                   {currentStepIndex < steps.length - 1 ? (
                     <button
-                      onClick={() => setCurrentStepIndex(currentStepIndex + 1)}
+                      onClick={() => {
+                        setStepIndex(currentStepIndex);
+                        setCurrentStepIndex(currentStepIndex + 1);
+                      }}
                       type="button"
                       className="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       Next

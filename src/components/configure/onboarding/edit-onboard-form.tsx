@@ -89,7 +89,7 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
               defaultValue={onBoarding?.title}
             />
           </div>
-          <div className="col-span-6 sm:col-span-3" />
+          <div className="hidden sm:block sm:col-span-3" />
           <div className="col-span-6 sm:col-span-3">
             <label
               htmlFor="job-title"

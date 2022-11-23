@@ -3,6 +3,7 @@ import {
   UseMutationOptions,
   useQuery,
   useQueryClient,
+  UseQueryOptions,
 } from '@tanstack/react-query';
 import {queryClient} from '@utils/api-client';
 import {getSession} from 'next-auth/react';
@@ -57,20 +58,32 @@ const getContracts = async ({
  * One User's Contract
  */
 export const useGetContract = (
-  id: number,
-  options?: {onSuccess?: (data: ContractType) => void},
+  id?: number,
+  options?: Omit<
+    UseQueryOptions<
+      ContractType | null,
+      unknown,
+      ContractType,
+      ['user-contract', number | undefined]
+    >,
+    'queryKey' | 'queryFn'
+  >,
 ) => {
+  console.log('eeee', options?.enabled);
   const result = useQuery(
     ['user-contract', id],
     async () => await getContract(id),
-    {enabled: !!id, onSuccess: options?.onSuccess},
+    {enabled: !!id, ...options},
   );
   return result;
 };
 
 export type ContractType = Awaited<ReturnType<typeof getContract>>;
 
-const getContract = async (id: number) => {
+const getContract = async (id?: number) => {
+  if (!id) {
+    return null;
+  }
   return queryClient(`user-contracts/${id}?populate=*`, 'GET', {
     withToken: true,
   }).then(data => {
@@ -88,16 +101,33 @@ const getContract = async (id: number) => {
 /**
  * Update User's Contract
  */
-export const useUpdateContract = (
-  options?: Omit<
-    UseMutationOptions<any, unknown, {[key: string]: any}, unknown>,
-    'mutationFn'
-  >,
-) => {
+
+type UpdateOptionType = Omit<
+  UseMutationOptions<any, unknown, {[key: string]: any}, unknown>,
+  'mutationFn'
+>;
+export const useUpdateContract = (options?: UpdateOptionType) => {
   const client = useQueryClient();
   return useMutation(
     (data: {[key: string]: any; id: number}) =>
       queryClient(`user-contracts/${data.id}`, 'PUT', {
+        data: {data},
+        withToken: true,
+      }),
+    {
+      ...options,
+      onSettled: data => {
+        client.invalidateQueries(['user-contract', data.id]);
+      },
+    },
+  );
+};
+export const useUpdateMyContract = (options?: UpdateOptionType) => {
+  const client = useQueryClient();
+  const {activeContract} = useUserContractStore();
+  return useMutation(
+    (data: {[key: string]: any}) =>
+      queryClient(`user-contracts/${activeContract?.id}`, 'PUT', {
         data: {data},
         withToken: true,
       }),
