@@ -30,7 +30,6 @@ type FormValues = {
 export const ProfileForm = () => {
   const {user} = useUserStore();
   const userId = user?.id;
-  console.log(user);
   const {data: userProfile} = useGetProfile(userId, {
     onSuccess: newValue => {
       if (!newValue) {

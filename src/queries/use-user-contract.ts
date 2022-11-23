@@ -14,6 +14,7 @@ import {PaginationType} from '@interfaces/common';
 interface IGetContracts {
   page?: number;
   pageSize?: number;
+  filters?: string | null;
 }
 /**
  * List of User's Contracts
@@ -22,7 +23,7 @@ export const useGetContracts = (props?: IGetContracts) => {
   const {activeContract} = useUserContractStore();
   const companyId = activeContract?.company_profile?.data?.id;
   const result = useQuery(
-    ['user-contracts', companyId, `page-${props?.page ?? 1}`],
+    ['user-contracts', companyId, `page-${props?.page ?? 1}`, props?.filters],
     async () => await getContracts({...props, companyId}),
   );
   return result;
@@ -32,12 +33,15 @@ const getContracts = async ({
   companyId,
   page = 1,
   pageSize = 20,
+  filters,
 }: IGetContracts & {companyId?: number}) => {
   if (!companyId) {
     return;
   }
   return queryClient(
-    `user-contracts?filters[company_profile]=${companyId}&filters[user_profile][id][$notNull]=true&populate=*&pagination[pageSize]=${pageSize}&pagination[page]=${page}`,
+    `user-contracts?filters[company_profile]=${companyId}&filters[user_profile][id][$notNull]=true&populate=*&pagination[pageSize]=${pageSize}&pagination[page]=${page}${
+      filters ? filters : ''
+    }`,
     'GET',
     {withToken: true},
   ).then(data => {

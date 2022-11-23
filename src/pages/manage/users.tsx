@@ -7,13 +7,20 @@ import {useState} from 'react';
 import {useGetContracts} from '@queries/use-user-contract';
 import {UpdateContract} from '@components/user/update-contract';
 import {Pagination} from '@components/ui/pagination';
+import {MagnifyingGlassIcon} from '@heroicons/react/20/solid';
 
 const ManageUsersPage = () => {
+  const [searchInput, setSearchInput] = useState('');
   const [modal, setModal] = useState<'update' | 'draft' | null>(null);
   const [contractId, setContractId] = useState(0);
   const [page, setPage] = useState(1);
   const {data: contracts} = useGetContracts({
     page,
+    filters: !searchInput
+      ? null
+      : isNaN(Number(searchInput))
+      ? `&filters[user_profile][first_name][$contains]=${searchInput}`
+      : `&filters[employee_id][$contains]=${searchInput}`,
   });
 
   const onClose = () => {
@@ -32,14 +39,21 @@ const ManageUsersPage = () => {
             <div className="sm:flex sm:items-center">
               <div className="sm:flex-auto">
                 <h1 className="text-xl font-semibold text-gray-900">Users</h1>
-                <p className="mt-2 text-sm text-gray-700">
-                  “Connect the dots between individual roles and the goals of
-                  the organization. When people see that connection, they get a
-                  lot of energy out of work. They feel the importance, dignity,
-                  and meaning in their job.” – Ken Blanchard.
-                </p>
               </div>
-              <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+              <div className="relative mt-1 flex items-center">
+                <input
+                  onChange={e => setSearchInput(e.target.value)}
+                  type="text"
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 pr-20 sm:text-sm"
+                />
+                <div className="absolute inset-y-0 right-0 flex py-2 pr-2">
+                  <MagnifyingGlassIcon
+                    className="h-5 w-5 text-gray-400 hover:text-black"
+                    aria-hidden="true"
+                  />
+                </div>
+              </div>
+              <div className="mt-4 sm:mt-0 sm:ml-8 sm:flex-none">
                 <button
                   onClick={() => {
                     setContractId(0);
