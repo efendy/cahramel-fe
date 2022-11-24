@@ -1,11 +1,11 @@
 import {useState} from 'react';
-import {EditOnBoardForm} from '@components/configure/onboarding/edit-onboard-form';
 import ClientLayout from '@components/layouts/client-layout';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
 import {useGetOnBoardings} from '@queries/use-onboard';
 import {Pagination} from '@components/ui/pagination';
 import {MetaHeader} from '@components/ui/meta-header';
+import {EditBoardForm} from '@components/configure/edit-board-form';
 
 const ConfigureOnboardingPage = () => {
   const [open, setOpen] = useState(false);
@@ -165,7 +165,7 @@ const ConfigureOnboardingPage = () => {
         onClose={onClose}
         title={'Configure New Onboarding'}
         subtitle={'The healthiest response to life is joy.'}>
-        <EditOnBoardForm onBoardId={onBoardId} onClose={onClose} />
+        <EditBoardForm type="onBoard" boardId={onBoardId} onClose={onClose} />
       </SlidePanel>
     </>
   );

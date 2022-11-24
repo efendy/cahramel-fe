@@ -5,8 +5,10 @@ import {useUserContractStore} from '@zustand/user.store';
 import {useGetDepartments, useGetJobTitles} from '@queries/use-app-utils';
 import {Button} from '@components/ui/button';
 import {useEditOnBoarding, useGetOnBoarding} from '@queries/use-onboard';
-import {OnboardSteps} from './onboard-steps';
 import {Select} from '@components/ui/select';
+import {useEditOffBoarding, useGetOffBoarding} from '@queries/use-offboard';
+import {OnboardSteps} from './onboarding/onboard-steps';
+import {OffboardSteps} from './offboarding/offboard-steps';
 
 type FormValues = {
   title: string;
@@ -16,43 +18,61 @@ type FormValues = {
   is_activated: boolean;
 };
 
-interface IEditOnBoard {
+interface IEditBoard {
   onClose: () => void;
-  onBoardId?: number;
+  boardId?: number;
+  type: 'onBoard' | 'offBoard';
 }
 
-export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
+export const EditBoardForm = ({onClose, boardId: id, type}: IEditBoard) => {
+  console.log({id});
   const {activeContract} = useUserContractStore();
   const userRole = activeContract?.access_role;
   const companyId = activeContract?.company_profile?.data?.id;
-  const [onBoardId, setOnBoardId] = useState<number | undefined>(() => id);
+  const [boardId, setBoardId] = useState<number | undefined>(() => id);
 
   const {register, handleSubmit, control, reset} = useForm<FormValues>();
 
-  const {data: onBoarding} = useGetOnBoarding(onBoardId, {
-    onSuccess: data => {
-      reset({
-        job_titles: data?.job_titles?.data?.map(x => ({
-          label: x.attributes.title,
-          value: x.id,
-        })),
-        departments: data?.departments?.data?.map(x => ({
-          label: x.attributes.title,
-          value: x.id,
-        })),
-        is_activated: data?.is_activated,
-      });
-    },
+  const {data: onBoarding} = useGetOnBoarding(boardId, {
+    onSuccess: data => onGetSuccess(data),
+    enabled: type === 'onBoard' && !!id,
   });
+  const {data: offBoarding} = useGetOffBoarding(boardId, {
+    onSuccess: data => onGetSuccess(data),
+    enabled: type === 'offBoard' && !!id,
+  });
+
+  const onGetSuccess = (data: typeof onBoarding | typeof offBoarding) =>
+    reset({
+      title: data?.title,
+      description: data?.description,
+      job_titles: data?.job_titles?.data?.map(x => ({
+        label: x.attributes.title,
+        value: x.id,
+      })),
+      departments: data?.departments?.data?.map(x => ({
+        label: x.attributes.title,
+        value: x.id,
+      })),
+      is_activated: data?.is_activated,
+    });
 
   const {data: jobTitles} = useGetJobTitles();
   const {data: departments} = useGetDepartments();
-  const {mutate: editOnBoard, isLoading} = useEditOnBoarding({
-    onSuccess: ({data}) => {
-      toast.success(`${onBoarding?.id ? 'Updated' : 'Created'} successfully`);
-      setOnBoardId(data.id);
-    },
+
+  const {mutate: editOnBoard, isLoading: onBoardLoading} = useEditOnBoarding({
+    onSuccess: ({data}) => onEditSuccess(data.id),
   });
+  const {mutate: editOffBoard, isLoading: offBoardLoading} = useEditOffBoarding(
+    {
+      onSuccess: ({data}) => onEditSuccess(data.id),
+    },
+  );
+
+  const onEditSuccess = (id: number) => {
+    toast.success(`${id ? 'Updated' : 'Created'} successfully`);
+    setBoardId(id);
+  };
 
   const onSubmit = handleSubmit(data => {
     const uploadData = {
@@ -62,8 +82,12 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
       company_profile: companyId,
       id,
     };
-    // console.log('upp', uploadData);
-    editOnBoard(uploadData);
+    // console.log('upp', type, uploadData);
+    if (type === 'onBoard') {
+      editOnBoard(uploadData);
+    } else {
+      editOffBoard(uploadData);
+    }
   });
 
   if (!userRole || userRole === 'user') {
@@ -86,7 +110,6 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
               required
               id="title"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-              defaultValue={onBoarding?.title}
             />
           </div>
           <div className="hidden sm:block sm:col-span-3" />
@@ -104,10 +127,6 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
                   {...field}
                   isMulti
                   id="job-title"
-                  defaultValue={onBoarding?.job_titles?.data?.map(x => ({
-                    label: x.attributes.title,
-                    value: x.id,
-                  }))}
                   options={jobTitles?.map(x => ({value: x.id, label: x.title}))}
                 />
               )}
@@ -127,10 +146,6 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
                   {...field}
                   id="department"
                   isMulti
-                  defaultValue={onBoarding?.departments?.data?.map(x => ({
-                    label: x.attributes.title,
-                    value: x.id,
-                  }))}
                   options={departments?.map(x => ({
                     value: x.id,
                     label: x.title,
@@ -151,22 +166,21 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
               rows={3}
               id="description"
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"
-              defaultValue={onBoarding?.description}
             />
           </div>
           <div className="col-span-full relative flex items-center">
             <div className="flex h-5">
               <input
                 {...register('is_activated')}
-                id="onboard"
-                aria-describedby="onboard"
+                id="board"
+                aria-describedby="board"
                 type="checkbox"
                 className="h-4 w-4 rounded border-gray-300 text-amber-600 focus:ring-amber-500"
               />
             </div>
 
             <label
-              htmlFor="onboard"
+              htmlFor="board"
               className="font-medium text-gray-700 text-sm ml-3">
               Activated?
             </label>
@@ -179,12 +193,17 @@ export const EditOnBoardForm = ({onClose, onBoardId: id}: IEditOnBoard) => {
             className="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
             Cancel
           </button>
-          <Button type="submit" loading={isLoading}>
-            {id ? 'Update' : 'Create'} OnBoard
+          <Button type="submit" loading={onBoardLoading || offBoardLoading}>
+            {id ? 'Update' : 'Create'}{' '}
+            {type === 'onBoard' ? 'OnBoard' : 'OffBoard'}
           </Button>
         </div>
       </form>
-      {onBoardId ? <OnboardSteps onBoardId={onBoardId} /> : null}
+      {!boardId ? null : type === 'onBoard' ? (
+        <OnboardSteps onBoardId={boardId} />
+      ) : (
+        <OffboardSteps offBoardId={boardId} />
+      )}
     </div>
   );
 };

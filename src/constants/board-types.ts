@@ -1,6 +1,7 @@
+import {OffBoardStepTypes} from '@interfaces/offboarding';
 import {OnBoardStepTypes} from '@interfaces/onboarding';
 
-export const TypeOptions: {
+export const OnBoardTypeOptions: {
   label: string;
   value: OnBoardStepTypes;
 }[] = [
@@ -31,5 +32,23 @@ export const TypeOptions: {
   {
     label: 'User Document',
     value: 'user_document',
+  },
+];
+
+export const OffBoardTypeOptions: {
+  label: string;
+  value: OffBoardStepTypes;
+}[] = [
+  {
+    label: 'Content',
+    value: 'content',
+  },
+  {
+    label: 'Image',
+    value: 'image',
+  },
+  {
+    label: 'Document',
+    value: 'document',
   },
 ];

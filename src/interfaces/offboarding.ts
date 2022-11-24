@@ -3,7 +3,7 @@ import {CompanyProfileType} from './company-profile';
 import {DepartmentType} from './department';
 import {JobTitleType} from './job-title';
 
-export interface OnBoardingAttributes {
+export interface OffFBoardingAttributes {
   title: string;
   description: string;
   job_titles?: {
@@ -18,24 +18,17 @@ export interface OnBoardingAttributes {
   is_activated: boolean;
 }
 
-export interface OnBoardingType {
+export interface OffBoardingType {
   id: number;
-  attributes: OnBoardingAttributes;
+  attributes: OffFBoardingAttributes;
 }
 
-export type OnBoardStepTypes =
-  | 'content'
-  | 'image'
-  | 'video_url'
-  | 'document'
-  | 'user_profile_upload_image'
-  | 'user_profile_update_data'
-  | 'user_document';
+export type OffBoardStepTypes = 'content' | 'image' | 'document';
 
-export interface OnBoardingStepAttributes {
+export interface OffBoardingStepAttributes {
   order: number;
   content: string;
-  type: OnBoardStepTypes;
+  type: OffBoardStepTypes;
   image?: {
     data?: ImageType;
   };
@@ -43,12 +36,12 @@ export interface OnBoardingStepAttributes {
   document?: {
     data?: ImageType;
   };
-  onboarding?: {
-    data?: OnBoardingType;
+  offboarding?: {
+    data?: OffBoardingType;
   };
 }
 
-export interface OnBoardingStepType {
+export interface OffBoardingStepType {
   id: number;
-  attributes: OnBoardingStepAttributes;
+  attributes: OffBoardingStepAttributes;
 }

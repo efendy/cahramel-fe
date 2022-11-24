@@ -1,110 +1,25 @@
+import {useState} from 'react';
 import ClientLayout from '@components/layouts/client-layout';
 import SlidePanel from '@components/slide-panels';
 import {classNames} from '@helpers/utils';
-import {useState} from 'react';
-
-/* This example requires Tailwind CSS v2.0+ */
-const people = [
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  {
-    name: 'Lindsay Walton',
-    title: 'Front-end Developer',
-    email: 'lindsay.walton@example.com',
-    role: 'Member',
-  },
-  // More people...
-];
+import {Pagination} from '@components/ui/pagination';
+import {MetaHeader} from '@components/ui/meta-header';
+import {EditBoardForm} from '@components/configure/edit-board-form';
+import {useGetOffBoardings} from '@queries/use-offboard';
 
 const ConfigureOffboardingPage = () => {
   const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const {data} = useGetOffBoardings({
+    page,
+  });
+  const [offBoardId, setOffBoardId] = useState<number>();
 
   const onClose = () => setOpen(false);
 
   return (
     <>
+      <MetaHeader title="Configure / OffBoarding" />
       <ClientLayout>
         <>
           <div className="px-4 mt-4">
@@ -114,13 +29,16 @@ const ConfigureOffboardingPage = () => {
                   Configure Offboarding
                 </h1>
                 <p className="mt-2 text-sm text-gray-700">
-                  Spread love everywhere you go. Let no one ever come to you
-                  without leaving happier. - Mother Teresa
+                  Always remember that you are absolutely unique. Just like
+                  everyone else. - Margaret Mead
                 </p>
               </div>
               <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                 <button
-                  onClick={() => setOpen(true)}
+                  onClick={() => {
+                    setOffBoardId(undefined);
+                    setOpen(true);
+                  }}
                   type="button"
                   className="inline-flex items-center justify-center rounded-md border border-transparent bg-amber-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 sm:w-auto">
                   Configure New Offboarding
@@ -139,22 +57,22 @@ const ConfigureOffboardingPage = () => {
                           <th
                             scope="col"
                             className="sticky top-0 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
-                            Name
-                          </th>
-                          <th
-                            scope="col"
-                            className="sticky top-0 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
                             Title
                           </th>
                           <th
                             scope="col"
+                            className="sticky top-0 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">
+                            Description
+                          </th>
+                          <th
+                            scope="col"
                             className="sticky top-0 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter lg:table-cell">
-                            Email
+                            Job Title
                           </th>
                           <th
                             scope="col"
                             className="sticky top-0 border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter">
-                            Role
+                            Is Activated?
                           </th>
                           <th
                             scope="col"
@@ -164,60 +82,68 @@ const ConfigureOffboardingPage = () => {
                         </tr>
                       </thead>
                       <tbody className="bg-white">
-                        {people.map((person, personIdx) => (
-                          <tr key={person.email}>
-                            <td
-                              className={classNames(
-                                personIdx !== people.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8',
-                              )}>
-                              {person.name}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== people.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell',
-                              )}>
-                              {person.title}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== people.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell',
-                              )}>
-                              {person.email}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== people.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'whitespace-nowrap px-3 py-4 text-sm text-gray-500',
-                              )}>
-                              {person.role}
-                            </td>
-                            <td
-                              className={classNames(
-                                personIdx !== people.length - 1
-                                  ? 'border-b border-gray-200'
-                                  : '',
-                                'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8',
-                              )}>
-                              <a
-                                href="#"
-                                className="text-amber-600 hover:text-amber-900">
-                                Edit
-                                <span className="sr-only">, {person.name}</span>
-                              </a>
-                            </td>
-                          </tr>
-                        ))}
+                        {data?.data &&
+                          data.data?.map((offboard, personIdx) => (
+                            <tr key={offboard.id}>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8',
+                                )}>
+                                {offboard.title}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell',
+                                )}>
+                                {offboard.description}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden lg:table-cell',
+                                )}>
+                                {offboard.job_titles?.data
+                                  ?.map(x => x.attributes.title)
+                                  .join(', ')}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'whitespace-nowrap px-3 py-4 text-sm text-gray-500',
+                                )}>
+                                {offboard.is_activated ? 'Yes' : 'No'}
+                              </td>
+                              <td
+                                className={classNames(
+                                  personIdx !== data.data.length - 1
+                                    ? 'border-b border-gray-200'
+                                    : '',
+                                  'relative whitespace-nowrap py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8',
+                                )}>
+                                <div
+                                  onClick={() => {
+                                    setOffBoardId(offboard.id);
+                                    setOpen(true);
+                                  }}
+                                  className="text-amber-600 hover:text-amber-900 cursor-pointer">
+                                  Edit
+                                  <span className="sr-only">
+                                    , {offboard.title}
+                                  </span>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
                       </tbody>
                     </table>
                   </div>
@@ -225,16 +151,22 @@ const ConfigureOffboardingPage = () => {
               </div>
             </div>
           </div>
-          {/* <Pagination /> */}
+          {data?.pagination ? (
+            <Pagination
+              pagination={data?.pagination}
+              setPage={setPage}
+              currentPage={page}
+            />
+          ) : null}
         </>
       </ClientLayout>
       <SlidePanel
         open={open}
         onClose={onClose}
         title={'Configure New Offboarding'}
-        subtitle={
-          'Life is not a problem to be solved, but a reality to be experienced.'
-        }></SlidePanel>
+        subtitle={'The healthiest response to life is joy.'}>
+        <EditBoardForm type="offBoard" boardId={offBoardId} onClose={onClose} />
+      </SlidePanel>
     </>
   );
 };

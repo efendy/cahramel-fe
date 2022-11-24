@@ -42,7 +42,7 @@ const AppOnboardingPage = () => {
         );
       case 'video_url':
         return (
-          <a href={step.video_url} target={'_blank'}>
+          <a href={step.video_url} target={'_blank'} className="underline">
             Click here to open link
           </a>
         );

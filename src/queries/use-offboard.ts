@@ -1,5 +1,5 @@
 import {PaginationType} from '@interfaces/common';
-import {OnBoardingType} from '@interfaces/onboarding';
+import {OffBoardingType} from '@interfaces/offboarding';
 import {
   useMutation,
   UseMutationOptions,
@@ -10,38 +10,38 @@ import {
 import {queryClient} from '@utils/api-client';
 import {useUserContractStore} from '@zustand/user.store';
 
-interface IGetOnBoardings {
+interface IGetOffBoardings {
   page?: number;
   pageSize?: number;
 }
 /**
- * List of OnBoardings
+ * List of OffBoardings
  */
-export const useGetOnBoardings = (props?: IGetOnBoardings) => {
+export const useGetOffBoardings = (props?: IGetOffBoardings) => {
   const {activeContract} = useUserContractStore();
   const companyId = activeContract?.company_profile?.data?.id;
   return useQuery(
-    ['onboardings', companyId, `page-${props?.page ?? 1}`],
-    async () => await getOnBoardings({...props, companyId}),
+    ['offboardings', companyId, `page-${props?.page ?? 1}`],
+    async () => await getOffBoardings({...props, companyId}),
     {
       enabled: !!companyId,
     },
   );
 };
-const getOnBoardings = async ({
+const getOffBoardings = async ({
   companyId,
   page = 1,
   pageSize = 20,
-}: IGetOnBoardings & {companyId?: number}) => {
+}: IGetOffBoardings & {companyId?: number}) => {
   if (!companyId) {
     return;
   }
   return queryClient(
-    `onboardings?filters[company_profile]=${companyId}&populate=*&pagination[pageSize]=${pageSize}&pagination[page]=${page}`,
+    `offboardings?filters[company_profile]=${companyId}&populate=*&pagination[pageSize]=${pageSize}&pagination[page]=${page}`,
     'GET',
     {withToken: true},
   ).then(data => {
-    const queryData = data?.data as OnBoardingType[];
+    const queryData = data?.data as OffBoardingType[];
     return {
       data:
         queryData?.map(q => ({
@@ -53,38 +53,40 @@ const getOnBoardings = async ({
   });
 };
 
-export type OnBoardingResponseType = Awaited<ReturnType<typeof getOnBoarding>>;
+export type OffBoardingResponseType = Awaited<
+  ReturnType<typeof getOffBoarding>
+>;
 
 /**
- * One OnBoardingStep
+ * One OffBoardingStep
  */
-export const useGetOnBoarding = (
+export const useGetOffBoarding = (
   id?: number,
   options?: Omit<
     UseQueryOptions<
-      OnBoardingResponseType | null,
+      OffBoardingResponseType | null,
       unknown,
-      OnBoardingResponseType,
-      ['onboarding', number | undefined]
+      OffBoardingResponseType | null,
+      ['offboarding', number | undefined]
     >,
     'queryKey'
   >,
 ) => {
   const result = useQuery(
-    ['onboarding', id],
-    async () => await getOnBoarding(id),
+    ['offboarding', id],
+    async () => await getOffBoarding(id),
     {enabled: !!id, ...options},
   );
   return result;
 };
-const getOnBoarding = async (id?: number) => {
+const getOffBoarding = async (id?: number) => {
   if (!id) {
     return null;
   }
-  return queryClient(`onboardings/${id}?populate=*`, 'GET', {
+  return queryClient(`offboardings/${id}?populate=*`, 'GET', {
     withToken: true,
   }).then(data => {
-    const queryData = data?.data as OnBoardingType;
+    const queryData = data?.data as OffBoardingType;
     if (!queryData) {
       return null;
     }
@@ -98,10 +100,10 @@ const getOnBoarding = async (id?: number) => {
 /**
  * Create Or Update OnBarding
  */
-export const useEditOnBoarding = (
+export const useEditOffBoarding = (
   options?: Omit<
     UseMutationOptions<
-      {data: OnBoardingType},
+      {data: OffBoardingType},
       unknown,
       {[key: string]: any},
       unknown
@@ -114,7 +116,7 @@ export const useEditOnBoarding = (
   return useMutation(
     (data: {[key: string]: any; id?: number}) =>
       queryClient(
-        data.id ? `onboardings/${data.id}` : 'onboardings',
+        data.id ? `offboardings/${data.id}` : 'offboardings',
         data.id ? 'PUT' : 'POST',
         {
           data: {data},
@@ -124,7 +126,7 @@ export const useEditOnBoarding = (
     {
       ...options,
       onSettled: () => {
-        client.invalidateQueries(['onboardings']);
+        client.invalidateQueries(['offboardings']);
       },
     },
   );
