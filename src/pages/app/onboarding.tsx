@@ -2,7 +2,10 @@ import ClientLayout from '@components/layouts/client-layout';
 import StepsCircle from '@components/steps-circle';
 import {MetaHeader} from '@components/ui/meta-header';
 import {useGetMyOnBoardingSteps} from '@queries/use-onboard-step';
+import {useUpdateProfileMutation} from '@queries/use-profile';
+import {useGetProfile} from '@queries/use-user';
 import {useGetContract, useUpdateMyContract} from '@queries/use-user-contract';
+import {uploadFiles} from '@utils/api-client';
 import {useUserContractStore} from '@zustand/user.store';
 import Link from 'next/link';
 import {useState} from 'react';
@@ -12,6 +15,21 @@ const AppOnboardingPage = () => {
   const {activeContract} = useUserContractStore();
   const {data, isLoading} = useGetMyOnBoardingSteps();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [imageUpload] = useState<Blob[]>();
+  const {data: userProfile} = useGetProfile({});
+  const {mutate: update} = useUpdateProfileMutation();
+
+  const imgFileHandler = async (e: any) => {
+    if (e.target.files.length === 0 || !userProfile?.id) {
+      return;
+    }
+    const imgIds = await uploadFiles(e.target.files);
+    console.log(imgIds);
+    if (imgIds.length === 0) {
+      return;
+    }
+    update({image_profile: imgIds[0], id: userProfile?.id});
+  };
   useGetContract(activeContract?.id, {
     onSuccess: newData => {
       const indexOfContract = data?.findIndex(
@@ -40,12 +58,32 @@ const AppOnboardingPage = () => {
             className="w-10/12 h-auto"
           />
         );
-      case 'video_url':
-        return (
-          <a href={step.video_url} target={'_blank'} className="underline">
-            Click here to open link
-          </a>
-        );
+      case 'video_url': {
+        let pos = step?.video_url?.lastIndexOf('youtube.com/watch?v=') ?? -1;
+        const short = step?.video_url?.lastIndexOf('youtu.be/') ?? -1;
+        if (pos == -1 && short == -1) {
+          return (
+            <a href={step.video_url} target={'_blank'} className="underline">
+              Click here to open link
+            </a>
+          );
+        } else {
+          if (pos == -1) {
+            pos = short;
+          }
+          const embeddedlink =
+            'https://www.youtube.com/embed/' +
+            step?.video_url?.substring(pos + 20);
+          return (
+            <iframe
+              className="w-full aspect-video"
+              src={embeddedlink}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen></iframe>
+          );
+        }
+      }
       case 'document':
         return (
           <a
@@ -53,8 +91,47 @@ const AppOnboardingPage = () => {
             target={'_blank'}
             href={step?.document?.data?.attributes?.url}
             download={step?.document?.data?.attributes?.name}>
-            Download this document
+            Download
           </a>
+        );
+      case 'user_profile_upload_image':
+        return (
+          <>
+            <label
+              htmlFor="photo"
+              className="block text-sm font-medium text-gray-700">
+              Photo
+            </label>
+            <div className="mt-1 flex items-center">
+              <div className="h-12 w-12 overflow-hidden rounded-full ">
+                {imageUpload && imageUpload?.length > 0 ? (
+                  <img
+                    className="w-full h-full"
+                    src={URL.createObjectURL(imageUpload[0])}
+                  />
+                ) : userProfile?.image_profile?.data ? (
+                  <img
+                    className="w-full h-full"
+                    src={userProfile.image_profile.data?.attributes?.url}
+                  />
+                ) : (
+                  <span className="h-full w-full bg-gray-100">
+                    <svg
+                      className="h-full w-full text-gray-300"
+                      fill="currentColor"
+                      viewBox="0 0 24 24">
+                      <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </span>
+                )}
+              </div>
+              <input
+                onChange={imgFileHandler}
+                type="file"
+                className="ml-5 block text-sm text-gray-600 file:text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-gray-100 hover:file:bg-gray-200 focus:border-amber-500 focus:ring-amber-500"
+              />
+            </div>
+          </>
         );
       case 'user_profile_update_data':
         return (
